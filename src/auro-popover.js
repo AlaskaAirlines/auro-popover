@@ -20,7 +20,6 @@ class AuroPopover extends LitElement {
   // function to define props used within the scope of this component
   static get properties() {
     return {
-      cssClass:   { type: String },
       placement:  { type: String },
       for:        { type: String },
       tooltip:    { type: Object }
@@ -34,10 +33,9 @@ class AuroPopover extends LitElement {
   }
 
   firstUpdated() {
-    const tooltipEl = this.shadowRoot.querySelector('#tooltip');
     const button = document.querySelector(`#${this.for}`),
       popper = createPopper(button, tooltip, {
-        tooltip = tooltipEl,
+        tooltip = this.shadowRoot.querySelector('#tooltip'),
         placement: this.placement,
         modifiers: [
         {
@@ -59,14 +57,8 @@ class AuroPopover extends LitElement {
       tooltip.removeAttribute('data-show');
     }
 
-    const showEvents = [
-'mouseenter',
-'focus'
-],
-     hideEvents = [
-'mouseleave',
-'blur'
-];
+    const showEvents = ['mouseenter', 'focus'],
+     hideEvents = ['mouseleave','blur'];
 
     showEvents.forEach((event) => {
       button.addEventListener(event, show);
@@ -81,7 +73,7 @@ class AuroPopover extends LitElement {
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div class="${this.cssClass} tooltip tooltip-open util_insetLg--squish">
+      <div class="tooltip tooltip-open util_insetLg--squish">
         <div id="tooltip" role="tooltip">
           <slot></slot>
           <div id="arrow" data-popper-arrow></div>
