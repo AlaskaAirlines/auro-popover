@@ -24,7 +24,7 @@ describe('auro-popover', () => {
     <div id="container">
       <script>const process={};</script>
       <button id="button1"></button>
-      <auro-popover cssclass="testClass" for="button1"></auro-popover>
+      <auro-popover for="button1"></auro-popover>
     </div>
     `);
 
