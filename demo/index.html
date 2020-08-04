@@ -17,6 +17,7 @@
     <script type="module">
       import '../node_modules/@polymer/iron-icons/hardware-icons.js';
     </script>
+    <script>var process = {env: {}};</script>
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles"></style>
     </custom-style>
@@ -62,7 +63,15 @@
 
       <demo-snippet>
         <template>
-          <auro-popover cssClass="testClass">Hello World!</auro-popover>
+            <button id="button1" aria-describedby="tooltip">Popover bottom</button>
+            <auro-popover cssClass="testClass" for="button1" open>Hello World!</auro-popover>
+        </template>
+      </demo-snippet>
+
+      <demo-snippet>
+        <template>
+            <button id="button2" aria-describedby="tooltip">Popover top</button>
+            <auro-popover cssClass="testClass" placement="top" for="button2" open>Hello World!</auro-popover>
         </template>
       </demo-snippet>
 
