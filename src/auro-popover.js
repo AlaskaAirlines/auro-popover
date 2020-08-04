@@ -12,6 +12,9 @@ import styleCss from "./style-css.js";
 import {createPopper} from '@popperjs/core';
 
 // build the component class
+const POPOVER_OFFSET_MIN = 0;
+const POPOVER_OFFSET_MAX = 18;
+
 class AuroPopover extends LitElement {
 
   // function to define props used within the scope of this component
@@ -29,20 +32,18 @@ class AuroPopover extends LitElement {
       ${styleCss}
     `;
   }
-  
+
   firstUpdated() {
-    const button = document.querySelector('#' + this.for);
-    if (!button) {
-      console.error('[auro-popover] target property "for" invalid, DOM node not found: ', this.for, button);
-    }
-    const tooltip = this.shadowRoot.querySelector('#tooltip');
-    const popper = createPopper(button, tooltip, {
-      placement: this.placement || 'bottom',
-      modifiers: [
+    const tooltipEl = this.shadowRoot.querySelector('#tooltip');
+    const button = document.querySelector(`#${this.for}`),
+      popper = createPopper(button, tooltip, {
+        tooltip = tooltipEl,
+        placement: this.placement,
+        modifiers: [
         {
           name: 'offset',
           options: {
-            offset: [0, 18],
+            offset: [POPOVER_OFFSET_MIN,POPOVER_OFFSET_MAX],
           },
         },
       ],
@@ -52,20 +53,26 @@ class AuroPopover extends LitElement {
       popper.update();
       tooltip.setAttribute('data-show', '');
     }
-    
+
     function hide() {
       popper.update();
       tooltip.removeAttribute('data-show');
     }
-    
-    const showEvents = ['mouseenter', 'focus'];
-    const hideEvents = ['mouseleave', 'blur'];
-    
-    showEvents.forEach(event => {
+
+    const showEvents = [
+'mouseenter',
+'focus'
+],
+     hideEvents = [
+'mouseleave',
+'blur'
+];
+
+    showEvents.forEach((event) => {
       button.addEventListener(event, show);
     });
-    
-    hideEvents.forEach(event => {
+
+    hideEvents.forEach((event) => {
       button.addEventListener(event, hide);
     });
   }
