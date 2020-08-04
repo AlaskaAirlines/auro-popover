@@ -51,7 +51,8 @@
     }
 
     var auroPopover = [
-      '<auro-popover cssClass="testClass">Hello World</auro-popover>'
+      '<auro-popover cssClass="testClass" for="button1" placement="top">Hello World</auro-popover>',
+      '<auro-popover cssClass="testClass" for="button2" placement="bottom">Hello World</auro-popover>'
     ]
   </script>
 </head>
@@ -67,6 +68,9 @@
           document.write(auroPopover[i])
         }
       </script>
+      <button id="button1">Top Placement</button>
+      <button id="button2">Bottom Placement</button>
+
       <div class="codeWrapper margin">
         <code>
           <script>
