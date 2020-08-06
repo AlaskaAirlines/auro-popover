@@ -33,9 +33,11 @@ class AuroPopover extends LitElement {
   }
 
   firstUpdated() {
-    const button = document.querySelector(`#${this.for}`),
-      popper = createPopper(button, tooltip, {
-        tooltip = this.shadowRoot.querySelector('#tooltip'),
+    const tooltip = this.shadowRoot.querySelector('#tooltip');
+    const button = document.querySelector(`#${this.for}`);
+debugger;
+    const popper = createPopper(button, tooltip, {
+        tooltip: tooltip,
         placement: this.placement,
         modifiers: [
         {
