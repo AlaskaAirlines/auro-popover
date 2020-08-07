@@ -35,7 +35,6 @@ class AuroPopover extends LitElement {
   firstUpdated() {
     const tooltip = this.shadowRoot.querySelector('#tooltip');
     const button = document.querySelector(`#${this.for}`);
-debugger;
     const popper = createPopper(button, tooltip, {
         tooltip: tooltip,
         placement: this.placement,
@@ -50,13 +49,13 @@ debugger;
     });
 
     function show() {
-      popper.update();
       tooltip.setAttribute('data-show', '');
+      popper.update();
     }
 
     function hide() {
-      popper.update();
       tooltip.removeAttribute('data-show');
+      popper.update();
     }
 
     const showEvents = ['mouseenter', 'focus'],
@@ -75,7 +74,7 @@ debugger;
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div class="tooltip tooltip-open util_insetLg--squish">
+      <div class="tooltip util_insetLg--squish">
         <div id="tooltip" role="tooltip">
           <slot></slot>
           <div id="arrow" data-popper-arrow></div>

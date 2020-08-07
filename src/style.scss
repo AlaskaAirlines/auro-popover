@@ -31,17 +31,16 @@ $auro-inset-directions: '--squish';
 #tooltip {
   border-radius: var(--auro-size-xs);
   left:25px;
-  display: inline-block;
   padding: var(--auro-text-body-size-default);
   background: var(--auro-color-background-lightest);
   box-shadow: -2px 0px 5px 2px rgba(0, 0, 0, 0.08), 
     0px 2px 5px 1px rgba(0, 0, 0, 0.08);
-  z-index: 5000;
+  display: none;
 }
 
 #tooltip[data-show] {
   display: block;
-  z-index: 4999;
+  z-index: 5000;
   background: var(--auro-color-background-lightest);
 }
 
