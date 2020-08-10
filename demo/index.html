@@ -13,10 +13,6 @@
       import '@polymer/iron-demo-helpers/demo-snippet';
     </script>
     <script type="module" src="../src/auro-popover.js"></script>
-    <script src="../demo/alert.js"></script>
-    <script type="module">
-      import '../node_modules/@polymer/iron-icons/hardware-icons.js';
-    </script>
     <script>var process = {env: {}};</script>
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles"></style>
@@ -28,42 +24,9 @@
     <div class="vertical-section-container">
       <h1>auro-popover</h1>
 
-      <p>Component description ...</p>
-
-      <p class="ironIcons">
-        <span class="util_floatLeft util_marginRight--med"
-          >Narrow
-          <iron-icon
-            class="util_marginAuto util_displayBlock"
-            icon="hardware:phone-iphone"
-          ></iron-icon>
-        </span>
-        <span class="util_is-narrowAppears util_floatLeft util_marginRight--med"
-          >Medium
-          <iron-icon
-            class="util_marginAuto util_displayBlock"
-            icon="hardware:tablet-android"
-          ></iron-icon>
-        </span>
-        <span class="util_is-tabletAppears util_floatLeft util_marginRight--med"
-          >Wide
-          <iron-icon
-            class="util_marginAuto util_displayBlock"
-            icon="hardware:tablet"
-          ></iron-icon>
-        </span>
-        <span class="util_is-desktopOnly util_floatLeft util_marginRight--med"
-          >Max
-          <iron-icon
-            class="util_marginAuto util_displayBlock"
-            icon="hardware:tv"
-          ></iron-icon>
-        </span>
-      </p>
-
       <demo-snippet>
         <template>
-            <button id="button1" aria-describedby="tooltip">Popover bottom</button>
+            <button id="button1" aria-describedby="tooltip" >Popover bottom</button>
             <auro-popover for="button1" placement="bottom">Hello World!</auro-popover>
         </template>
       </demo-snippet>
@@ -75,19 +38,14 @@
         </template>
       </demo-snippet>
 
-      <h2>Element &#60;auro-popover&#62;</h2>
-
-      <pre><code>class AuroPopover extends LitElement</code></pre>
-
-      <h3>Styling:</h3>
-      <p>Info ...</p>
-
-      <h3>Responsive state:</h3>
-      <p>Info ...</p>
-
-      <h3>Properties:</h3>
-      <code><strong>string:</strong> string</code>
-      <p>Info ...</p>
+      <demo-snippet>
+        <template>
+            <p id="button3" aria-describedby="tooltip">Hover over me, and I will pop up</p>
+            <auro-popover placement="top" for="button3">
+              I am the content in the tooltip ... listen to me.
+            </auro-popover>
+        </template>
+      </demo-snippet>
     </div>
   </body>
 </html>
