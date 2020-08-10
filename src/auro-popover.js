@@ -22,7 +22,6 @@ class AuroPopover extends LitElement {
     return {
       placement:  { type: String },
       for:        { type: String },
-      tooltip:    { type: Object }
     };
   }
 
