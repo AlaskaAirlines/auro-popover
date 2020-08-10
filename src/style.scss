@@ -9,11 +9,6 @@
 
 @import "./node_modules/@alaskaairux/orion-web-core-style-sheets/dist/breakpoints";
 @import "./node_modules/@alaskaairux/orion-web-core-style-sheets/dist/core";
-// essentials setup baseline primitive selectors for any UI development
-@import "./node_modules/@alaskaairux/orion-design-tokens/dist/tokens/SCSSVariableMap";
-$auro-inset-spacing-options: lg;
-$auro-inset-directions: '--squish';
-@import "./node_modules/@alaskaairux/orion-web-core-style-sheets/dist/utilityMixins/insetUtility";
 
 .tooltip {
   border-radius: var(--auro-border-radius);
