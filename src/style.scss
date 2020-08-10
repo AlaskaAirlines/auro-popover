@@ -57,7 +57,7 @@ $auro-inset-directions: '--squish';
   &:before {
     content: '';
     position: absolute;
-    background: white;
+    background: var(--auro-color-base-white);
     box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.08);
     width: 12px;
     height: 12px;
