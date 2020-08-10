@@ -1,4 +1,4 @@
-import { fixture, html, expect, describe, it } from '@open-wc/testing';
+import { fixture, html, expect } from '@open-wc/testing';
 import '../src/auro-popover.js';
 
 
