@@ -14,6 +14,11 @@
     </script>
     <script type="module" src="../src/auro-popover.js"></script>
     <script>var process = {env: {}};</script>
+    <link rel="stylesheet" href="https://unpkg.com/@alaskaairux/orion-design-tokens@2.12.1/dist/tokens/CSSCustomProperties.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@alaskaairux/orion-web-core-style-sheets@2.10.3/dist/bundled/essentials.css" />
+
+    <script src="https://unpkg.com/@alaskaairux/auro-hyperlink@2.0.1/dist/polyfills.js"></script>
+    <script src="https://unpkg.com/@alaskaairux/auro-hyperlink@2.0.1/dist/auro-hyperlink__bundled.js"></script>
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles"></style>
     </custom-style>
@@ -35,6 +40,13 @@
         <template>
             <button id="button2" aria-describedby="tooltip">Popover top</button>
             <auro-popover placement="top" for="button2">Hello World!</auro-popover>
+        </template>
+      </demo-snippet>
+
+      <demo-snippet>
+        <template>
+            <auro-hyperlink id="hyperlink1" href="alaskaair.com" aria-describedby="tooltip">Hover over me!</button>
+            <auro-popover placement="top" for="hyperlink1">Hello World!</auro-popover>
         </template>
       </demo-snippet>
 
