@@ -12,11 +12,10 @@ import styleCss from "./style-css.js";
 import {createPopper} from '@popperjs/core';
 
 // build the component class
-const POPOVER_OFFSET_MIN = 0;
-const POPOVER_OFFSET_MAX = 18;
+const POPOVER_OFFSET_MAX = 18,
+ POPOVER_OFFSET_MIN = 0;
 
 class AuroPopover extends LitElement {
-
   // function to define props used within the scope of this component
   static get properties() {
     return {
@@ -32,40 +31,56 @@ class AuroPopover extends LitElement {
   }
 
   firstUpdated() {
-    const tooltip = this.shadowRoot.querySelector('#tooltip');
-    const button = document.querySelector(`#${this.for}`);
-    const popper = createPopper(button, tooltip, {
-        tooltip: tooltip,
+     const button = document.querySelector(`#${this.for}`),
+     element = this.shadowRoot.querySelector('#tooltip'),
+     hideEvents = [
+      'mouseleave',
+      'blur'
+      ],
+      popper = createPopper(button, element, {
+        tooltip: element,
         placement: this.placement,
         modifiers: [
         {
           name: 'offset',
           options: {
-            offset: [POPOVER_OFFSET_MIN,POPOVER_OFFSET_MAX],
+            offset: [
+POPOVER_OFFSET_MIN,
+POPOVER_OFFSET_MAX
+],
           },
         },
       ],
-    });
+    }),
+    showEvents = [
+      'mouseenter',
+      'focus'
+      ],
 
-    function show() {
-      tooltip.setAttribute('data-show', '');
+    /**
+     * Hides the popover
+     * @returns {Void} Firest an update lifecycle.
+     */
+    toggleHide = function() {
+      element.removeAttribute('data-show');
       popper.update();
-    }
+    },
 
-    function hide() {
-      tooltip.removeAttribute('data-show');
+    /**
+     * Shows the popover
+     * @returns {Void} Fires an update lifecycle.
+     */
+     toggleShow = function() {
+      element.setAttribute('data-show', '');
       popper.update();
-    }
-
-    const showEvents = ['mouseenter', 'focus'],
-     hideEvents = ['mouseleave','blur'];
+    };
 
     showEvents.forEach((event) => {
-      button.addEventListener(event, show);
+      button.addEventListener(event, toggleShow);
     });
 
     hideEvents.forEach((event) => {
-      button.addEventListener(event, hide);
+      button.addEventListener(event, toggleHide);
     });
   }
 
