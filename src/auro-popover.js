@@ -9,11 +9,7 @@ import { LitElement, html, css } from "lit-element";
 import "focus-visible/dist/focus-visible.min.js";
 import styleCss from "./style-css.js";
 
-import {createPopper} from '@popperjs/core';
-
-// build the component class
-const POPOVER_OFFSET_MAX = 18,
- POPOVER_OFFSET_MIN = 0;
+import Popover from "./tooltip";
 
 class AuroPopover extends LitElement {
   // function to define props used within the scope of this component
@@ -21,49 +17,58 @@ class AuroPopover extends LitElement {
     return {
       placement:  { type: String },
       for:        { type: String },
+      display:    { type: Boolean },
     };
   }
 
   static get styles() {
     return css`
-      ${styleCss}
+      ${styleCss},
+      :host([display]) {
+        display: block;
+      }
     `;
   }
 
+  patchBuildless() {
+    // patch for buildless environments
+    const code = 'var process = {env: {}};',
+    script = document.createElement('script');
+
+    script.type = 'text/javascript';
+    try {
+      script.appendChild(document.createTextNode(code));
+    } catch (err) {
+      script.text = code;
+    }
+
+return script;
+  }
+
   firstUpdated() {
-     const button = document.querySelector(`#${this.for}`),
+
+    // needs to eval before Popover instantiation
+    document.querySelector(`#${this.for}`).appendChild(this.patchBuildless());
+
+    const button = document.querySelector(`#${this.for}`),
      element = this.shadowRoot.querySelector('#tooltip'),
      hideEvents = [
       'mouseleave',
       'blur'
       ],
-      popper = createPopper(button, element, {
-        tooltip: element,
-        placement: this.placement,
-        modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [
-POPOVER_OFFSET_MIN,
-POPOVER_OFFSET_MAX
-],
-          },
-        },
-      ],
-    }),
-    showEvents = [
+     popper = new Popover(button, element, this.placement),
+     showEvents = [
       'mouseenter',
       'focus'
       ],
 
     /**
      * Hides the popover
-     * @returns {Void} Firest an update lifecycle.
+     * @returns {Void} Fires an update lifecycle.
      */
     toggleHide = function() {
       element.removeAttribute('data-show');
-      popper.update();
+      popper.hide();
     },
 
     /**
@@ -72,7 +77,7 @@ POPOVER_OFFSET_MAX
      */
      toggleShow = function() {
       element.setAttribute('data-show', '');
-      popper.update();
+      popper.show();
     };
 
     showEvents.forEach((event) => {
@@ -82,6 +87,7 @@ POPOVER_OFFSET_MAX
     hideEvents.forEach((event) => {
       button.addEventListener(event, toggleHide);
     });
+
   }
 
 
