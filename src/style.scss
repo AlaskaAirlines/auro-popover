@@ -6,13 +6,15 @@
 // Import Auro tokens
 @import "./node_modules/@alaskaairux/orion-design-tokens/dist/tokens/SCSSVariables";
 @import "./node_modules/@alaskaairux/orion-design-tokens/dist/tokens/SassCustomProperties";
+@import "./node_modules/@alaskaairux/orion-design-tokens/dist/tokens/SCSSVariableMap";
+@import "./node_modules/@alaskaairux/orion-web-core-style-sheets/dist/utilityMixins/insetUtility";
+
 
 @import "./node_modules/@alaskaairux/orion-web-core-style-sheets/dist/breakpoints";
 @import "./node_modules/@alaskaairux/orion-web-core-style-sheets/dist/core";
 
 .tooltip {
   border-radius: var(--auro-border-radius);
-  padding: var(--auro-text-body-size-default);
   background: var(--auro-color-background-lightest);
   box-shadow: -2px 0px 5px 2px rgba(0, 0, 0, 0.08),
     0px 2px 5px 1px rgba(0, 0, 0, 0.08);

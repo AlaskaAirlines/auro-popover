@@ -21,7 +21,9 @@
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles"></style>
     </custom-style>
-
+    <script src="http://gus.s.dev.componentlibrary.sk5klqx9pw.wus2.azds.io/dist/shared/component-base.js"></script>
+    <script src="http://gus.s.dev.componentlibrary.sk5klqx9pw.wus2.azds.io/dist/fs-amenity-ife/main.js"></script>
+    <link rel="stylesheet" href="http://gus.s.dev.componentlibrary.sk5klqx9pw.wus2.azds.io/dist/shared/component-base.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
@@ -30,8 +32,9 @@
 
       <demo-snippet>
         <template>
-            <button id="button1" aria-describedby="tooltip" >Popover bottom</button>
-            <auro-popover for="button1" placement="bottom">Hello World!</auro-popover>
+            <button id="button1" aria-describedby="tooltip" style="margin-left:300px;">Popover bottom</button>
+            <auro-popover for="button1" placement="bottom" display><fs-amenity-ife></fs-amenity-ife>
+            </auro-popover>
         </template>
       </demo-snippet>
 

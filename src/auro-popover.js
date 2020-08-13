@@ -42,11 +42,10 @@ class AuroPopover extends LitElement {
       script.text = code;
     }
 
-return script;
+    return script;
   }
 
   firstUpdated() {
-
     // needs to eval before Popover instantiation
     document.querySelector(`#${this.for}`).appendChild(this.patchBuildless());
 
@@ -94,7 +93,7 @@ return script;
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="tooltip" class="tooltip" role="tooltip">
+      <div id="tooltip" class="tooltip auro util_insetLg" role="tooltip">
         <slot></slot>
         <div id="arrow" class="arrow" data-popper-arrow></div>
       </div>
