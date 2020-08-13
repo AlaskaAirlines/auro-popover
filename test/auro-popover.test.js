@@ -36,4 +36,23 @@ describe('auro-popover', () => {
 
     expect(true).to.equal(true);
   });
+
+  it('auro-popover placement works correctly', async () => {
+    const el = await fixture(html`
+    <div id="container">
+      <button id="button1">Test</button>
+      <auro-popover for="button1" placement="bottom"></auro-popover>
+    </div>
+    `);
+
+    el.querySelector("#button1").dispatchEvent(new MouseEvent('mouseover'), {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    debugger;
+    const div = el.querySelector("auro-popover").shadowRoot.querySelector('#tooltip');
+
+    expect(true).to.equal(true);
+  });
 });
