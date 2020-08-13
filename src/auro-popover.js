@@ -17,16 +17,12 @@ class AuroPopover extends LitElement {
     return {
       placement:  { type: String },
       for:        { type: String },
-      display:    { type: Boolean },
     };
   }
 
   static get styles() {
     return css`
       ${styleCss},
-      :host([display]) {
-        display: block;
-      }
     `;
   }
 

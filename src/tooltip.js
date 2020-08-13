@@ -20,13 +20,6 @@ export default class Popover {
         this.popover.classList.remove(this.options.visibleClass);
     }
 
-    destroy() {
-        if (this.popper) {
-            this.popper.destroy();
-            this.popper = null;
-        }
-    }
-
     show() {
         this.isVisible = true;
         this.popover.hidden = false;
@@ -50,10 +43,6 @@ export default class Popover {
             }
         ]
         })
-
-        requestAnimationFrame(() => {
-            this.popper.update();
-        })
     }
 
     triggerUpdate() {
@@ -63,23 +52,5 @@ export default class Popover {
     hide() {
         this.isVisible = false;
         this.popover.classList.remove(this.options.visibleClass);
-    }
-
-    setOptions(options) {
-        this.options = Object.assign(this.options, options);
-        if (this.isVisible) {
-            this.popover.classList.add(this.options.visibleClass);
-        } else {
-            this.popover.classList.remove(this.options.visibleClass)
-        }
-
-        if (this.popper) {
-            this.popper.setOptions({
-                placement: this.options.placement
-            });
-            requestAnimationFrame(() => {
-                this.popper.update();
-            })
-        }
     }
 }
