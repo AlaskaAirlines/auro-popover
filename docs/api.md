@@ -1,6 +1,15 @@
-## Properties: auro-popover
+# auro-popover
 
-| Attribute | Value type | Description |
-|----|----|----|
-| for | string | ID of DOM element to listen for hover or blur events |
-| placement | string | Placement of popover. Supports "top" and "bottom" |
+## Properties
+
+| Property    | Attribute   | Type      |
+|-------------|-------------|-----------|
+| `display`   | `display`   | `boolean` |
+| `for`       | `for`       | `string`  |
+| `placement` | `placement` | `string`  |
+
+## Methods
+
+| Method           | Type                    |
+|------------------|-------------------------|
+| `patchBuildless` | `(): HTMLScriptElement` |
