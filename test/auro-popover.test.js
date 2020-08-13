@@ -5,9 +5,8 @@ import '../src/auro-popover.js';
 describe('auro-popover', () => {
   it('auro-popover is accessible', async () => {
     const el = await fixture(html`
-      <script>const process={};</script>
-      <button id="button1"></button>
-      <auro-popover for="button1"></auro-popover>
+      <button id="button1">Test</button>
+      <auro-popover for="button1" placement="bottom"></auro-popover>
     `);
 
     await expect(el).to.be.accessible();
@@ -22,9 +21,8 @@ describe('auro-popover', () => {
   it('auro-popover for works correctly', async () => {
     const el = await fixture(html`
     <div id="container">
-      <script>const process={};</script>
-      <button id="button1"></button>
-      <auro-popover for="button1"></auro-popover>
+      <button id="button1">Test</button>
+      <auro-popover for="button1" placement="top"></auro-popover>
     </div>
     `);
 
@@ -33,7 +31,8 @@ describe('auro-popover', () => {
       bubbles: true,
       cancelable: true
     });
-    // const div = el.querySelector("auro-popover").shadowRoot.querySelector('#tooltip');
+    debugger;
+    const div = el.querySelector("auro-popover").shadowRoot.querySelector('#tooltip');
 
     expect(true).to.equal(true);
   });
