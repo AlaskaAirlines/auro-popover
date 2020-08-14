@@ -16,12 +16,10 @@ export default class Popover {
         this.popover = popover;
         this.options = {placement,
             visibleClass: 'data-show'};
-        this.isVisible = false;
         this.popover.classList.remove(this.options.visibleClass);
     }
 
     show() {
-        this.isVisible = true;
         this.popover.hidden = false;
 
         if (this.popper) {
@@ -50,7 +48,6 @@ export default class Popover {
     }
 
     hide() {
-        this.isVisible = false;
         this.popover.classList.remove(this.options.visibleClass);
     }
 }
