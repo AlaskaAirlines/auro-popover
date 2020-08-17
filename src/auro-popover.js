@@ -95,7 +95,7 @@ class AuroPopover extends LitElement {
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="popover" class="popover util_insetLg" role="popover">
+      <div id="popover" class="popover util_insetLg" role="alert">
         <slot></slot>
         <div id="arrow" class="arrow" data-popper-arrow></div>
       </div>
