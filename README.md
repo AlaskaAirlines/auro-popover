@@ -1,6 +1,6 @@
 ## Element auro-popover
 
-`<auro-popover>` is a [HTML custom element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) for the purpose of displaying tooltip-style displays that can render any element inside its slot.
+`<auro-popover>` is a [HTML custom element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) for hovering/blurring over an element to display a tooltip-style popover with any content populated in a slot.
 
 ## UI development browser support
 
@@ -67,9 +67,11 @@ The `polyfills.js` is packaged with this component, but **IT IS NOT NEEDED** to 
 
 The `<auro-popover>` element should be used in situations where users may:
 
-* Hover/blur over an element to display a tooltip-style graphic
+* Hover/blur over an element to display a popover-style graphic
 
 ## API Code Examples
+
+Set an id on an element you wish to add a popover to. Use the `for` property to define that ID.
 
 Default auro-popover
 
