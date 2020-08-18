@@ -1,4 +1,4 @@
-## Element auro-popover
+## auro-popover
 
 `<auro-popover>` is a [HTML custom element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) for hovering/blurring over an element to display a tooltip-style popover with any content populated in a slot.
 
