@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [1.0.2](https://github.com/AlaskaAirlines/auro-popover/compare/v1.0.1...v1.0.2) (2020-08-18)
+
+
+### Bug Fixes
+
+* patch numeric IDs ([490a7d6](https://github.com/AlaskaAirlines/auro-popover/commit/490a7d6b005e14b94fb389a049e7dcdaf6005e89))
+
 ## [1.0.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.0.0...v1.0.1) (2020-08-18)
 
 
