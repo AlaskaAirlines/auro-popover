@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [1.0.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.0.0...v1.0.1) (2020-08-18)
+
+
+### Bug Fixes
+
+* update display style for popover ([1f1a5e8](https://github.com/AlaskaAirlines/auro-popover/commit/1f1a5e8fd1d96a8a2193a31c544c6e71798247be))
+
 # 1.0.0 (2020-08-18)
 
 
