@@ -12,6 +12,7 @@ module.exports = config => {
                 // npm run test -- --grep test/foo/bar.test.js
                 // npm run test -- --grep test/bar/*
                 { pattern: config.grep ? config.grep : 'test/**/*.test.js', type: 'module' },
+                { pattern: "src/popover.js", included: false }
             ],
 
             esm: {
