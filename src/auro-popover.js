@@ -16,6 +16,8 @@ import Popover from "./popover";
  *
  * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
  * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
+ * @slot - Default unnamed slot for the use of popover content
+ * @slot trigger - Slot for entering the trigger element into the scope of the shadow DOM
  */
 class AuroPopover extends LitElement {
   constructor() {
@@ -100,10 +102,11 @@ class AuroPopover extends LitElement {
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="popover" class="popover util_insetLg" role="alert">
-        <slot></slot>
+      <div id="popover" class="popover util_insetLg">
         <div id="arrow" class="arrow" data-popper-arrow></div>
+        <slot role="tooltip"></slot>
       </div>
+      <slot name="trigger"></slot>
     `;
   }
 }

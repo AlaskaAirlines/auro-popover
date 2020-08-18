@@ -14,3 +14,10 @@ Popover attaches to an element and displays on hover/blur.
 | Method           | Type                    |
 |------------------|-------------------------|
 | `patchBuildless` | `(): HTMLScriptElement` |
+
+## Slots
+
+| Name      | Description                                      |
+|-----------|--------------------------------------------------|
+|           | Default unnamed slot for the use of popover content |
+| `trigger` | Slot for entering the trigger element into the scope of the shadow DOM |

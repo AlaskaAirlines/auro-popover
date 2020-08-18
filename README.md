@@ -40,9 +40,21 @@ import "@alaskaairux/auro-popover";
 
 **Reference component in HTML**
 
+The popover component has a requirement on the placement of a designated element that will trigger the popover. The following is a default configuration with a trigger that is OUTSIDE the shadow DOM. 
+
 ```html
-<auro-popover>Hello World</auro-popover>
+<auro-popover for="example1">Hello World</auro-popover>
+<p id="example1">Hover over me</p>
 ```
+
+The following is an example of a popover with the trigger from within the scope of the shadow DOM using `slot` elements.
+
+```html
+<auro-popover for="example2">
+  Hello World!
+  <p slot="trigger" id="example2">Hover over me</p>
+</auro-popover>
+``` 
 
 ## Install bundled assets from CDN
 
@@ -68,19 +80,6 @@ The `polyfills.js` is packaged with this component, but **IT IS NOT NEEDED** to 
 The `<auro-popover>` element should be used in situations where users may:
 
 * Hover/blur over an element to display a popover-style graphic
-
-## API Code Examples
-
-Set an id on an element you wish to add a popover to. Use the `for` property to define that ID.
-
-Default auro-popover
-
-```html
-<button id="button1">Click me!</button>
-<auro-popover for="button1">
-    Hello, world!
-</auro-popover>
-```
 
 ## Development
 

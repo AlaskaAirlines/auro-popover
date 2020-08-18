@@ -28,15 +28,21 @@
     <div class="vertical-section-container">
       <h1>auro-popover</h1>
 
+      <auro-popover>Hello World</auro-popover>
+
       <demo-snippet>
         <template>
-            <button id="button1">Popover bottom</button>
-            <auro-popover for="button1">Hello World!</auro-popover>
+          <auro-popover for="example1">Hello World</auro-popover>
+          <p id="example1">Hover over me</p>
+        </template>
+      </demo-snippet>
 
-            <button id="button10">Popover bottom</button>
-            <auro-popover for="button10" placement="top">Hello World!</auro-popover>
-
-
+      <demo-snippet>
+        <template>
+          <auro-popover for="example2">
+            Hello World!
+            <p slot="trigger" id="example2">Hover over me</p>
+          </auro-popover>
         </template>
       </demo-snippet>
 
