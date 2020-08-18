@@ -6,7 +6,7 @@ Popover attaches to an element and displays on hover/blur.
 
 | Property    | Attribute   | Type     | Description                                      |
 |-------------|-------------|----------|--------------------------------------------------|
-| `for`       | `for`       | `String` | Defines an id for an element in the DOM to trigger on hover/blu. |
+| `for`       | `for`       | `String` | Defines an id for an element in the DOM to trigger on hover/blur. |
 | `placement` | `placement` | `String` | Expects top/bottom - default position for popover in relation to the element. |
 
 ## Methods
