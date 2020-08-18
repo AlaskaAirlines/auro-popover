@@ -14,10 +14,15 @@ import Popover from "./popover";
 /**
  * Popover attaches to an element and displays on hover/blur.
  *
- * @attr {String} placement - Expects top/bottom - default position for popover in relation to the element.
- * @attr {String} for - Defines an id for an element in the DOM to trigger on hover/blur.
+ * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
+ * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
  */
 class AuroPopover extends LitElement {
+  constructor() {
+    super();
+    this.placement = 'top';
+  }
+
   // function to define props used within the scope of this component
   static get properties() {
     return {
