@@ -21,9 +21,9 @@
   display: none;
 
   &[data-show] {
-    display: block;
+    display: inline-block;
     z-index: var(--auro-depth-tooltip);
-    background: var(--auro-color-background-lightest);
+    background-color: var(--auro-color-background-lightest);
   }
 }
 
