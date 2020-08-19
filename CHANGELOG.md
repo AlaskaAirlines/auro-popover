@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [1.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.0.2...v1.1.0) (2020-08-19)
+
+
+### Features
+
+* update a11y model ([7a6ad46](https://github.com/AlaskaAirlines/auro-popover/commit/7a6ad461031c4f58d0b7557d01dc1e80eb121824))
+
 ## [1.0.2](https://github.com/AlaskaAirlines/auro-popover/compare/v1.0.1...v1.0.2) (2020-08-18)
 
 
