@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [1.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.1.0...v1.1.1) (2020-08-20)
+
+
+### Bug Fixes
+
+* removing escape function to address runtime error ([4040ba3](https://github.com/AlaskaAirlines/auro-popover/commit/4040ba3f825c930feeb15b25157e770cd3cd66b4))
+
 # [1.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.0.2...v1.1.0) (2020-08-19)
 
 
