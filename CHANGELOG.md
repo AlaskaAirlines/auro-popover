@@ -1,5 +1,13 @@
 # Semantic Release Automated Changelog
 
+## [1.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v1.1.1...v1.1.2) (2020-08-21)
+
+
+### Bug Fixes
+
+* adds support for shadowRoot target elements ([0650c46](https://github.com/AlaskaAirlines/auro-popover/commit/0650c46711714be96fe5a0fc2e0de8ec9b771b63))
+* target button ([066d457](https://github.com/AlaskaAirlines/auro-popover/commit/066d457e0d1cb6f5700e2675551ed60241a91a42))
+
 ## [1.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.1.0...v1.1.1) (2020-08-20)
 
 
