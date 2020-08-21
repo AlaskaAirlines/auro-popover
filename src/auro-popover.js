@@ -56,10 +56,17 @@ class AuroPopover extends LitElement {
 
   firstUpdated() {
     // needs to eval before Popover instantiation
-    document.querySelector(`#${this.for}`).parentElement.appendChild(this.patchBuildless());
+    let button = {};
 
-    const button = document.querySelector(`#${this.for}`),
-     element = this.shadowRoot.querySelector('#popover'),
+    try {
+      document.querySelector(`#${this.for}`).parentElement.appendChild(this.patchBuildless());
+      button = document.querySelector(`#${this.for}`);
+    } catch (err) {
+      this.querySelector(`#${this.for}`).appendChild(this.patchBuildless());
+      button = document.querySelector(`#${this.for}`);
+    }
+
+    const element = this.shadowRoot.querySelector('#popover'),
      hideEvents = [
       'mouseleave',
       'blur'
