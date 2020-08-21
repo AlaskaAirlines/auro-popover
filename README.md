@@ -47,7 +47,7 @@ The popover component has a requirement on the placement of a designated element
 <p id="example1">Hover over me</p>
 ```
 
-The following is an example of a popover with the trigger from within the scope of the shadow DOM using `slot` elements.
+The following is an example of a popover with the trigger from within the scope of the shadow DOM using `slot` elements. This format will also work with nested shadow DOMs, from the implementor of `<auro-popover>` to the trigger component.
 
 ```html
 <auro-popover for="example2">
