@@ -63,7 +63,7 @@ class AuroPopover extends LitElement {
       button = document.querySelector(`#${this.for}`);
     } catch (err) {
       this.querySelector(`#${this.for}`).appendChild(this.patchBuildless());
-      button = document.querySelector(`#${this.for}`);
+      button = this.querySelector(`#${this.for}`);
     }
 
     const element = this.shadowRoot.querySelector('#popover'),
