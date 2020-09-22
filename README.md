@@ -1,4 +1,4 @@
-## auro-popover
+# auro-popover
 
 `<auro-popover>` is a [HTML custom element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) for hovering/blurring over an element to display a tooltip-style popover with any content populated in a slot.
 
@@ -40,7 +40,7 @@ import "@alaskaairux/auro-popover";
 
 **Reference component in HTML**
 
-The popover component has a requirement on the placement of a designated element that will trigger the popover. The following is a default configuration with a trigger that is OUTSIDE the shadow DOM. 
+The popover component has a requirement on the placement of a designated element that will trigger the popover. The following is a default configuration with a trigger that is OUTSIDE the shadow DOM.
 
 ```html
 <auro-popover for="example1">Hello World</auro-popover>
@@ -54,7 +54,7 @@ The following is an example of a popover with the trigger from within the scope 
   Hello World!
   <p slot="trigger" id="example2">Hover over me</p>
 </auro-popover>
-``` 
+```
 
 ## Install bundled assets from CDN
 
