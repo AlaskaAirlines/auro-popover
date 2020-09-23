@@ -39,6 +39,10 @@ class AuroPopover extends LitElement {
     `;
   }
 
+  /**
+   * @private Internal method for managing buildless environment variable
+   * @returns {Void} Fires an update lifecycle.
+   */
   patchBuildless() {
     // patch for buildless environments
     const code = 'var process = {env: {}};',
