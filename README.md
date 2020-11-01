@@ -8,7 +8,7 @@ For the most up to date information on [UI development browser support](https://
 
 ## Install
 
-[![Build Status](https://img.shields.io/travis/AlaskaAirlines/auro-popover?branch=master&style=for-the-badge)](https://travis-ci.org/github/AlaskaAirlines/auro-popover)
+[![Build Status](https://img.shields.io/github/workflow/status/AlaskaAirlines/auro-popover/Test%20and%20publish?branch=master&style=for-the-badge)](https://github.com/AlaskaAirlines/auro-popover/actions?query=workflow%3A%22test+and+publish%22)
 [![See it on NPM!](https://img.shields.io/npm/v/@alaskaairux/auro-popover?style=for-the-badge&color=orange)](https://www.npmjs.com/package/@alaskaairux/auro-popover)
 [![License](https://img.shields.io/npm/l/@alaskaairux/auro-popover?color=blue&style=for-the-badge)](https://www.apache.org/licenses/LICENSE-2.0)
 
