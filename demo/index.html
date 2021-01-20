@@ -1,75 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auro Web Component Generator | [namespace]-[name] custom element</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../node_modules/prismjs/themes/prism.css"
     />
-    <title>Auro Web Component Generator | auro-popover custom element</title>
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script type="module">
-      import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-      import '@polymer/iron-demo-helpers/demo-snippet';
-    </script>
-    <script type="module" src="../src/auro-popover.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/@alaskaairux/orion-design-tokens@2.12.1/dist/tokens/CSSCustomProperties.css" />
-    <link rel="stylesheet" href="https://unpkg.com/@alaskaairux/orion-web-core-style-sheets@2.10.3/dist/bundled/essentials.css" />
-
-    <script src="https://unpkg.com/@alaskaairux/auro-hyperlink@2.0.1/dist/polyfills.js"></script>
-    <script src="https://unpkg.com/@alaskaairux/auro-hyperlink@2.0.1/dist/auro-hyperlink__bundled.js"></script>
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles"></style>
-    </custom-style>
-
     <link rel="stylesheet" type="text/css" href="css/style.css" />
   </head>
   <body>
-    <div class="vertical-section-container">
-      <h1>auro-popover</h1>
+    <main></main>
 
-      <demo-snippet>
-        <template>
-          <auro-popover for="example1">Hello World</auro-popover>
-          <p id="example1">Hover over me</p>
-        </template>
-      </demo-snippet>
-
-      <demo-snippet>
-        <template>
-          <auro-popover for="example2">
-            Hello World!
-            <p slot="trigger" id="example2">Hover over me</p>
-          </auro-popover>
-        </template>
-      </demo-snippet>
-
-      <demo-snippet>
-        <template>
-          <auro-popover placement="top" for="button2">Hello World!</auro-popover>
-          <button id="button2">Popover top</button>
-
-          <auro-popover for="button3" placement="bottom">Hello World!</auro-popover>
-          <button id="button3">Popover bottom</button>
-
-        </template>
-      </demo-snippet>
-
-      <demo-snippet>
-        <template>
-            <auro-hyperlink id="hyperlink1" href="alaskaair.com">Hover over me!</auro-hyperlink>
-            <auro-popover placement="top" for="hyperlink1">Hello World!</auro-popover>
-        </template>
-      </demo-snippet>
-
-      <demo-snippet>
-        <template>
-            <p id="button5">Hover over me, and I will pop up</p>
-            <auro-popover placement="top" for="button5">
-              I am the content in the tooltip ... listen to me.
-            </auro-popover>
-        </template>
-      </demo-snippet>
-    </div>
+    <script type="module">
+      import 'marked/marked.min.js';
+      import 'prismjs';
+      fetch('/demo/demo.md')
+        .then((response) => response.text())
+        .then((text) => {
+          const rawHtml = marked(text);
+          document.querySelector('main').innerHTML = rawHtml;
+          Prism.highlightAll();
+        });
+    </script>
+    <script type="module" src="../src/[namespace]-[name].js"></script>
+    <script src="https://unpkg.com/@alaskaairux/auro-accordion@latest/dist/auro-accordion__bundled.js" type="module"></script>
   </body>
 </html>
