@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [1.2.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.1.2...v1.2.0) (2021-01-21)
+
+
+### Features
+
+* update bundeled build ([8f3ddf4](https://github.com/AlaskaAirlines/auro-popover/commit/8f3ddf43a5ea4d92e31fdc3323837181372bac17))
+
 ## [1.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v1.1.1...v1.1.2) (2020-08-21)
 
 
