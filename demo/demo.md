@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://p2pcontent-fd-prod.azurefd.net/components/shared/component-base.css">
+<script src="https://p2pcontent-fd-prod.azurefd.net/components/shared/component-base.js" type="text/javascript"></script>
+<script src="https://p2pcontent-fd-prod.azurefd.net/components/fs-content-non-combinability/main.js" type="text/javascript"></script>
 # Popovers
 
 The Auro Design System fully supports top and bottom-placement popovers. The following examples illustrate common popover uses followed up by code examples.
@@ -22,17 +25,17 @@ In these examples the structure of the HTML uses the slot element to pull the tr
 
 <div class="exampleWrapper">
   <auro-popover for="button1">
-    Top popover content!
+    <div slot="tooltip">Top popover content!</div>
     <auro-button id="button1" slot="trigger">Popover Test</auro-button>
   </auro-popover>
 
   <auro-popover for="button2" placement="bottom">
-    Bottom popover content!
+    <div slot="tooltip">Bottom popover content!</div>
     <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
   </auro-popover>
 
   <auro-popover for="plugIcon">
-    This flight offers seat power service
+    <div slot="tooltip">This flight offers seat power service</div>
     <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
   </auro-popover>
 </div>
@@ -78,12 +81,12 @@ NOTE: The popover element is hidden visually, but not set to `display: none` for
 </style>
 
 <div class="exampleWrapper demoFlex">
-  <auro-popover for="button3">Top popover content!</auro-popover>
+  <auro-popover for="button3"><div slot="tooltip">Top popover content!</div></auro-popover>
   <auro-button id="button3">Popover Test</auro-button>
-  <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
+  <auro-popover for="button4" placement="bottom"><div slot="tooltip">bottom popover content!</div></auro-popover>
   <auro-button secondary id="button4">Popover Test</auro-button>
   <auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
-  <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
+  <auro-popover for="plugIcon2" placement="bottom"><div slot="tooltip">This flight offers seat power service</div></auro-popover>
 </div>
 
 <auro-accordion lowProfile justifyRight>

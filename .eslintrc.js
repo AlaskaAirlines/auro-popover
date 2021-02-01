@@ -13,7 +13,7 @@ module.exports = {
       "sourceType": "module"
   },
   "plugins": ["lit"],
-  "rules": {
+/*   "rules": {
       "accessor-pairs": "error",
       "array-bracket-newline": "error",
       "array-bracket-spacing": "error",
@@ -240,5 +240,5 @@ module.exports = {
       "wrap-regex": "error",
       "yield-star-spacing": "error",
       "yoda": ["error", "never"]
-  }
+  } */
 };

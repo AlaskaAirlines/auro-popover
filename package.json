@@ -18,6 +18,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "dependencies": {
+    "@alaskaairux/auro-hyperlink": "^2.0.1",
     "@popperjs/core": "^2.4.4",
     "chalk": "^4.1.0",
     "lit-element": "^2.3.1"
@@ -102,7 +103,7 @@
     "postinstall": "node packageScripts/postinstall.js",
     "postinstall:lit": "node scripts/postinstall.js",
     "ciBuild": "npm-run-all sassBuild sassRender cssLint distJS bundler postinstall apiBuild",
-    "cssLint": "stylelint './src/*.css'",
+    "cssLint": "stylelint ./src/*.css",
     "dev": "npm run sassBuild:watch",
     "distJS": "copyfiles -u 1 -V './src/**/*.js' ./dist",
     "sassRender": "sass-render src/*.css -t ./scripts/staticStyles-template.js",

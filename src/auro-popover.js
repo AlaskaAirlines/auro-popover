@@ -11,6 +11,7 @@ import styleCss from "./style-css.js";
 
 import Popover from "./popover";
 
+
 /**
  * Popover attaches to an element and displays on hover/blur.
  *
@@ -23,17 +24,20 @@ class AuroPopover extends LitElement {
   constructor() {
     super();
     this.placement = 'top';
+    this.isModalVisible = false;
   }
 
   // function to define props used within the scope of this component
   static get properties() {
+
     return {
-      placement:  { type: String },
-      for:        { type: String },
+      placement: { type: String },
+      for: { type: String },
     };
   }
 
   static get styles() {
+
     return css`
       ${styleCss},
     `;
@@ -46,7 +50,7 @@ class AuroPopover extends LitElement {
   patchBuildless() {
     // patch for buildless environments
     const code = 'var process = {env: {}};',
-    script = document.createElement('script');
+      script = document.createElement('script');
 
     script.type = 'text/javascript';
     try {
@@ -60,53 +64,59 @@ class AuroPopover extends LitElement {
 
   firstUpdated() {
     // needs to eval before Popover instantiation
-    let button = {};
+    let trigger = {};
 
     try {
       document.querySelector(`#${this.for}`).parentElement.appendChild(this.patchBuildless());
-      button = document.querySelector(`#${this.for}`);
+      trigger = document.querySelector(`#${this.for}`);
     } catch (err) {
       this.querySelector(`#${this.for}`).appendChild(this.patchBuildless());
-      button = this.querySelector(`#${this.for}`);
+      trigger = this.querySelector(`#${this.for}`);
     }
 
-    const element = this.shadowRoot.querySelector('#popover'),
-     hideEvents = [
-      'mouseleave',
-      'blur'
-      ],
-     popper = new Popover(button, element, this.placement),
-     showEvents = [
-      'mouseenter',
-      'focus'
-      ],
+    const popover = this.shadowRoot.querySelector('#popover'),
+      popper = new Popover(trigger, popover, this.placement),
+      /**
+      * Hides the popover
+      * @returns {Void} Fires an update lifecycle.
+      */
+      toggleHide = () => {
+        popover.removeAttribute('data-show');
+        popper.hide();
+        this.isModalVisible = false;
+      },
+      /**
+       * Shows the popover
+       * @returns {Void} Fires an update lifecycle.
+       */
+      toggleShow = () => {
+        popover.setAttribute('data-show', '');
+        popper.show();
+        this.isModalVisible = true;
+      },
+      handleClickNonTriggerNonPopover = (event) => {
+        const path = event.composedPath();
 
-    /**
-     * Hides the popover
-     * @returns {Void} Fires an update lifecycle.
-     */
-    toggleHide = function() {
-      element.removeAttribute('data-show');
-      popper.hide();
-    },
+        if (this.isModalVisible && !path.includes(trigger) && !path.includes(popover)) {
+          toggleHide();
+        }
+      },
+      handleTabWhenFocusOnTrigger = (e) => {
+        if (e.key.toLowerCase() === 'tab') {
+          toggleHide();
+        }
+      };
 
-    /**
-     * Shows the popover
-     * @returns {Void} Fires an update lifecycle.
-     */
-     toggleShow = function() {
-      element.setAttribute('data-show', '');
-      popper.show();
-    };
+    trigger.addEventListener('click', toggleShow);
+    trigger.addEventListener('focus', toggleShow);
+    // if user tabs off of trigger, then hide the popover. 
+    trigger.addEventListener('keydown', handleTabWhenFocusOnTrigger);
 
-    showEvents.forEach((event) => {
-      button.addEventListener(event, toggleShow);
-    });
+    // e.g. for a closePopover button in the popover
+    this.addEventListener('hidePopover', toggleHide);
 
-    hideEvents.forEach((event) => {
-      button.addEventListener(event, toggleHide);
-    });
-
+    // if user clicks on something other than trigger or popover, close popover
+    document.addEventListener('click', handleClickNonTriggerNonPopover);
   }
 
 
@@ -115,7 +125,7 @@ class AuroPopover extends LitElement {
     return html`
       <div id="popover" class="popover util_insetLg">
         <div id="arrow" class="arrow" data-popper-arrow></div>
-        <slot role="tooltip"></slot>
+        <slot name="tooltip"></slot>
       </div>
       <slot name="trigger"></slot>
     `;
