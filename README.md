@@ -108,5 +108,9 @@ $ polymer serve
 
 Open [localhost:8000](http://localhost:8000/)
 
+### Commit message formats
+
+Git commit messages need to follow the synatx of https://www.conventionalcommits.org/, even for commits done on your local machine.
+
 ### Testing
 Automated tests are required for every Auro component. See `.\test\auro-popover.test.js` for the tests for this component. Run `npm test` to run the tests and check code coverage. Tests must pass and meet a certain coverage threshold to commit. See [the testing documentation](https://auro.alaskaair.com/support/tests) for more details.

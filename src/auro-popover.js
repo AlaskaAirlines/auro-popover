@@ -11,7 +11,6 @@ import styleCss from "./style-css.js";
 
 import Popover from "./popover";
 
-
 /**
  * Popover attaches to an element and displays on hover/blur.
  *
@@ -25,19 +24,22 @@ class AuroPopover extends LitElement {
     super();
     this.placement = 'top';
     this.isModalVisible = false;
+    this.isSticky = this.hasAttribute('sticky');
+    this.popover = null;
+    this.popper = null;
+    // console.log('this.isSticky', this.sticky);
   }
 
   // function to define props used within the scope of this component
   static get properties() {
 
     return {
-      placement: { type: String },
-      for: { type: String },
+      placement:  { type: String },
+      for:        { type: String },
     };
   }
 
   static get styles() {
-
     return css`
       ${styleCss},
     `;
@@ -50,7 +52,7 @@ class AuroPopover extends LitElement {
   patchBuildless() {
     // patch for buildless environments
     const code = 'var process = {env: {}};',
-      script = document.createElement('script');
+    script = document.createElement('script');
 
     script.type = 'text/javascript';
     try {
@@ -74,42 +76,62 @@ class AuroPopover extends LitElement {
       trigger = this.querySelector(`#${this.for}`);
     }
 
-    const popover = this.shadowRoot.querySelector('#popover'),
-      popper = new Popover(trigger, popover, this.placement),
+    this.popover = this.shadowRoot.querySelector('#popover');
+    this.popper = new Popover(trigger, this.popover, this.placement);
+
       /**
       * Hides the popover
       * @returns {Void} Fires an update lifecycle.
       */
-      toggleHide = () => {
-        popover.removeAttribute('data-show');
-        popper.hide();
+      const toggleHide = () => {
+        this.popover.removeAttribute('data-show');
+        this.popper.hide();
         this.isModalVisible = false;
       },
+
       /**
        * Shows the popover
        * @returns {Void} Fires an update lifecycle.
        */
       toggleShow = () => {
-        popover.setAttribute('data-show', '');
-        popper.show();
+        this.popover.setAttribute('data-show', '');
+        this.popper.show();
         this.isModalVisible = true;
       },
+
+      /**
+       * Click handler on non-trigger non-popovers
+       * @param {Event} event event
+       * @returns {Void} Fires an update lifecycle
+       */
       handleClickNonTriggerNonPopover = (event) => {
         const path = event.composedPath();
 
-        if (this.isModalVisible && !path.includes(trigger) && !path.includes(popover)) {
+        if (this.isModalVisible && !path.includes(trigger) && !path.includes(this.popover)) {
           toggleHide();
         }
       },
-      handleTabWhenFocusOnTrigger = (e) => {
-        if (e.key.toLowerCase() === 'tab') {
+
+      /**
+       * Click handler focus-trigger
+       * @param {Event} event event
+       * @returns {Void} Fires an update lifecycle
+       */
+      handleTabWhenFocusOnTrigger = (event) => {
+        if (event.key.toLowerCase() === 'tab') {
           toggleHide();
         }
       };
 
-    trigger.addEventListener('click', toggleShow);
-    trigger.addEventListener('focus', toggleShow);
-    // if user tabs off of trigger, then hide the popover. 
+    if (this.isSticky) {
+      trigger.addEventListener('click', toggleShow);
+      trigger.addEventListener('focus', toggleShow);
+    } else {
+      trigger.addEventListener('mouseenter', toggleShow);
+      trigger.addEventListener('mouseleave', toggleHide);
+    }
+
+    // if user tabs off of trigger, then hide the popover.
     trigger.addEventListener('keydown', handleTabWhenFocusOnTrigger);
 
     // e.g. for a closePopover button in the popover
@@ -117,6 +139,22 @@ class AuroPopover extends LitElement {
 
     // if user clicks on something other than trigger or popover, close popover
     document.addEventListener('click', handleClickNonTriggerNonPopover);
+  }
+
+  /**
+    * Toggles the popover's open state
+    * @returns {Void} Fires an update lifecycle.
+  */
+  toggle() {
+    if (this.popover.hasAttribute('data-show')) {
+      this.popover.removeAttribute('data-show');
+      this.popper.hide();
+      this.isModalVisible = false;
+    } else {
+      this.popover.setAttribute('data-show', '');
+      this.popper.show();
+      this.isModalVisible = true;
+    }
   }
 
 

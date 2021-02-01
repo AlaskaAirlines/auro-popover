@@ -13,7 +13,7 @@ module.exports = {
       "sourceType": "module"
   },
   "plugins": ["lit"],
-/*   "rules": {
+  "rules": {
       "accessor-pairs": "error",
       "array-bracket-newline": "error",
       "array-bracket-spacing": "error",
@@ -84,7 +84,7 @@ module.exports = {
       "max-lines-per-function": "off",
       "max-nested-callbacks": "error",
       "max-params": "error",
-      "max-statements": "error",
+    //   "max-statements": "error",
       "max-statements-per-line": "error",
       "multiline-comment-style": "off",
       "new-cap": "error",
@@ -221,7 +221,7 @@ module.exports = {
       "semi-spacing": "error",
       "semi-style": ["error", "last"],
       "sort-keys": "off",
-      "sort-vars": "error",
+    //   "sort-vars": "error",
       "space-before-blocks": "error",
       "space-before-function-paren": "off",
       "space-in-parens": ["error", "never"],
@@ -240,5 +240,5 @@ module.exports = {
       "wrap-regex": "error",
       "yield-star-spacing": "error",
       "yoda": ["error", "never"]
-  } */
+  }
 };
