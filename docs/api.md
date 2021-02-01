@@ -8,7 +8,16 @@ Popover attaches to an element and displays on hover/blur.
 |------------------|-------------|-----------|---------|--------------------------------------------------|
 | `for`            | `for`       | `String`  |         | Defines an `id` for an element in the DOM to trigger on hover/blur. |
 | `isModalVisible` |             | `boolean` | false   |                                                  |
+| `isSticky`       |             | `boolean` |         |                                                  |
 | `placement`      | `placement` | `String`  | "top"   | Expects top/bottom - position for popover in relation to the element. |
+| `popover`        |             |           | null    |                                                  |
+| `popper`         |             |           | null    |                                                  |
+
+## Methods
+
+| Method   | Type       | Description                      |
+|----------|------------|----------------------------------|
+| `toggle` | `(): Void` | Toggles the popover's open state |
 
 ## Slots
 
