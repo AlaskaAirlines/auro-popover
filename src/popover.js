@@ -20,7 +20,7 @@ export default class Popover {
     }
 
     show() {
-        this.popover.hidden = false;
+        this.popover.hidden = false; // why was this here to begin with?
 
         if (this.popper) {
             this.popper.destroy();

@@ -101,6 +101,9 @@ $ npm run dev
 
 // shell terminal two
 $ npm run serve
+
+// shell terminal three
+$ polymer serve
 ```
 
 Open [localhost:8000](http://localhost:8000/)
