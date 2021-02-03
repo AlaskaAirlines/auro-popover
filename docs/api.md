@@ -10,8 +10,6 @@ Popover attaches to an element and displays on hover/blur.
 | `isModalVisible` |             | `boolean` | false   |                                                  |
 | `isSticky`       |             | `boolean` |         |                                                  |
 | `placement`      | `placement` | `String`  | "top"   | Expects top/bottom - position for popover in relation to the element. |
-| `popover`        |             |           | null    |                                                  |
-| `popper`         |             |           | null    |                                                  |
 
 ## Methods
 

@@ -6,26 +6,19 @@ const comments = require('postcss-discard-comments')
 const fs = require('fs')
 
 fs.readFile('src/style.css', (err, css) => {
-  postcss([
-autoprefixer,
-postcssCustomProperties,
-comments
-]).
-    use(comments({
-      remove(comment) {
- return comment[0] == "@";
-}
-    })).
-    use(removeRules({
+  postcss([autoprefixer, postcssCustomProperties, comments])
+    .use(comments({
+      remove: function(comment) { return comment[0] == "@"; }
+    }))
+    .use(removeRules({
       rulesToRemove: {
         ':root': '*'
       }
-    })).
-    process(css, { from: 'src/style.css',
-to: 'src/style.css' }).
-    then((result) => {
+    }))
+    .process(css, { from: 'src/style.css', to: 'src/style.css' })
+    .then(result => {
       fs.writeFile('src/style.css', result.css, () => true)
-      if (result.map) {
+      if ( result.map ) {
         fs.writeFile('src/style.map', result.map, () => true)
       }
     })
