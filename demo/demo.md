@@ -48,27 +48,27 @@ In these examples the structure of the HTML uses the slot element to pull the tr
   <span slot="trigger">See code</span>
 
 ```html
-  <auro-popover for="button1">
-    <div slot="tooltip">Top popover content!</div>
-    <auro-button id="button1" slot="trigger">Popover Test</auro-button>
-  </auro-popover>
+<auro-popover for="button1">
+  <div slot="tooltip">Top popover content!</div>
+  <auro-button id="button1" slot="trigger">Popover Test</auro-button>
+</auro-popover>
 
-  <auro-popover for="button2" placement="bottom">
-    <div slot="tooltip">Bottom popover content!</div>
-    <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
-  </auro-popover>
+<auro-popover for="button2" placement="bottom">
+  <div slot="tooltip">Bottom popover content!</div>
+  <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
+</auro-popover>
 
-  <auro-popover id="stickyPopover" for="stickyAction" sticky>
-    <div slot="tooltip">
-      <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-    </div>
-    <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
-  </auro-popover>
+<auro-popover id="stickyPopover" for="stickyAction" sticky>
+  <div slot="tooltip">
+    <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
+  </div>
+  <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
+</auro-popover>
 
-  <auro-popover for="plugIcon">
-    <div slot="tooltip">This flight offers seat power service</div>
-    <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
-  </auro-popover>
+<auro-popover for="plugIcon">
+  <div slot="tooltip">This flight offers seat power service</div>
+  <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
+</auro-popover>
 ```
 
 </auro-accordion>
