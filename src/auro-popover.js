@@ -27,7 +27,6 @@ class AuroPopover extends LitElement {
     this.isSticky = this.hasAttribute('sticky');
     this.popover = null;
     this.popper = null;
-    // console.log('this.isSticky', this.sticky);
   }
 
   // function to define props used within the scope of this component
