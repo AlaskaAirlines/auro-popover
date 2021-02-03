@@ -16,6 +16,8 @@ import Popover from "./popover";
  *
  * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
  * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
+ * @attr {boolean} isPopoverVisible - Boolean for if popover is visible or not.
+ * @attr {boolean} isSticky - If true, when user clicks trigger, the popover will persist its visibility. If false, popover will disappear when mouseout over trigger.
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - Slot for entering the trigger element into the scope of the shadow DOM
  */
@@ -23,7 +25,7 @@ class AuroPopover extends LitElement {
   constructor() {
     super();
     this.placement = 'top';
-    this.isModalVisible = false;
+    this.isPopoverVisible = false;
     this.isSticky = this.hasAttribute('sticky');
   }
 
@@ -83,7 +85,7 @@ class AuroPopover extends LitElement {
       const toggleHide = () => {
         this.popover.removeAttribute('data-show');
         this.popper.hide();
-        this.isModalVisible = false;
+        this.isPopoverVisible = false;
       },
 
       /**
@@ -93,7 +95,7 @@ class AuroPopover extends LitElement {
       toggleShow = () => {
         this.popover.setAttribute('data-show', '');
         this.popper.show();
-        this.isModalVisible = true;
+        this.isPopoverVisible = true;
       },
 
       /**
@@ -104,7 +106,7 @@ class AuroPopover extends LitElement {
       handleClickNonTriggerNonPopover = (event) => {
         const path = event.composedPath();
 
-        if (this.isModalVisible && !path.includes(trigger) && !path.includes(this.popover)) {
+        if (this.isPopoverVisible && !path.includes(trigger) && !path.includes(this.popover)) {
           toggleHide();
         }
       },
@@ -146,11 +148,11 @@ class AuroPopover extends LitElement {
     if (this.popover.hasAttribute('data-show')) {
       this.popover.removeAttribute('data-show');
       this.popper.hide();
-      this.isModalVisible = false;
+      this.isPopoverVisible = false;
     } else {
       this.popover.setAttribute('data-show', '');
       this.popper.show();
-      this.isModalVisible = true;
+      this.isPopoverVisible = true;
     }
   }
 
