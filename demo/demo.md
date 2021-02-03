@@ -20,8 +20,6 @@ Auro popover allows two ways to layout the HTML. Please see the following exampl
 
 In these examples the structure of the HTML uses the slot element to pull the trigger HTML into the scope of the outer shadow DOM element.
 
-
-
 <div class="exampleWrapper">
   <auro-popover for="button1">
     <div slot="tooltip">Top popover content!</div>
