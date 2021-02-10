@@ -31,11 +31,6 @@ In these examples the structure of the HTML uses the slot element to pull the tr
     <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
   </auro-popover>
 
-  <auro-popover id="stickyPopover" for="stickyAction" sticky>
-    <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-    <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
-  </auro-popover>
-
   <auro-popover for="plugIcon">
     This flight offers seat power service
     <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
@@ -54,11 +49,6 @@ In these examples the structure of the HTML uses the slot element to pull the tr
 <auro-popover for="button2" placement="bottom">
   Bottom popover content!
   <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
-</auro-popover>
-
-<auro-popover id="stickyPopover" for="stickyAction" sticky>
-  <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-  <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
 </auro-popover>
 
 <auro-popover for="plugIcon">
@@ -108,6 +98,29 @@ NOTE: The popover element is hidden visually, but not set to `display: none` for
 
 <auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
 <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
+```
+
+</auro-accordion>
+
+## Sticky popovers
+
+Instead of mousing over and mousing out of the trigger element to respectively show and hide the popover, you can enable "sticky behavior by putting a "sticky" attribute on the auro-popover element. Click on the trigger to show the popover. Click anywhere except the trigger or the popover to hide the popover. You can also wire up a button in the popover that closes the popover.
+
+<div class="exampleWrapper">
+  <auro-popover id="stickyPopover" for="stickyAction" sticky>
+    <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
+    <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
+  </auro-popover>
+</div>
+
+<auro-accordion lowProfile justifyRight>
+  <span slot="trigger">See code</span>
+
+```html
+<auro-popover id="stickyPopover" for="stickyAction" sticky>
+  <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
+  <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
+</auro-popover>
 ```
 
 </auro-accordion>
