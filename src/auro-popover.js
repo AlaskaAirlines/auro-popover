@@ -17,24 +17,33 @@ import Popover from "./popover";
  * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
  * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
  * @attr {boolean} isPopoverVisible - Boolean for if popover is visible or not.
- * @attr {boolean} isSticky - If true, when user clicks trigger, the popover will persist its visibility. If false, popover will disappear when mouseout over trigger.
+ * @attr {boolean} sticky - If true, when user clicks trigger, the popover will persist its visibility. If false, popover will disappear when mouseout over trigger.
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - Slot for entering the trigger element into the scope of the shadow DOM
  */
 class AuroPopover extends LitElement {
   constructor() {
     super();
+
+    this.privateDefaults();
+
     this.placement = 'top';
+  }
+
+  /**
+   * @private internal defaults
+   * @returns {void}
+   */
+  privateDefaults() {
     this.isPopoverVisible = false;
-    this.isSticky = this.hasAttribute('sticky');
   }
 
   // function to define props used within the scope of this component
   static get properties() {
-
     return {
       placement:  { type: String },
       for:        { type: String },
+      sticky:     { type: Boolean }
     };
   }
 
@@ -122,7 +131,7 @@ class AuroPopover extends LitElement {
         }
       };
 
-    if (this.isSticky) {
+    if (this.sticky) {
       trigger.addEventListener('click', toggleShow);
       trigger.addEventListener('focus', toggleShow);
     } else {
@@ -141,7 +150,7 @@ class AuroPopover extends LitElement {
   }
 
   /**
-    * Toggles the popover's open state
+    * @private Toggles the popover's open state
     * @returns {Void} Fires an update lifecycle.
   */
   toggle() {
@@ -162,7 +171,7 @@ class AuroPopover extends LitElement {
     return html`
       <div id="popover" class="popover util_insetLg">
         <div id="arrow" class="arrow" data-popper-arrow></div>
-        <slot name="tooltip"></slot>
+        <slot role="tooltip"></slot>
       </div>
       <slot name="trigger"></slot>
     `;

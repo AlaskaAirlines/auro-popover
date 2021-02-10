@@ -27,11 +27,11 @@ describe('auro-popover', () => {
     await expect(el).to.be.true;
   });
 
-  describe('auro-popover DOES have the "sticky" attribute', () => {
-    it('auro-popover shows when you click target element', async () => {
+  describe('auro-popover DOES have the "sticky" attribute set to true', () => {
+    it('auro-popover shows when you click trigger element', async () => {
       const el = await fixture(html`
         <auro-popover for="button1" sticky>
-          <div slot="tooltip">tooltip text</div>
+          tooltip text
           <auro-button id="button1" slot="trigger">trigger text</auro-button>
         </auro-popover>
       `);
@@ -49,8 +49,8 @@ describe('auro-popover', () => {
   
     it('auro-popover should close when user clicks anything else that isn\'t the trigger or popover', async () => {
       const el = await fixture(html`
-      <auro-popover for="button1"  sticky>
-        <div slot="tooltip">tooltip text</div>
+      <auro-popover for="button1" sticky>
+        tooltip text
         <auro-button id="button1" slot="trigger">trigger text</auro-button>
       </auro-popover>
     `);
@@ -71,13 +71,11 @@ describe('auro-popover', () => {
   
     it('auro-popover should close when there is an action inside the popover to close it', async () => {
       const el = await fixture(html`
-        <auro-popover for="button1"  sticky>
-          <div slot="tooltip">
+        <auro-popover for="button1" sticky>
             <button id="btnClosePopover">
                 click this button to close popover
             </button>
             tooltip text
-          </div>
           <auro-button id="button1" slot="trigger">trigger text</auro-button>
         </auro-popover>
       `);
