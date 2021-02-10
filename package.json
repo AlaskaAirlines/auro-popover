@@ -102,7 +102,7 @@
     "postinstall": "node packageScripts/postinstall.js",
     "postinstall:lit": "node scripts/postinstall.js",
     "ciBuild": "npm-run-all sassBuild sassRender cssLint distJS bundler postinstall apiBuild",
-    "cssLint": "stylelint ./src/*.css",
+    "cssLint": "stylelint \"./src/*.css\"",
     "dev": "npm run sassBuild:watch",
     "distJS": "copyfiles -u 1 -V './src/**/*.js' ./dist",
     "sassRender": "sass-render src/*.css -t ./scripts/staticStyles-template.js",

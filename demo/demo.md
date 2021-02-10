@@ -22,24 +22,22 @@ In these examples the structure of the HTML uses the slot element to pull the tr
 
 <div class="exampleWrapper">
   <auro-popover for="button1">
-    <div slot="tooltip">Top popover content!</div>
+    Top popover content!
     <auro-button id="button1" slot="trigger">Popover Test</auro-button>
   </auro-popover>
 
   <auro-popover for="button2" placement="bottom">
-    <div slot="tooltip">Bottom popover content!</div>
+    Bottom popover content!
     <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
   </auro-popover>
 
   <auro-popover id="stickyPopover" for="stickyAction" sticky>
-    <div slot="tooltip">
-      <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-    </div>
+    <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
     <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
   </auro-popover>
 
   <auro-popover for="plugIcon">
-    <div slot="tooltip">This flight offers seat power service</div>
+    This flight offers seat power service
     <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
   </auro-popover>
 </div>
@@ -49,24 +47,22 @@ In these examples the structure of the HTML uses the slot element to pull the tr
 
 ```html
 <auro-popover for="button1">
-  <div slot="tooltip">Top popover content!</div>
+  Top popover content!
   <auro-button id="button1" slot="trigger">Popover Test</auro-button>
 </auro-popover>
 
 <auro-popover for="button2" placement="bottom">
-  <div slot="tooltip">Bottom popover content!</div>
+  Bottom popover content!
   <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
 </auro-popover>
 
 <auro-popover id="stickyPopover" for="stickyAction" sticky>
-  <div slot="tooltip">
-    <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-  </div>
+  <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
   <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
 </auro-popover>
 
 <auro-popover for="plugIcon">
-  <div slot="tooltip">This flight offers seat power service</div>
+  This flight offers seat power service
   <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
 </auro-popover>
 ```
@@ -92,12 +88,12 @@ NOTE: The popover element is hidden visually, but not set to `display: none` for
 </style>
 
 <div class="exampleWrapper demoFlex">
-  <auro-popover for="button3"><div slot="tooltip">Top popover content!</div></auro-popover>
+  <auro-popover for="button3">Top popover content!</auro-popover>
   <auro-button id="button3">Popover Test</auro-button>
-  <auro-popover for="button4" placement="bottom"><div slot="tooltip">bottom popover content!</div></auro-popover>
+  <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
   <auro-button secondary id="button4">Popover Test</auro-button>
   <auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
-  <auro-popover for="plugIcon2" placement="bottom"><div slot="tooltip">This flight offers seat power service</div></auro-popover>
+  <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
 </div>
 
 <auro-accordion lowProfile justifyRight>
