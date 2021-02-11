@@ -3,7 +3,7 @@
 
 // ---------------------------------------------------------------------
 
-import { createPopper } from '@popperjs/core';
+import { createPopper } from '@popperjs/core/dist/esm/popper';
 
 // build the component class
 const POPOVER_OFFSET_MAX = 18,

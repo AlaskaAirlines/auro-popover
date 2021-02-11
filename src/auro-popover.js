@@ -52,37 +52,8 @@ class AuroPopover extends LitElement {
     `;
   }
 
-  /**
-   * @private Internal method for managing buildless environment variable
-   * @returns {Void} Fires an update lifecycle.
-   */
-  patchBuildless() {
-    // patch for buildless environments
-    const code = 'var process = {env: {}};',
-    script = document.createElement('script');
-
-    script.type = 'text/javascript';
-    try {
-      script.appendChild(document.createTextNode(code));
-    } catch (err) {
-      script.text = code;
-    }
-
-    return script;
-  }
-
   firstUpdated() {
-    // needs to eval before Popover instantiation
-    let trigger = {};
-
-    try {
-      document.querySelector(`#${this.for}`).parentElement.appendChild(this.patchBuildless());
-      trigger = document.querySelector(`#${this.for}`);
-    } catch (err) {
-      this.querySelector(`#${this.for}`).appendChild(this.patchBuildless());
-      trigger = this.querySelector(`#${this.for}`);
-    }
-
+    this.trigger = document.querySelector(`#${this.for}`);
     this.popover = this.shadowRoot.querySelector('#popover');
     this.popper = new Popover(trigger, this.popover, this.placement);
 
