@@ -104,7 +104,9 @@ NOTE: The popover element is hidden visually, but not set to `display: none` for
 
 ## Sticky popovers
 
-Instead of mousing over and mousing out of the trigger element to respectively show and hide the popover, you can enable "sticky behavior by putting a "sticky" attribute on the auro-popover element. Click on the trigger to show the popover. Click anywhere except the trigger or the popover to hide the popover. You can also wire up a button in the popover that closes the popover.
+In this example, use the `sticky` property in order for the popover to remain open when the trigger is clicked or tapped. Any click outside the popover will close the popover.
+
+When the intention is to close the popover with an event within the popover, use the `toggle()` method bound to a click event on the trigger element within the popover.
 
 <div class="exampleWrapper">
   <auro-popover id="stickyPopover" for="stickyAction" sticky>
