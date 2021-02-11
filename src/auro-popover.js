@@ -62,8 +62,12 @@ class AuroPopover extends LitElement {
      * @param {Event} event event
      * @returns {Void} Fires an update lifecycle
      */
-    const handleShow = () => { this.toggleShow(); },
-      handleHide = () => { this.toggleHide(); },
+    const handleShow = () => {
+        this.toggleShow();
+      },
+      handleHide = () => {
+        this.toggleHide();
+      },
       handleClickNonTriggerNonPopover = (event) => {
         const path = event.composedPath();
 
@@ -105,7 +109,11 @@ class AuroPopover extends LitElement {
     * @returns {Void} Fires an update lifecycle.
   */
   toggle() {
-    this.isPopoverVisible ? this.toggleHide() : this.toggleShow();
+    if (this.isPopoverVisible) {
+      this.toggleHide();
+    } else {
+      this.toggleShow();
+    }
   }
 
   /**
