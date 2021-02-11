@@ -55,38 +55,20 @@ class AuroPopover extends LitElement {
   firstUpdated() {
     this.trigger = document.querySelector(`#${this.for}`);
     this.popover = this.shadowRoot.querySelector('#popover');
-    this.popper = new Popover(trigger, this.popover, this.placement);
+    this.popper = new Popover(this.trigger, this.popover, this.placement);
 
-      /**
-      * Hides the popover
-      * @returns {Void} Fires an update lifecycle.
-      */
-      const toggleHide = () => {
-        this.popover.removeAttribute('data-show');
-        this.popper.hide();
-        this.isPopoverVisible = false;
-      },
-
-      /**
-       * Shows the popover
-       * @returns {Void} Fires an update lifecycle.
-       */
-      toggleShow = () => {
-        this.popover.setAttribute('data-show', '');
-        this.popper.show();
-        this.isPopoverVisible = true;
-      },
-
-      /**
-       * Click handler on non-trigger non-popovers
-       * @param {Event} event event
-       * @returns {Void} Fires an update lifecycle
-       */
+    /**
+     * Click handler on non-trigger non-popovers
+     * @param {Event} event event
+     * @returns {Void} Fires an update lifecycle
+     */
+    const handleShow = () => { this.toggleShow(); },
+      handleHide = () => { this.toggleHide(); },
       handleClickNonTriggerNonPopover = (event) => {
         const path = event.composedPath();
 
-        if (this.isPopoverVisible && !path.includes(trigger) && !path.includes(this.popover)) {
-          toggleHide();
+        if (this.isPopoverVisible && !path.includes(this.trigger) && !path.includes(this.popover)) {
+          this.toggleHide();
         }
       },
 
@@ -97,22 +79,22 @@ class AuroPopover extends LitElement {
        */
       handleTabWhenFocusOnTrigger = (event) => {
         if (event.key.toLowerCase() === 'tab') {
-          toggleHide();
+          this.toggleHide();
         }
       };
 
     if (this.sticky) {
-      trigger.addEventListener('click', toggleShow);
+      this.trigger.addEventListener('click', handleShow);
     } else {
-      trigger.addEventListener('mouseenter', toggleShow);
-      trigger.addEventListener('mouseleave', toggleHide);
+      this.trigger.addEventListener('mouseenter', handleShow);
+      this.trigger.addEventListener('mouseleave', handleHide);
     }
 
     // if user tabs off of trigger, then hide the popover.
-    trigger.addEventListener('keydown', handleTabWhenFocusOnTrigger);
+    this.trigger.addEventListener('keydown', handleTabWhenFocusOnTrigger);
 
     // e.g. for a closePopover button in the popover
-    this.addEventListener('hidePopover', toggleHide);
+    this.addEventListener('hidePopover', handleHide);
 
     // if user clicks on something other than trigger or popover, close popover
     document.addEventListener('click', handleClickNonTriggerNonPopover);
@@ -123,17 +105,28 @@ class AuroPopover extends LitElement {
     * @returns {Void} Fires an update lifecycle.
   */
   toggle() {
-    if (this.popover.hasAttribute('data-show')) {
-      this.popover.removeAttribute('data-show');
-      this.popper.hide();
-      this.isPopoverVisible = false;
-    } else {
-      this.popover.setAttribute('data-show', '');
-      this.popper.show();
-      this.isPopoverVisible = true;
-    }
+    this.isPopoverVisible ? this.toggleHide() : this.toggleShow();
   }
 
+  /**
+   * Hides the popover
+   * @returns {Void} Fires an update lifecycle.
+   */
+  toggleHide() {
+    this.popover.removeAttribute('data-show');
+    this.popper.hide();
+    this.isPopoverVisible = false;
+  }
+
+  /**
+   * Shows the popover
+   * @returns {Void} Fires an update lifecycle.
+   */
+  toggleShow() {
+    this.popover.setAttribute('data-show', '');
+    this.popper.show();
+    this.isPopoverVisible = true;
+  }
 
   // function that renders the HTML and CSS into  the scope of the component
   render() {
