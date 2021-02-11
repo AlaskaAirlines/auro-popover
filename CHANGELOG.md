@@ -1,5 +1,21 @@
 # Semantic Release Automated Changelog
 
+# [1.3.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.2.0...v1.3.0) (2021-02-11)
+
+
+### Bug Fixes
+
+* renamed a variable, updated its description ([756dbb4](https://github.com/AlaskaAirlines/auro-popover/commit/756dbb44caf9e10daae7e39a45a6a16d8e01f641))
+
+
+### Features
+
+* added sticky functionality to auro-popover ([85a2758](https://github.com/AlaskaAirlines/auro-popover/commit/85a2758ccba4efd5482c2fe11c7f0e6f2fecab70))
+* implemented Dale's PR changes ([ad51f2d](https://github.com/AlaskaAirlines/auro-popover/commit/ad51f2d3dca49447e3bb2434333864ea7a825e34))
+* in demo.me, auro-popover with a sticky attribute moved into its own block ([fcabbad](https://github.com/AlaskaAirlines/auro-popover/commit/fcabbad99fceec9520f406a073b10441b911220d))
+* modified behavior of interaction events of auro-popover ([9a1164d](https://github.com/AlaskaAirlines/auro-popover/commit/9a1164dcc1b16618f5f583e6cbfa5b15a247786a))
+* updated the Develpment section, copied some of wc-generator readme ([4b7662a](https://github.com/AlaskaAirlines/auro-popover/commit/4b7662af8ab479850a8edf11e5c7bfa38e60c99d))
+
 # [1.2.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.1.2...v1.2.0) (2021-01-21)
 
 
