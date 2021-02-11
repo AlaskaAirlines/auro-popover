@@ -3,103 +3,116 @@ import '../src/auro-popover.js';
 
 
 describe('auro-popover', () => {
-  it('auro-popover is accessible from the bottom', async () => {
+  it('is accessible', async () => {
     const el = await fixture(html`
       <button id="button1">Test</button>
-      <auro-popover for="button1" placement="bottom"></auro-popover>
+      <auro-popover for="button1"></auro-popover>
     `);
 
     await expect(el).to.be.accessible();
   });
 
-  it('auro-popover is accessible from the top', async () => {
-    const el = await fixture(html`
-      <button id="button1">Test</button>
-      <auro-popover for="button1" placement="top"></auro-popover>
-    `);
-
-    await expect(el).to.be.accessible();
-  });
-
-  it('auro-popover custom element is defined', async () => {
+  it('custom element is defined', async () => {
     const el = await Boolean(customElements.get("auro-popover"));
 
     await expect(el).to.be.true;
   });
 
-  describe('auro-popover DOES have the "sticky" attribute set to true', () => {
-    it('auro-popover shows when you click trigger element', async () => {
-      const el = await fixture(html`
-        <auro-popover for="button1" sticky>
-          tooltip text
-          <auro-button id="button1" slot="trigger">trigger text</auro-button>
-        </auro-popover>
-      `);
+  describe('when "sticky" attribute set to true', () => {
+    it('shows popover when you click trigger element', async () => {
+      const el = await getStickyFixture();
+      expectPopoverHidden(el);
   
-      const popover = el.shadowRoot.querySelector('#popover');
-      expect(popover.hasAttribute('data-show')).to.equal(false);
-  
-      const trigger = el.querySelector('auro-button')
-      trigger.click();
-      expect(popover.hasAttribute('data-show')).to.equal(true);
-    
-      const tooltipSlot = el.shadowRoot.querySelector('slot').assignedNodes()[0];
-      expect(tooltipSlot.textContent.includes('tooltip')).to.equal(true);
+      el.trigger.click();
+      expectPopoverShown(el);
+
+      expect(el.textContent).to.include('tooltip');
     });
   
-    it('auro-popover should close when user clicks anything else that isn\'t the trigger or popover', async () => {
-      const el = await fixture(html`
-      <auro-popover for="button1" sticky>
-        tooltip text
-        <auro-button id="button1" slot="trigger">trigger text</auro-button>
-      </auro-popover>
-    `);
+    it('closes when user clicks anything else that isn\'t the trigger or popover', async () => {
+      const el = await getStickyFixture();  
+      expectPopoverHidden(el);
   
-      const popover = el.shadowRoot.querySelector('#popover');
-      expect(popover.hasAttribute('data-show')).to.equal(false);
-  
-      const trigger = el.querySelector('auro-button')
-      trigger.click();
-      expect(popover.hasAttribute('data-show')).to.equal(true);
+      el.trigger.click();
+      expectPopoverShown(el);
   
       const decoy = await fixture(html`
         <button id="btnDecoy">decoy</button>
       `);
-      document.querySelector('#btnDecoy').click();
-      expect(popover.hasAttribute('data-show')).to.equal(false);
+
+      decoy.click();
+      expectPopoverHidden(el);
     });
   
-    it('auro-popover should close when there is an action inside the popover to close it', async () => {
-      const el = await fixture(html`
-        <auro-popover for="button1" sticky>
-            <button id="btnClosePopover">
-                click this button to close popover
-            </button>
-            tooltip text
-          <auro-button id="button1" slot="trigger">trigger text</auro-button>
-        </auro-popover>
-      `);
+    it('closes when there is an action inside the popover to close it', async () => {
+      const el = await getStickyFixture(true);
+      const btnClosePopover = el.querySelector('#btnClosePopover');
+      btnClosePopover.addEventListener('click', () => { el.toggle(); });
   
-      function eventHidePopover() {
+      expectPopoverHidden(el);
+  
+      el.trigger.click();
+      expectPopoverShown(el);   
+
+      btnClosePopover.click();
+      expectPopoverHidden(el);
+    });
+
+    it('hides on tab key', async () => {
+      const el = await getStickyFixture();
+
+      el.trigger.click();
+      expectPopoverShown(el);
+
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+      expectPopoverHidden(el);
+    });
+
+    it('hides on hidePopover event', async () => {
+      const el = await getStickyFixture(true);
+      const btnClosePopover = el.querySelector('#btnClosePopover');
+      btnClosePopover.addEventListener('click', function() {
         this.dispatchEvent(new CustomEvent('hidePopover', {
           bubbles: true,
           composed: true
         }));
-      }
-  
-      const popover = el.shadowRoot.querySelector('#popover');
-      expect(popover.hasAttribute('data-show')).to.equal(false);
-  
-      const trigger = el.querySelector('auro-button');
-      trigger.click();
-      expect(popover.hasAttribute('data-show')).to.equal(true);
-    
-      const btnClosePopover = el.querySelector('#btnClosePopover');
-      btnClosePopover.addEventListener('click', eventHidePopover)
+      });
+
+      el.trigger.click();
+      expectPopoverShown(el);
+
       btnClosePopover.click();
-      expect(popover.hasAttribute('data-show')).to.equal(false);
+      expectPopoverHidden(el);
+    });
+
+    it('toggles shown state', async () => {
+      const el = await getStickyFixture();
+      
+      el.toggle();
+      expectPopoverShown(el);
+
+      el.toggle();
+      expectPopoverHidden(el);
     });
   });
-
-
 });
+
+async function getStickyFixture(includeCloseButton = false) {
+  return await fixture(html`
+    <auro-popover for="button1" sticky>
+      ${includeCloseButton ? html`<button id="btnClosePopover">
+        click this button to close popover
+      </button>` : null}
+      tooltip text
+      <auro-button id="button1" slot="trigger">trigger text</auro-button>
+    </auro-popover>
+  `);
+}
+
+function expectPopoverShown(el) {
+  expect(el.popover.hasAttribute('data-show')).to.equal(true);
+}
+
+function expectPopoverHidden(el) {
+  expect(el.popover.hasAttribute('data-show')).to.equal(false);
+}
