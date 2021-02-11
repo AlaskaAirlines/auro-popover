@@ -16,7 +16,6 @@ import Popover from "./popover";
  *
  * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
  * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
- * @attr {boolean} isPopoverVisible - Boolean for if popover is visible or not.
  * @attr {boolean} sticky - If true, popover will persist its visibility when clicked.
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - Slot for entering the trigger element into the scope of the shadow DOM
