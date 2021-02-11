@@ -150,7 +150,7 @@ class AuroPopover extends LitElement {
   }
 
   /**
-    * @private Toggles the popover's open state
+    * For use with `sticky` property, call method on click event
     * @returns {Void} Fires an update lifecycle.
   */
   toggle() {
