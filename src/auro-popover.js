@@ -133,7 +133,6 @@ class AuroPopover extends LitElement {
 
     if (this.sticky) {
       trigger.addEventListener('click', toggleShow);
-      trigger.addEventListener('focus', toggleShow);
     } else {
       trigger.addEventListener('mouseenter', toggleShow);
       trigger.addEventListener('mouseleave', toggleHide);
