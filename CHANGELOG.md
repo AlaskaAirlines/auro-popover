@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [1.3.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.3.0...v1.3.1) (2021-02-12)
+
+
+### Bug Fixes
+
+* clean up document event listener ([de234a0](https://github.com/AlaskaAirlines/auro-popover/commit/de234a06b90a1a1c62eb00e28fa8be9c888d5148))
+
 # [1.3.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.2.0...v1.3.0) (2021-02-11)
 
 
