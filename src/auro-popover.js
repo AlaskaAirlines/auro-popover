@@ -52,35 +52,36 @@ class AuroPopover extends LitElement {
     `;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.documentClickHandler = (event) => {
+      const path = event.composedPath();
+
+      // if user clicks on something other than trigger or popover, close popover
+      if (this.isPopoverVisible && !path.includes(this.trigger) && !path.includes(this.popover)) {
+        this.toggleHide();
+      }
+    };
+
+    document.addEventListener('click', this.documentClickHandler);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('click', this.documentClickHandler)
+  }
+
   firstUpdated() {
     this.trigger = document.querySelector(`#${this.for}`);
     this.popover = this.shadowRoot.querySelector('#popover');
     this.popper = new Popover(this.trigger, this.popover, this.placement);
 
-    /**
-     * Click handler on non-trigger non-popovers
-     * @param {Event} event event
-     * @returns {Void} Fires an update lifecycle
-     */
     const handleShow = () => {
         this.toggleShow();
       },
       handleHide = () => {
         this.toggleHide();
       },
-      handleClickNonTriggerNonPopover = (event) => {
-        const path = event.composedPath();
-
-        if (this.isPopoverVisible && !path.includes(this.trigger) && !path.includes(this.popover)) {
-          this.toggleHide();
-        }
-      },
-
-      /**
-       * Click handler focus-trigger
-       * @param {Event} event event
-       * @returns {Void} Fires an update lifecycle
-       */
       handleTabWhenFocusOnTrigger = (event) => {
         if (event.key.toLowerCase() === 'tab') {
           this.toggleHide();
@@ -99,9 +100,6 @@ class AuroPopover extends LitElement {
 
     // e.g. for a closePopover button in the popover
     this.addEventListener('hidePopover', handleHide);
-
-    // if user clicks on something other than trigger or popover, close popover
-    document.addEventListener('click', handleClickNonTriggerNonPopover);
   }
 
   /**
@@ -117,7 +115,7 @@ class AuroPopover extends LitElement {
   }
 
   /**
-   * Hides the popover
+   * @private Hides the popover
    * @returns {Void} Fires an update lifecycle.
    */
   toggleHide() {
@@ -127,7 +125,7 @@ class AuroPopover extends LitElement {
   }
 
   /**
-   * Shows the popover
+   * @private Shows the popover
    * @returns {Void} Fires an update lifecycle.
    */
   toggleShow() {
