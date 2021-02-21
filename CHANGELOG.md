@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [1.4.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.4.0...v1.4.1) (2021-02-21)
+
+
+### Bug Fixes
+
+* set max-width for popover ([24c410b](https://github.com/AlaskaAirlines/auro-popover/commit/24c410bf970989566aec90415fba76b63eee140a))
+
 # [1.4.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.3.1...v1.4.0) (2021-02-21)
 
 
