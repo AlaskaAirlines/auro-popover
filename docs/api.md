@@ -2,6 +2,12 @@
 
 Popover attaches to an element and displays on hover/blur.
 
+## Attributes
+
+| Attribute  | Type      | Description                                      |
+|------------|-----------|--------------------------------------------------|
+| `addSpace` | `boolean` | If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger.. |
+
 ## Properties
 
 | Property    | Attribute   | Type      | Default | Description                                      |
