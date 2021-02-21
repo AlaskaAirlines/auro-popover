@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [1.4.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.3.1...v1.4.0) (2021-02-21)
+
+
+### Features
+
+* apply sticky feature by default on mobile devices ([8ea278c](https://github.com/AlaskaAirlines/auro-popover/commit/8ea278c1d87cf27606ab1ba270251ca74a066ac4))
+
 ## [1.3.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.3.0...v1.3.1) (2021-02-12)
 
 
