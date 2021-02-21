@@ -17,6 +17,7 @@ import Popover from "./popover";
  * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
  * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
  * @attr {boolean} sticky - If true, popover will persist its visibility when clicked.
+ * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger..
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - Slot for entering the trigger element into the scope of the shadow DOM
  */
@@ -27,6 +28,12 @@ class AuroPopover extends LitElement {
     this.privateDefaults();
 
     this.placement = 'top';
+
+    // adds toggle function to root element based on touch
+    this.addEventListener('touchstart', function() {
+      this.toggleShow();
+      this.setAttribute("isTouch", "true");
+    });
   }
 
   /**
@@ -77,16 +84,20 @@ class AuroPopover extends LitElement {
     this.popper = new Popover(this.trigger, this.popover, this.placement);
 
     const handleShow = () => {
-        this.toggleShow();
-      },
-      handleHide = () => {
+      this.toggleShow();
+    },
+    handleHide = () => {
+      this.toggleHide();
+    },
+    handleTabWhenFocusOnTrigger = (event) => {
+      if (event.key.toLowerCase() === 'tab') {
         this.toggleHide();
-      },
-      handleTabWhenFocusOnTrigger = (event) => {
-        if (event.key.toLowerCase() === 'tab') {
-          this.toggleHide();
-        }
-      };
+      }
+    };
+
+    if (!this.sticky) {
+      this.trigger.addEventListener('touchstart', handleShow);
+    }
 
     if (this.sticky) {
       this.trigger.addEventListener('click', handleShow);
@@ -141,6 +152,7 @@ class AuroPopover extends LitElement {
         <div id="arrow" class="arrow" data-popper-arrow></div>
         <slot role="tooltip"></slot>
       </div>
+
       <slot name="trigger"></slot>
     `;
   }

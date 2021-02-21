@@ -21,6 +21,12 @@ $auro-inset-directions:'';
   cursor: pointer;
 }
 
+:host([addSpace]) {
+  .popover {
+    margin: 1rem 0 !important;
+  }
+}
+
 .popover {
   border-radius: var(--auro-border-radius);
   background: var(--auro-color-background-lightest);
