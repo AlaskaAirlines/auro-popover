@@ -1,4 +1,4 @@
-# Popovers
+# Popover
 
 The Auro Design System fully supports top and bottom-placement popovers. The following examples illustrate common popover uses followed up by code examples.
 
@@ -103,7 +103,7 @@ NOTE: The popover element is hidden visually, but not set to `display: none` for
 
 </auro-accordion>
 
-## Sticky popovers
+## Sticky popover
 
 In this example, use the `sticky` property in order for the popover to remain open when the trigger is clicked or tapped. Any click outside the popover will close the popover.
 
