@@ -6,8 +6,8 @@
 import { createPopper } from '@popperjs/core/dist/esm/popper';
 
 // build the component class
-const POPOVER_OFFSET_MAX = 18,
-  POPOVER_OFFSET_MIN = 0;
+const POPOVER_OFFSET_skidding = 0,
+  POPOVER_OFFSET_distance = 18;
 
 export default class Popover {
 
@@ -34,11 +34,18 @@ export default class Popover {
           name: 'offset',
           options: {
             offset: [
-              POPOVER_OFFSET_MIN,
-              POPOVER_OFFSET_MAX
+              POPOVER_OFFSET_skidding,
+              POPOVER_OFFSET_distance
             ]
           }
-        }
+        },
+        {
+          name: 'preventOverflow',
+          options: {
+            rootBoundary: 'document',
+            padding: 16,
+          },
+        },
       ]
     })
   }
