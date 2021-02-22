@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [1.4.2](https://github.com/AlaskaAirlines/auro-popover/compare/v1.4.1...v1.4.2) (2021-02-22)
+
+
+### Bug Fixes
+
+* improve placement experience between devices ([81d095f](https://github.com/AlaskaAirlines/auro-popover/commit/81d095fa78197815b8b3d89855ba0c23c8ecb968))
+
 ## [1.4.1](https://github.com/AlaskaAirlines/auro-popover/compare/v1.4.0...v1.4.1) (2021-02-21)
 
 
