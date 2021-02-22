@@ -72,11 +72,6 @@ Since the legacy bundle includes many polyfills that are not needed by modern br
 <script src="https://unpkg.com/@alaskaairux/auro-popover@latest/dist/auro-popover__bundled.es5.js" nomodule></script>
 ```
 
-### polyfills.js
-
-The `polyfills.js` is packaged with this component, but **IT IS NOT NEEDED** to load a polyfill per component. The `polyfills.js` will work for all additional components added to the project.
-
-
 ## auro-popover use cases
 
 The `<auro-popover>` element should be used in situations where users may:
