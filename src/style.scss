@@ -4,21 +4,34 @@
 // ---------------------------------------------------------------------
 
 // Import Auro tokens
-@import "./node_modules/@alaskaairux/design-tokens/dist/tokens/SCSSVariables";
-@import "./node_modules/@alaskaairux/design-tokens/dist/tokens/SassCustomProperties";
-@import "./node_modules/@alaskaairux/design-tokens/dist/tokens/SCSSVariableMap";
+@import './node_modules/@alaskaairux/design-tokens/dist/tokens/SCSSVariables';
+@import './node_modules/@alaskaairux/design-tokens/dist/tokens/SassCustomProperties';
+@import './node_modules/@alaskaairux/design-tokens/dist/tokens/SCSSVariableMap';
 
-@import "./node_modules/@alaskaairux/webcorestylesheets/dist/breakpoints";
-@import "./node_modules/@alaskaairux/webcorestylesheets/dist/core";
+@import './node_modules/@alaskaairux/webcorestylesheets/dist/breakpoints';
+@import './node_modules/@alaskaairux/webcorestylesheets/dist/core';
 
-@import "./node_modules/@alaskaairux/webcorestylesheets/dist/utilityClasses/displayProperties";
-
+@import './node_modules/@alaskaairux/webcorestylesheets/dist/utilityClasses/displayProperties';
 $auro-inset-spacing-options: lg;
-$auro-inset-directions:'';
-@import "./node_modules/@alaskaairux/webcorestylesheets/dist/utilityMixins/insetUtility";
+$auro-inset-directions: '';
+@import './node_modules/@alaskaairux/webcorestylesheets/dist/utilityMixins/insetUtility';
 
 ::slotted(*:hover) {
   cursor: pointer;
+}
+
+:host(:not([data-show])) {
+  .popover {
+    @extend .util_displayHiddenVisually;
+  }
+}
+
+:host([data-show]) {
+  .popover {
+    z-index: var(--auro-depth-tooltip);
+
+    background-color: var(--auro-color-background-lightest);
+  }
 }
 
 :host([addSpace]) {
@@ -28,65 +41,92 @@ $auro-inset-directions:'';
 }
 
 .popover {
+  display: inline-block;
+
+  max-width: calc(100% - 2rem);
+
   border-radius: var(--auro-border-radius);
   background: var(--auro-color-background-lightest);
-  box-shadow: -2px 0px 5px 2px rgba(0, 0, 0, 0.08),
-    0px 2px 5px 1px rgba(0, 0, 0, 0.08);
-  display: inline-block;
-  max-width: calc(100% - 2rem);
+  box-shadow: -2px 0 5px 2px rgba(0, 0, 0, .08),
+  0 2px 5px 1px rgba(0, 0, 0, .08);
 
   @include auro_breakpoint--sm {
     max-width: 50%;
   }
-
   @include auro_breakpoint--md {
     max-width: 40%;
   }
-
   @include auro_breakpoint--lg {
     max-width: 27rem;
   }
-
-  &:not([data-show]){
-    @extend .util_displayHiddenVisually;
-  }
-
-  &[data-show] {
-    z-index: var(--auro-depth-tooltip);
-    background-color: var(--auro-color-background-lightest);
-  }
 }
 
-.popover[data-popper-placement^="top"] > .arrow {
+.popover[data-popper-placement^='top'] > .arrow {
   bottom: -10px;
 
   &:before {
-    transform: rotate(45deg);
     top: -16px;
     left: -6px;
+
+    transform: rotate(45deg);
   }
 }
 
-.popover[data-popper-placement^="bottom"] > .arrow {
+.popover[data-popper-placement^='bottom'] > .arrow {
   top: -10px;
 
   &:before {
-    transform: rotate(-135deg);
     top: 4px;
     right: -6px;
+
+    transform: rotate(-135deg);
+  }
+}
+
+.popover[data-popper-placement^='top'] {
+  &:before {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 20px;
+
+    content: '';
+  }
+}
+
+.popover[data-popper-placement^='bottom'] {
+  &:before {
+    position: absolute;
+    top: -20px;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 20px;
+
+    content: '';
   }
 }
 
 .arrow {
   position: relative;
+
   margin-top: -var(--auro-size-xs);
 
   &:before {
-    content: '';
     position: absolute;
-    background: var(--auro-color-base-white);
-    box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.08);
+
     width: 12px;
     height: 12px;
+
+    content: '';
+
+    background: var(--auro-color-base-white);
+    box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, .08);
   }
 }
