@@ -22,20 +22,20 @@ describe('auro-popover', () => {
     it('shows popover when you click trigger element', async () => {
       const el = await getStickyFixture();
       expectPopoverHidden(el);
-  
+
       el.trigger.click();
       expectPopoverShown(el);
 
       expect(el.textContent).to.include('tooltip');
     });
-  
+
     it('closes when user clicks anything else that isn\'t the trigger or popover', async () => {
-      const el = await getStickyFixture();  
+      const el = await getStickyFixture();
       expectPopoverHidden(el);
-  
+
       el.trigger.click();
       expectPopoverShown(el);
-  
+
       const decoy = await fixture(html`
         <button id="btnDecoy">decoy</button>
       `);
@@ -43,16 +43,16 @@ describe('auro-popover', () => {
       decoy.click();
       expectPopoverHidden(el);
     });
-  
+
     it('closes when there is an action inside the popover to close it', async () => {
       const el = await getStickyFixture(true);
       const btnClosePopover = el.querySelector('#btnClosePopover');
       btnClosePopover.addEventListener('click', () => { el.toggle(); });
-  
+
       expectPopoverHidden(el);
-  
+
       el.trigger.click();
-      expectPopoverShown(el);   
+      expectPopoverShown(el);
 
       btnClosePopover.click();
       expectPopoverHidden(el);
@@ -87,7 +87,7 @@ describe('auro-popover', () => {
 
     it('toggles shown state', async () => {
       const el = await getStickyFixture();
-      
+
       el.toggle();
       expectPopoverShown(el);
 
@@ -110,9 +110,9 @@ async function getStickyFixture(includeCloseButton = false) {
 }
 
 function expectPopoverShown(el) {
-  expect(el.popover.hasAttribute('data-show')).to.equal(true);
+  expect(el.hasAttribute('data-show')).to.equal(true);
 }
 
 function expectPopoverHidden(el) {
-  expect(el.popover.hasAttribute('data-show')).to.equal(false);
+  expect(el.hasAttribute('data-show')).to.equal(false);
 }

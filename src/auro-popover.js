@@ -102,8 +102,14 @@ class AuroPopover extends LitElement {
     if (this.sticky) {
       this.trigger.addEventListener('click', handleShow);
     } else {
-      this.trigger.addEventListener('mouseenter', handleShow);
-      this.trigger.addEventListener('mouseleave', handleHide);
+
+      if(this.trigger.parentElement.nodeName === 'AURO-POPOVER') {
+        this.addEventListener('mouseenter', handleShow);
+        this.addEventListener('mouseleave', handleHide);
+      } else {
+        this.trigger.addEventListener('mouseenter', handleShow);
+        this.trigger.addEventListener('mouseleave', handleHide);
+      }
     }
 
     // if user tabs off of trigger, then hide the popover.
@@ -130,9 +136,9 @@ class AuroPopover extends LitElement {
    * @returns {Void} Fires an update lifecycle.
    */
   toggleHide() {
-    this.popover.removeAttribute('data-show');
     this.popper.hide();
     this.isPopoverVisible = false;
+    this.removeAttribute('data-show');
   }
 
   /**
@@ -140,9 +146,9 @@ class AuroPopover extends LitElement {
    * @returns {Void} Fires an update lifecycle.
    */
   toggleShow() {
-    this.popover.setAttribute('data-show', '');
     this.popper.show();
     this.isPopoverVisible = true;
+    this.setAttribute('data-show', '');
   }
 
   // function that renders the HTML and CSS into  the scope of the component
