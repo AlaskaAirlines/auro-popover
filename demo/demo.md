@@ -20,7 +20,6 @@ Auro popover allows two ways to layout the HTML. Please see the following exampl
 
 In these examples the structure of the HTML uses the slot element to pull the trigger HTML into the scope of the outer shadow DOM element.
 
-Note that in these examples the popover content will persist as the user moves their mouse off of the trigger and over the popover content.
 
 <div class="exampleWrapper">
   <auro-popover for="button1">
@@ -67,7 +66,6 @@ In these examples the trigger can be external to the scope of the popover compon
 
 NOTE: The popover element is hidden visually, but not set to `display: none` for accessibility reasons. This is important to know in this setup because the `auro-popover` element may take up physical space depending on your layout solution.
 
-Note that in these examples the popover content will *not* persist as the user moves their mouse off of the trigger and over the popover content.
 
 <style>
   .demoFlex {

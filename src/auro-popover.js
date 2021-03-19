@@ -103,13 +103,10 @@ class AuroPopover extends LitElement {
       this.trigger.addEventListener('click', handleShow);
     } else {
 
-      if(this.trigger.parentElement.nodeName === 'AURO-POPOVER') {
-        this.addEventListener('mouseenter', handleShow);
-        this.addEventListener('mouseleave', handleHide);
-      } else {
-        this.trigger.addEventListener('mouseenter', handleShow);
-        this.trigger.addEventListener('mouseleave', handleHide);
-      }
+      const element = this.trigger.parentElement.nodeName === 'AURO-POPOVER' ? this : this.trigger;
+
+      element.addEventListener('mouseenter', handleShow);
+      element.addEventListener('mouseleave', handleHide);
     }
 
     // if user tabs off of trigger, then hide the popover.
