@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [1.5.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.4.2...v1.5.0) (2021-03-26)
+
+
+### Features
+
+* persist popover content on content hover ([e51d8f0](https://github.com/AlaskaAirlines/auro-popover/commit/e51d8f0609056015a612dc4178ede194f28ecf8f))
+
 ## [1.4.2](https://github.com/AlaskaAirlines/auro-popover/compare/v1.4.1...v1.4.2) (2021-02-22)
 
 
