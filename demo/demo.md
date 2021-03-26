@@ -1,8 +1,6 @@
 # Popover
 
-The Auro Design System fully supports top and bottom-placement popovers. The following examples illustrate common popover uses followed up by code examples.
-
-The auro-popover element is meant to be used when the interaction and it's content is passive. A popover is not to be used for cases where the user must adjust their focus and acknowledge the presented content. For these cases, please see the [auro-dialog](https://auro.alaskaair.com/components/auro/dialog) element.
+The Auro Design System fully supports `top` and `bottom` placed popovers. The following examples illustrate common popover uses followed up by code examples.
 
 See [install instructions](https://auro.alaskaair.com/components/auro/popover/install) for more information as how to install and full API for the `auro-popover` element.
 
@@ -16,10 +14,9 @@ The `auro-popover` element should be used in situations where users may:
 
 Auro popover allows two ways to layout the HTML. Please see the following examples.
 
-## Using slots, internal to component
+## Using slots, internal to the popover element
 
-In these examples the structure of the HTML uses the slot element to pull the trigger HTML into the scope of the outer shadow DOM element.
-
+The following examples illustrates using the `trigger` slot within the scope of the `auro-popover` element.
 
 <div class="exampleWrapper">
   <auro-popover for="button1">
@@ -42,65 +39,23 @@ In these examples the structure of the HTML uses the slot element to pull the tr
   <span slot="trigger">See code</span>
 
 ```html
+<!-- The slot=trigger attribute is bound directly to the auro-button element  -->
 <auro-popover for="button1">
   Top popover content!
   <auro-button id="button1" slot="trigger">Popover Test</auro-button>
 </auro-popover>
 
+<!-- Using the placement=bottom attribute -->
 <auro-popover for="button2" placement="bottom">
   Bottom popover content!
   <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
 </auro-popover>
 
+<!-- The slot=trigger attribute is bound directly to the auro-icon element  -->
 <auro-popover for="plugIcon">
   This flight offers seat power service
   <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
 </auro-popover>
-```
-
-</auro-accordion>
-
-## Using disconnected elements
-
-In these examples the trigger can be external to the scope of the popover component allowing for a disconnected HTML structure.
-
-NOTE: The popover element is hidden visually, but not set to `display: none` for accessibility reasons. This is important to know in this setup because the `auro-popover` element may take up physical space depending on your layout solution.
-
-
-<style>
-  .demoFlex {
-    display: flex;
-    align-items: flex-start;
-    align-items: center;
-  }
-
-  .demoFlex > auro-button {
-    margin-right: 0.25rem;
-  }
-</style>
-
-<div class="exampleWrapper demoFlex">
-  <auro-popover for="button3">Top popover content!</auro-popover>
-  <auro-button id="button3">Popover Test</auro-button>
-  <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
-  <auro-button secondary id="button4">Popover Test</auro-button>
-  &nbsp;&nbsp;
-  <auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
-  <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
-</div>
-
-<auro-accordion lowProfile justifyRight>
-  <span slot="trigger">See code</span>
-
-```html
-<auro-popover for="button3">Top popover content!</auro-popover>
-<auro-button id="button3">Popover Test</auro-button>
-
-<auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
-<auro-button secondary id="button4">Popover Test</auro-button>
-
-<auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
-<auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
 ```
 
 </auro-accordion>
@@ -126,6 +81,38 @@ When the intention is to close the popover with an event within the popover, use
   <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
   <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
 </auro-popover>
+```
+
+</auro-accordion>
+
+## Using disconnected elements
+
+In these examples the `trigger` is external to the scope of the `auro-popover` element.
+
+**NOTE:** Using the disconnection pattern breaks the parent > child relationship between the `trigger` and the popover. Because of this, the ability to move from the trigger hover into the popover and have the popover persist is not available. If this pattern and the persisted popover is needed, we suggest using the `stick` attribute.
+
+<div class="exampleWrapper">
+  <auro-popover for="button3">Top popover content!</auro-popover>
+  <auro-button id="button3">Popover Test</auro-button>
+  <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
+  <auro-button secondary id="button4">Popover Test</auro-button>
+  &nbsp;&nbsp;
+  <auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
+  <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
+</div>
+
+<auro-accordion lowProfile justifyRight>
+  <span slot="trigger">See code</span>
+
+```html
+<auro-popover for="button3">Top popover content!</auro-popover>
+<auro-button id="button3">Popover Test</auro-button>
+
+<auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
+<auro-button secondary id="button4">Popover Test</auro-button>
+
+<auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
+<auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
 ```
 
 </auro-accordion>
@@ -164,28 +151,31 @@ Depending on the element trigger that the popover element is assigned to, the sp
 ```
 </auro-accordion>
 
-## Do's and don'ts
+## Guidelines
 
-Binding a trigger event to a hyperlink is **not** recommended. This is a poor user experience for mobile devices, the event required to make the popover appear is a `tap`. The tap will also trigger the hyperlink to fire as well, thus negating the impact of the popover.
+The auro-popover element is meant to be used when the interaction and it's content is passive. A popover is not to be used for cases where the user must adjust their focus and acknowledge the presented content. For these cases, please see the [auro-dialog](https://auro.alaskaair.com/components/auro/dialog) element.
+
+Binding a `trigger` event to a hyperlink is **not** recommended. This is a poor user experience for mobile devices, the event required to make the popover appear is a `tap`. The tap will also trigger the hyperlink to fire as well, thus negating the impact of the popover.
 
 The use of a hyperlink for to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
 
 <auro-alerts error noIcon>
-
   <div class="exampleWrapper">
-    <auro-hyperlink id="link" href="/" relative nav>hyperlink popover trigger</auro-hyperlink>
-    <auro-popover for="link">This works, but not recommended</auro-popover>
+    <auro-popover for="link">
+      This works, but not recommended
+      <auro-hyperlink id="link" href="/" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
+    </auro-popover>
   </div>
-
 </auro-alerts>
 
 <auro-accordion lowProfile justifyRight>
   <span slot="trigger">See code</span>
 
 ```html
-<auro-hyperlink id="link" href="/" relative nav>hyperlink popover trigger</auro-hyperlink>
-<auro-popover for="link">This works, but not recommended</auro-popover>
-
+<auro-popover for="link">
+  This works, but not recommended
+  <auro-hyperlink id="link" href="/" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
+</auro-popover>
 ```
 </auro-accordion>
 
@@ -193,8 +183,10 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 
 <auro-alerts success noIcon>
   <div class="exampleWrapper">
-    <auro-hyperlink id="linkButton" role="button" relative>hyperlink, role button</auro-hyperlink>
-    <auro-popover for="linkButton">Role button is recommended</auro-popover>
+    <auro-popover for="linkButton">
+      Role button is recommended
+      <auro-hyperlink id="linkButton" role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
+    </auro-popover>
   </div>
 </auro-alerts>
 
@@ -202,9 +194,10 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
   <span slot="trigger">See code</span>
 
 ```html
-<auro-hyperlink id="linkButton" role="button" relative>hyperlink, role button</auro-hyperlink>
-<auro-popover for="linkButton">Role button is recommended</auro-popover>
-
+<auro-popover for="linkButton">
+  Role button is recommended
+  <auro-hyperlink id="linkButton" role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
+</auro-popover>
 ```
 </auro-accordion>
 
