@@ -19,7 +19,7 @@ describe('auro-popover', () => {
   });
 
   describe('when "sticky" attribute set to true', () => {
-    it('shows popover when you click trigger element', async () => {
+    it('toggles popover when you click trigger element', async () => {
       const el = await getStickyFixture();
       expectPopoverHidden(el);
 
@@ -27,6 +27,9 @@ describe('auro-popover', () => {
       expectPopoverShown(el);
 
       expect(el.textContent).to.include('tooltip');
+
+      el.trigger.click();
+      expectPopoverHidden(el);
     });
 
     it('closes when user clicks anything else that isn\'t the trigger or popover', async () => {

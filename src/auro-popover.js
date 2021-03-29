@@ -4,6 +4,7 @@
 // ---------------------------------------------------------------------
 
 import { LitElement, html, css } from "lit-element";
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 
 // Import touch detection lib
 import "focus-visible/dist/focus-visible.min.js";
@@ -89,6 +90,13 @@ class AuroPopover extends LitElement {
     handleHide = () => {
       this.toggleHide();
     },
+    handleToggle = () => {
+      if (this.isPopoverVisible) {
+        handleHide();
+      } else {
+        handleShow();
+      }
+    },
     handleTabWhenFocusOnTrigger = (event) => {
       if (event.key.toLowerCase() === 'tab') {
         this.toggleHide();
@@ -100,7 +108,7 @@ class AuroPopover extends LitElement {
     }
 
     if (this.sticky) {
-      this.trigger.addEventListener('click', handleShow);
+      this.trigger.addEventListener('click', handleToggle);
     } else {
 
       const element = this.trigger.parentElement.nodeName === 'AURO-POPOVER' ? this : this.trigger;
@@ -156,7 +164,10 @@ class AuroPopover extends LitElement {
         <slot role="tooltip"></slot>
       </div>
 
-      <slot name="trigger"></slot>
+      <slot
+        name="trigger"
+        data-trigger-placement="${ifDefined(this.sticky ? undefined : this.placement)}">
+      </slot>
     `;
   }
 }
