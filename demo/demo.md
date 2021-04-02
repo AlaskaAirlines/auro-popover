@@ -31,7 +31,12 @@ The following examples illustrates using the `trigger` slot within the scope of 
   &nbsp;
   <auro-popover for="plugIcon">
     This flight offers seat power service
-    <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
+    <!--
+      For elements like `auro-icon` that do not have a default tab-to state,
+      be sure to add `tabindex="0"` to the element when using `auro-popover`
+      otherwise users of assistive technology will not see the content.
+    -->
+    <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
   </auro-popover>
 </div>
 
@@ -54,32 +59,12 @@ The following examples illustrates using the `trigger` slot within the scope of 
 <!-- The slot=trigger attribute is bound directly to the auro-icon element  -->
 <auro-popover for="plugIcon">
   This flight offers seat power service
-  <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger"></auro-icon>
-</auro-popover>
-```
-
-</auro-accordion>
-
-## Sticky popover
-
-In this example, use the `sticky` property in order for the popover to remain open when the trigger is clicked or tapped. Any click outside the popover will close the popover.
-
-When the intention is to close the popover with an event within the popover, use the `toggle()` method bound to a click event on the trigger element within the popover.
-
-<div class="exampleWrapper">
-  <auro-popover id="stickyPopover" for="stickyAction" sticky>
-    <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-    <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
-  </auro-popover>
-</div>
-
-<auro-accordion lowProfile justifyRight>
-  <span slot="trigger">See code</span>
-
-```html
-<auro-popover id="stickyPopover" for="stickyAction" sticky>
-  <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-  <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
+    <!--
+      For elements like `auro-icon` that do not have a default tab-to state,
+      be sure to add `tabindex="0"` to the element when using `auro-popover`
+      otherwise users of assistive technology will not see the content.
+    -->
+  <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
 </auro-popover>
 ```
 
@@ -87,9 +72,9 @@ When the intention is to close the popover with an event within the popover, use
 
 ## Using disconnected elements
 
-In these examples the `trigger` is external to the scope of the `auro-popover` element.
+While is it possible to use this element without nesting the trigger inside the `auro-popover` element, it is not recommended as this is very difficult to support.
 
-**NOTE:** Using the disconnection pattern breaks the parent > child relationship between the `trigger` and the popover. Because of this, the ability to move from the trigger hover into the popover and have the popover persist is not available. If this pattern and the persisted popover is needed, we suggest using the `stick` attribute.
+If you are using this pattern, it is recommended that you update your app to use the nested pattern.
 
 <div class="exampleWrapper">
   <auro-popover for="button3">Top popover content!</auro-popover>
@@ -97,7 +82,7 @@ In these examples the `trigger` is external to the scope of the `auro-popover` e
   <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
   <auro-button secondary id="button4">Popover Test</auro-button>
   &nbsp;&nbsp;
-  <auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
+  <auro-icon id="plugIcon2" category="in-flight" name="plug" tabindex="0"></auro-icon>
   <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
 </div>
 
@@ -111,7 +96,7 @@ In these examples the `trigger` is external to the scope of the `auro-popover` e
 <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
 <auro-button secondary id="button4">Popover Test</auro-button>
 
-<auro-icon id="plugIcon2" category="in-flight" name="plug"></auro-icon>
+<auro-icon id="plugIcon2" category="in-flight" name="plug" tabindex="0"></auro-icon>
 <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
 ```
 
@@ -204,5 +189,3 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 ## Developer notes
 
 The default trigger for a popover is a `hover` event. Mobile devices do not support `hover` events directly, so the `hover` event is replaced with a `touchstart` event to produce the popover. This is to ensure reliability of the action versus versus a dependency on a secondary interruption of the `hover` event on mobile devices.
-
-The popover behaves much like the `sticky` feature on mobile devices.

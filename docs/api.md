@@ -10,17 +10,10 @@ Popover attaches to an element and displays on hover/blur.
 
 ## Properties
 
-| Property    | Attribute   | Type      | Default | Description                                      |
-|-------------|-------------|-----------|---------|--------------------------------------------------|
-| `for`       | `for`       | `String`  |         | Defines an `id` for an element in the DOM to trigger on hover/blur. |
-| `placement` | `placement` | `String`  | "top"   | Expects top/bottom - position for popover in relation to the element. |
-| `sticky`    | `sticky`    | `boolean` |         | If true, popover will persist its visibility when clicked. |
-
-## Methods
-
-| Method   | Type       | Description                                      |
-|----------|------------|--------------------------------------------------|
-| `toggle` | `(): Void` | For use with `sticky` property, call method on click event |
+| Property    | Attribute   | Type     | Default | Description                                      |
+|-------------|-------------|----------|---------|--------------------------------------------------|
+| `for`       | `for`       | `String` |         | Defines an `id` for an element in the DOM to trigger on hover/blur. |
+| `placement` | `placement` | `String` | "top"   | Expects top/bottom - position for popover in relation to the element. |
 
 ## Slots
 
