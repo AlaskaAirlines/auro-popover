@@ -1,7 +1,6 @@
 import { fixture, html, expect } from '@open-wc/testing';
 import '../src/auro-popover.js';
 
-
 describe('auro-popover', () => {
   it('is accessible', async () => {
     const el = await fixture(html`
@@ -18,95 +17,109 @@ describe('auro-popover', () => {
     await expect(el).to.be.true;
   });
 
-  describe('when "sticky" attribute set to true', () => {
-    it('shows popover when you click trigger element', async () => {
-      const el = await getStickyFixture();
+  describe('visibility via mouse', () => {
+    it('shows hidden content on hover', async () => {
+      const el = await getFixture();
+
       expectPopoverHidden(el);
 
-      el.trigger.click();
-      expectPopoverShown(el);
+      el.dispatchEvent(new MouseEvent('mouseenter'));
 
       expect(el.textContent).to.include('tooltip');
-    });
 
-    it('closes when user clicks anything else that isn\'t the trigger or popover', async () => {
-      const el = await getStickyFixture();
+      expectPopoverShown(el);
+    })
+
+    it('hides popover content on hover off', async () => {
+      const el = await getFixture();
+
       expectPopoverHidden(el);
 
-      el.trigger.click();
+      el.dispatchEvent(new MouseEvent('mouseenter'));
+
       expectPopoverShown(el);
 
-      const decoy = await fixture(html`
-        <button id="btnDecoy">decoy</button>
-      `);
+      el.dispatchEvent(new MouseEvent('mouseleave'));
 
-      decoy.click();
       expectPopoverHidden(el);
-    });
+    })
+  })
 
-    it('closes when there is an action inside the popover to close it', async () => {
-      const el = await getStickyFixture(true);
-      const btnClosePopover = el.querySelector('#btnClosePopover');
-      btnClosePopover.addEventListener('click', () => { el.toggle(); });
+  describe('visibility via keyboard', () => {
+    it ('toggles hidden content trigger focus and space key', async () => {
+      const el = await getFixture();
 
       expectPopoverHidden(el);
 
-      el.trigger.click();
+      el.trigger.dispatchEvent(new Event('focus'));
+
       expectPopoverShown(el);
 
-      btnClosePopover.click();
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'escape' }));
+
       expectPopoverHidden(el);
-    });
 
-    it('hides on tab key', async () => {
-      const el = await getStickyFixture();
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
 
-      el.trigger.click();
       expectPopoverShown(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+
       expectPopoverHidden(el);
-    });
 
-    it('hides on hidePopover event', async () => {
-      const el = await getStickyFixture(true);
-      const btnClosePopover = el.querySelector('#btnClosePopover');
-      btnClosePopover.addEventListener('click', function() {
-        this.dispatchEvent(new CustomEvent('hidePopover', {
-          bubbles: true,
-          composed: true
-        }));
-      });
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
 
-      el.trigger.click();
       expectPopoverShown(el);
 
-      btnClosePopover.click();
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'tab' }));
+
       expectPopoverHidden(el);
-    });
+    })
 
-    it('toggles shown state', async () => {
-      const el = await getStickyFixture();
+    it ('toggles hidden content trigger focus and enter key', async () => {
+      const el = await getFixture();
 
-      el.toggle();
+      expectPopoverHidden(el);
+
+      el.trigger.dispatchEvent(new Event('focus'));
+
       expectPopoverShown(el);
 
-      el.toggle();
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'enter' }));
+
       expectPopoverHidden(el);
-    });
-  });
+
+      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'enter' }));
+
+      expectPopoverShown(el);
+    })
+  })
+
+  describe('visibility via touch', () => {
+    it('toggles popover content on touch', async () => {
+      const el = await getFixture();
+
+      expectPopoverHidden(el);
+
+      el.dispatchEvent(new MouseEvent('touchstart'));
+
+      expectPopoverShown(el);
+
+      el.dispatchEvent(new MouseEvent('touchstart'));
+
+      expectPopoverHidden(el);
+    })
+  })
 });
 
-async function getStickyFixture(includeCloseButton = false) {
-  return await fixture(html`
-    <auro-popover for="button1" sticky>
-      ${includeCloseButton ? html`<button id="btnClosePopover">
-        click this button to close popover
-      </button>` : null}
-      tooltip text
-      <auro-button id="button1" slot="trigger">trigger text</auro-button>
-    </auro-popover>
-  `);
+async function getFixture() {
+  return await fixture (
+    html`
+      <auro-popover for="popover1">
+        tooltip text
+        <auro-button id="popover1" slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
 }
 
 function expectPopoverShown(el) {

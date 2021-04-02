@@ -20,9 +20,37 @@ $auro-inset-directions: '';
   cursor: pointer;
 }
 
+[data-trigger-placement]::slotted(*:hover) {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 20px;
+
+    content: '';
+  }
+}
+
+[data-trigger-placement^='top']::slotted(*:hover) {
+  &:before {
+    top: -20px;
+  }
+}
+
+[data-trigger-placement^='bottom']::slotted(*:hover) {
+  &:before {
+    bottom: -20px;
+  }
+}
+
 :host(:not([data-show])) {
   .popover {
-    @extend .util_displayHiddenVisually;
+    @extend .util_displayHidden;
   }
 }
 
@@ -37,6 +65,30 @@ $auro-inset-directions: '';
 :host([addSpace]) {
   .popover {
     margin: var(--auro-size-md) 0 !important;
+  }
+
+  [data-trigger-placement]::slotted(*:hover) {
+    &:before {
+      height: 40px;
+    }
+  }
+
+  [data-trigger-placement^='top']::slotted(*:hover) {
+    &:before {
+      top: -40px;
+    }
+  }
+
+  [data-trigger-placement^='bottom']::slotted(*:hover) {
+    &:before {
+      bottom: -40px;
+    }
+  }
+
+  :host(:not([data-show])) {
+    .popover {
+      @extend .util_displayHidden;
+    }
   }
 }
 
@@ -80,33 +132,6 @@ $auro-inset-directions: '';
     right: -6px;
 
     transform: rotate(-135deg);
-  }
-}
-
-[data-popper-placement^='top'],
-[data-popper-placement^='bottom'] {
-  &:before {
-    position: absolute;
-    left: 0;
-
-    display: block;
-
-    width: 100%;
-    height: 20px;
-
-    content: '';
-  }
-}
-
-[data-popper-placement^='top'] {
-  &:before {
-    bottom: -20px;
-  }
-}
-
-[data-popper-placement^='bottom'] {
-  &:before {
-    top: -20px;
   }
 }
 
