@@ -60,36 +60,11 @@ The following examples illustrates using the `trigger` slot within the scope of 
 
 </auro-accordion>
 
-## Sticky popover
-
-In this example, use the `sticky` property in order for the popover to remain open when the trigger is clicked or tapped. Any click outside the popover will close the popover.
-
-When the intention is to close the popover with an event within the popover, use the `toggle()` method bound to a click event on the trigger element within the popover.
-
-<div class="exampleWrapper">
-  <auro-popover id="stickyPopover" for="stickyAction" sticky>
-    <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-    <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
-  </auro-popover>
-</div>
-
-<auro-accordion lowProfile justifyRight>
-  <span slot="trigger">See code</span>
-
-```html
-<auro-popover id="stickyPopover" for="stickyAction" sticky>
-  <auro-button onclick="document.querySelector('#stickyPopover').toggle()">Click to exit</auro-button>
-  <auro-button secondary id="stickyAction" slot="trigger">Sticky Action</auro-button>
-</auro-popover>
-```
-
-</auro-accordion>
-
 ## Using disconnected elements
 
 In these examples the `trigger` is external to the scope of the `auro-popover` element.
 
-**NOTE:** Using the disconnection pattern breaks the parent > child relationship between the `trigger` and the popover. Because of this, the ability to move from the trigger hover into the popover and have the popover persist is not available. If this pattern and the persisted popover is needed, we suggest using the `stick` attribute.
+**NOTE:** Using the disconnection pattern breaks the parent > child relationship between the `trigger` and the popover. Because of this, the ability to move from the trigger hover into the popover and have the popover persist is not available.
 
 <div class="exampleWrapper">
   <auro-popover for="button3">Top popover content!</auro-popover>
@@ -204,5 +179,3 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 ## Developer notes
 
 The default trigger for a popover is a `hover` event. Mobile devices do not support `hover` events directly, so the `hover` event is replaced with a `touchstart` event to produce the popover. This is to ensure reliability of the action versus versus a dependency on a secondary interruption of the `hover` event on mobile devices.
-
-The popover behaves much like the `sticky` feature on mobile devices.

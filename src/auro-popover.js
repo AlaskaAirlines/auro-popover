@@ -16,7 +16,6 @@ import Popover from "./popover";
  *
  * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
  * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
- * @attr {boolean} sticky - If true, popover will persist its visibility when clicked.
  * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger..
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - Slot for entering the trigger element into the scope of the shadow DOM
@@ -31,7 +30,7 @@ class AuroPopover extends LitElement {
 
     // adds toggle function to root element based on touch
     this.addEventListener('touchstart', function() {
-      this.toggleShow();
+      this.toggle();
       this.setAttribute("isTouch", "true");
     });
   }
@@ -48,8 +47,7 @@ class AuroPopover extends LitElement {
   static get properties() {
     return {
       placement:  { type: String },
-      for:        { type: String },
-      sticky:     { type: Boolean }
+      for:        { type: String }
     };
   }
 
@@ -61,16 +59,6 @@ class AuroPopover extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.documentClickHandler = (event) => {
-      const path = event.composedPath();
-
-      // if user clicks on something other than trigger or popover, close popover
-      if (this.isPopoverVisible && !path.includes(this.trigger) && !path.includes(this.popover)) {
-        this.toggleHide();
-      }
-    };
-
-    document.addEventListener('click', this.documentClickHandler);
   }
 
   disconnectedCallback() {
@@ -89,35 +77,37 @@ class AuroPopover extends LitElement {
     handleHide = () => {
       this.toggleHide();
     },
-    handleTabWhenFocusOnTrigger = (event) => {
-      if (event.key.toLowerCase() === 'tab') {
-        this.toggleHide();
+    handleKeyboardWhenFocusOnTrigger = (event) => {
+      const key = event.key.toLowerCase();
+
+      if (this.isPopoverVisible) {
+        if (key === 'tab' || key === 'escape') {
+          this.toggleHide();
+        }
       }
-    };
 
-    if (!this.sticky) {
-      this.trigger.addEventListener('touchstart', handleShow);
-    }
+      if (key === ' ' || key === 'enter') {
+        this.toggle();
+      }
+    },
+    element = this.trigger.parentElement.nodeName === 'AURO-POPOVER' ? this : this.trigger;
 
-    if (this.sticky) {
-      this.trigger.addEventListener('click', handleShow);
-    } else {
-
-      const element = this.trigger.parentElement.nodeName === 'AURO-POPOVER' ? this : this.trigger;
-
-      element.addEventListener('mouseenter', handleShow);
-      element.addEventListener('mouseleave', handleHide);
-    }
+    element.addEventListener('mouseenter', handleShow);
+    element.addEventListener('mouseleave', handleHide);
 
     // if user tabs off of trigger, then hide the popover.
-    this.trigger.addEventListener('keydown', handleTabWhenFocusOnTrigger);
+    this.trigger.addEventListener('keydown', handleKeyboardWhenFocusOnTrigger);
+
+    // handle gain/loss of focus
+    this.trigger.addEventListener('focus', handleShow);
+    this.trigger.addEventListener('blur', handleHide);
 
     // e.g. for a closePopover button in the popover
     this.addEventListener('hidePopover', handleHide);
   }
 
   /**
-    * For use with `sticky` property, call method on click event
+    * @private Toggles the display of the popover content
     * @returns {Void} Fires an update lifecycle.
   */
   toggle() {
@@ -145,7 +135,7 @@ class AuroPopover extends LitElement {
   toggleShow() {
     this.popper.show();
     this.isPopoverVisible = true;
-    this.setAttribute('data-show', '');
+    this.setAttribute('data-show', true);
   }
 
   // function that renders the HTML and CSS into  the scope of the component
@@ -153,10 +143,10 @@ class AuroPopover extends LitElement {
     return html`
       <div id="popover" class="popover util_insetLg">
         <div id="arrow" class="arrow" data-popper-arrow></div>
-        <slot role="tooltip"></slot>
+        <slot role="tooltip" aria-live="assertive"></slot>
       </div>
 
-      <slot name="trigger"></slot>
+      <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
     `;
   }
 }
