@@ -1,5 +1,19 @@
 # Semantic Release Automated Changelog
 
+# [2.0.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.6.0...v2.0.0) (2021-04-16)
+
+
+### chore
+
+* update packages ([3080e7f](https://github.com/AlaskaAirlines/auro-popover/commit/3080e7f2fd48827933ac45dccb2de9e3e01ab04e))
+
+
+### BREAKING CHANGES
+
+* This update is designating a breaking change
+as the previous commit removed the STICKY feature, but was
+not tagged correctly for the major change in API support
+
 # [1.6.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.5.0...v1.6.0) (2021-04-16)
 
 
