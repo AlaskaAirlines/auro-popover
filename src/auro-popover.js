@@ -14,9 +14,10 @@ import Popover from "./popover";
 /**
  * Popover attaches to an element and displays on hover/blur.
  *
- * @attr {String} placement - Expects top/bottom - position for popover in relation to the element.
- * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur.
- * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger..
+ * @attr {String} placement - Expects top/bottom - position for popover in relation to the element
+ * @attr {String} for - Defines an `id` for an element in the DOM to trigger on hover/blur
+ * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger
+ * @attr {boolean} removeSpace - If true, will remove top and bottom space around the appearance of the popover in relation to the trigger
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - Slot for entering the trigger element into the scope of the shadow DOM
  */
