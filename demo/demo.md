@@ -28,16 +28,6 @@ The following examples illustrates using the `trigger` slot within the scope of 
     Bottom popover content!
     <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
   </auro-popover>
-  &nbsp;
-  <auro-popover for="plugIcon">
-    This flight offers seat power service
-    <!--
-      For elements like `auro-icon` that do not have a default tab-to state,
-      be sure to add `tabindex="0"` to the element when using `auro-popover`
-      otherwise users of assistive technology will not see the content.
-    -->
-    <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
-  </auro-popover>
 </div>
 
 <auro-accordion lowProfile justifyRight>
@@ -55,67 +45,22 @@ The following examples illustrates using the `trigger` slot within the scope of 
   Bottom popover content!
   <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
 </auro-popover>
-
-<!-- The slot=trigger attribute is bound directly to the auro-icon element  -->
-<auro-popover for="plugIcon">
-  This flight offers seat power service
-    <!--
-      For elements like `auro-icon` that do not have a default tab-to state,
-      be sure to add `tabindex="0"` to the element when using `auro-popover`
-      otherwise users of assistive technology will not see the content.
-    -->
-  <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
-</auro-popover>
 ```
-
 </auro-accordion>
-
-## Using disconnected elements
-
-While is it possible to use this element without nesting the trigger inside the `auro-popover` element, it is not recommended as this is very difficult to support.
-
-If you are using this pattern, it is recommended that you update your app to use the nested pattern.
-
-<div class="exampleWrapper" style="overflow: unset">
-  <auro-popover for="button3">Top popover content!</auro-popover>
-  <auro-button id="button3">Popover Test</auro-button>
-  <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
-  <auro-button secondary id="button4">Popover Test</auro-button>
-  &nbsp;&nbsp;
-  <auro-icon id="plugIcon2" category="in-flight" name="plug" tabindex="0"></auro-icon>
-  <auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
-</div>
-
-<auro-accordion lowProfile justifyRight>
-  <span slot="trigger">See code</span>
-
-```html
-<auro-popover for="button3">Top popover content!</auro-popover>
-<auro-button id="button3">Popover Test</auro-button>
-
-<auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
-<auro-button secondary id="button4">Popover Test</auro-button>
-
-<auro-icon id="plugIcon2" category="in-flight" name="plug" tabindex="0"></auro-icon>
-<auro-popover for="plugIcon2" placement="bottom">This flight offers seat power service</auro-popover>
-```
-
-</auro-accordion>
-
 
 ## Add space around popover
 
-Depending on the element trigger that the popover element is assigned to, the spacing between the trigger and the popover may be too close. For these instances, use the `addSpace` attribute.
+Sometimes you just need more space. For these instances, use the `addSpace` attribute.
 
 <div class="exampleWrapper" style="overflow: unset">
   <auro-popover for="button10" addSpace>
     Notice this popover is a little<br>further away from the trigger.
-    <auro-button id="button10" slot="trigger">Popover w/additional space</auro-button>
+    <auro-button id="button10" slot="trigger">Popover w/additional space above</auro-button>
   </auro-popover>
 
-  <auro-popover for="button11" placement="bottom">
-    This popover uses the default spacing<br>between the popover and the trigger.
-    <auro-button secondary id="button11" slot="trigger">Popover w/o additional space</auro-button>
+  <auro-popover for="button11" placement="bottom" addSpace>
+    Notice this popover is a little<br>further away from the trigger.
+    <auro-button secondary id="button11" slot="trigger">Popover w/additional space below</auro-button>
   </auro-popover>
 </div>
 
@@ -125,14 +70,44 @@ Depending on the element trigger that the popover element is assigned to, the sp
 ```html
 <auro-popover for="button10" addSpace>
   Notice this popover is a little<br>further away from the trigger.
-  <auro-button id="button10" slot="trigger">Popover w/additional space</auro-button>
+  <auro-button id="button10" slot="trigger">Popover w/additional space above</auro-button>
 </auro-popover>
 
-<auro-popover for="button11" placement="bottom">
-  This popover uses the default spacing<br>between the popover and the trigger.
-  <auro-button secondary id="button11" slot="trigger">Popover w/o additional space</auro-button>
+<auro-popover for="button11" placement="bottom" addSpace>
+  Notice this popover is a little<br>further away from the trigger.
+  <auro-button secondary id="button11" slot="trigger">Popover w/additional space below</auro-button>
 </auro-popover>
 
+```
+</auro-accordion>
+
+## Remove space around popover
+
+Sometimes you just need less space. For these instances, use the `removeSpace` attribute.
+
+<div class="exampleWrapper">
+  <!-- The slot=trigger attribute is bound directly to the auro-icon element  -->
+  <auro-popover for="plugIcon" removeSpace>
+    Notice this popover is a little<br>closer to the trigger.
+    <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
+  </auro-popover>
+</div>
+
+<auro-accordion lowProfile justifyRight>
+  <span slot="trigger">See code</span>
+
+```html
+<!-- The slot=trigger attribute is bound directly to the auro-icon element  -->
+<auro-popover for="plugIcon" removeSpace>
+  Notice this popover is a little<br>closer to the trigger.
+
+    <!--
+      For elements like `auro-icon` that do not have a default tab-to state,
+      be sure to add `tabindex="0"` to the element when using `auro-popover`
+      otherwise users of assistive technology will not see the content.
+    -->
+  <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
+</auro-popover>
 ```
 </auro-accordion>
 
@@ -148,7 +123,7 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
   <div class="exampleWrapper">
     <auro-popover for="link">
       This works, but not recommended
-      <auro-hyperlink id="link" href="/" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
+      <auro-hyperlink id="link" href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
     </auro-popover>
   </div>
 </auro-alerts>
@@ -159,7 +134,7 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
 ```html
 <auro-popover for="link">
   This works, but not recommended
-  <auro-hyperlink id="link" href="/" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
+  <auro-hyperlink id="link" href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
 </auro-popover>
 ```
 </auro-accordion>

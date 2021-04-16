@@ -62,6 +62,12 @@ $auro-inset-directions: '';
   }
 }
 
+:host([removeSpace]) {
+  .popover {
+    margin: -5px 0 !important;
+  }
+}
+
 :host([addSpace]) {
   .popover {
     margin: var(--auro-size-md) 0 !important;
