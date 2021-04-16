@@ -18,7 +18,7 @@ Auro popover allows two ways to layout the HTML. Please see the following exampl
 
 The following examples illustrates using the `trigger` slot within the scope of the `auro-popover` element.
 
-<div class="exampleWrapper">
+<div class="exampleWrapper" style="overflow: unset">
   <auro-popover for="button1">
     Top popover content!
     <auro-button id="button1" slot="trigger">Popover Test</auro-button>
@@ -76,7 +76,7 @@ While is it possible to use this element without nesting the trigger inside the 
 
 If you are using this pattern, it is recommended that you update your app to use the nested pattern.
 
-<div class="exampleWrapper">
+<div class="exampleWrapper" style="overflow: unset">
   <auro-popover for="button3">Top popover content!</auro-popover>
   <auro-button id="button3">Popover Test</auro-button>
   <auro-popover for="button4" placement="bottom">bottom popover content!</auro-popover>
@@ -107,7 +107,7 @@ If you are using this pattern, it is recommended that you update your app to use
 
 Depending on the element trigger that the popover element is assigned to, the spacing between the trigger and the popover may be too close. For these instances, use the `addSpace` attribute.
 
-<div class="exampleWrapper">
+<div class="exampleWrapper" style="overflow: unset">
   <auro-popover for="button10" addSpace>
     Notice this popover is a little<br>further away from the trigger.
     <auro-button id="button10" slot="trigger">Popover w/additional space</auro-button>
