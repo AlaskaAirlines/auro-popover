@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [1.6.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.5.0...v1.6.0) (2021-04-16)
+
+
+### Features
+
+* remove sticky and change hidden SCSS ([15ed409](https://github.com/AlaskaAirlines/auro-popover/commit/15ed409a67d826f04c74fa444cd083f204637698))
+
 # [1.5.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.4.2...v1.5.0) (2021-03-26)
 
 
