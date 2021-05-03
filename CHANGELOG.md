@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [2.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.0.0...v2.1.0) (2021-05-03)
+
+
+### Features
+
+* [#26](https://github.com/AlaskaAirlines/auro-popover/issues/26) and [#24](https://github.com/AlaskaAirlines/auro-popover/issues/24) add new 'removeSpace' UI attribute ([78f8a50](https://github.com/AlaskaAirlines/auro-popover/commit/78f8a507d2668cfbff119508ac45841aebcad1b4))
+
 # [2.0.0](https://github.com/AlaskaAirlines/auro-popover/compare/v1.6.0...v2.0.0) (2021-04-16)
 
 
