@@ -1,5 +1,6 @@
 import { fixture, html, expect } from '@open-wc/testing';
 import '../src/auro-popover.js';
+import './shadow-popover';
 
 describe('auro-popover', () => {
   it('is accessible', async () => {
@@ -15,6 +16,14 @@ describe('auro-popover', () => {
     const el = await Boolean(customElements.get("auro-popover"));
 
     await expect(el).to.be.true;
+  });
+
+  it('finds trigger in shadow root', async () => {
+    const el = await fixture(html`
+      <shadow-popover></shadow-popover>
+    `);
+
+    expect(el.popover.trigger).to.eql(el.trigger);
   });
 
   describe('visibility via mouse', () => {
