@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [2.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v2.1.0...v2.1.1) (2021-07-08)
+
+
+### Bug Fixes
+
+* find trigger in another shadow root ([dfeb35d](https://github.com/AlaskaAirlines/auro-popover/commit/dfeb35d02e41db2c7151b3de4fe679be450d97aa))
+
 # [2.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.0.0...v2.1.0) (2021-05-03)
 
 
