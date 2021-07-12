@@ -16,6 +16,11 @@ $auro-inset-spacing-options: lg;
 $auro-inset-directions: '';
 @import './node_modules/@alaskaairux/webcorestylesheets/dist/utilityMixins/insetUtility';
 
+::slotted(*) {
+  white-space: normal;
+  color: var(--auro-color-text-primary-on-light);
+}
+
 ::slotted(*:hover) {
   cursor: pointer;
 }
