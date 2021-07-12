@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [2.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v2.1.1...v2.1.2) (2021-07-12)
+
+
+### Bug Fixes
+
+* **styles:** prevent content inheritance ([55c5771](https://github.com/AlaskaAirlines/auro-popover/commit/55c57714356ffc875e182de9d302f0b35c2b2445))
+
 ## [2.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v2.1.0...v2.1.1) (2021-07-08)
 
 
