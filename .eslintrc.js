@@ -128,7 +128,7 @@ module.exports = {
       "no-lone-blocks": "error",
       "no-lonely-if": "error",
       "no-loop-func": "error",
-      "no-magic-numbers": "error",
+      "no-magic-numbers": ["error", { "ignore": [0] }],
       "no-mixed-operators": "error",
       "no-mixed-requires": "error",
       "no-multi-assign": "error",

@@ -68,10 +68,13 @@ class AuroPopover extends LitElement {
   }
 
   firstUpdated() {
-    this.trigger = document.querySelector(`#${this.for}`);
-    // allow placement in shadow roots
-    if (this.trigger === null) {
-      this.trigger = this.getRootNode().querySelector(`#${this.for}`);
+    if (this.for) {
+      this.trigger = document.querySelector(`#${this.for}`) ||
+        this.getRootNode().querySelector(`#${this.for}`);
+    }
+
+    if (!this.trigger) {
+      [this.trigger] = this.shadowRoot.querySelector('slot[name="trigger"]').assignedElements();
     }
 
     this.popover = this.shadowRoot.querySelector('#popover');
