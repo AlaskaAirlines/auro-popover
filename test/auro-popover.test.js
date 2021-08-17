@@ -26,6 +26,31 @@ describe('auro-popover', () => {
     expect(el.popover.trigger).to.eql(el.trigger);
   });
 
+  it('finds trigger without id and for attributes', async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <auro-button slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
+    const button = el.querySelector('auro-button');
+
+    expect(el.trigger).to.eql(button);
+  });
+
+  it('falls back to slot trigger when no element with given id', async () => {
+    // this test case is for frameworks like Svelte, where id could be set as a property on a custom element
+    const el = await fixture(html`
+      <auro-popover for="test">
+        tooltip text
+        <auro-button slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
+    const button = el.querySelector('auro-button');
+
+    expect(el.trigger).to.eql(button);
+  });
+
   describe('visibility via mouse', () => {
     it('shows hidden content on hover', async () => {
       const el = await getFixture();
