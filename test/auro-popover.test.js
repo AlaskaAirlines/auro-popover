@@ -18,15 +18,7 @@ describe('auro-popover', () => {
     await expect(el).to.be.true;
   });
 
-  it('finds trigger in shadow root', async () => {
-    const el = await fixture(html`
-      <shadow-popover></shadow-popover>
-    `);
-
-    expect(el.popover.trigger).to.eql(el.trigger);
-  });
-
-  it('finds trigger without id and for attributes', async () => {
+  it('finds trigger in slot', async () => {
     const el = await fixture(html`
       <auro-popover>
         tooltip text
@@ -38,7 +30,39 @@ describe('auro-popover', () => {
     expect(el.trigger).to.eql(button);
   });
 
-  it('falls back to slot trigger when no element with given id', async () => {
+  it('finds trigger with id and for attributes', async () => {
+    const el = await fixture(html`
+      <auro-popover for="popover1">
+        tooltip text
+        <auro-button id="popover1" slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
+
+    const trigger = el.querySelector('auro-button');
+    expect(el.trigger).to.eql(trigger);
+  })
+
+  it('finds trigger in shadow root using for attribute', async () => {
+    const el = await fixture(html`
+      <shadow-popover></shadow-popover>
+    `);
+
+    expect(el.popover.trigger).to.eql(el.trigger);
+  });
+
+  it('finds trigger in slot', async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <auro-button slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
+    const button = el.querySelector('auro-button');
+
+    expect(el.trigger).to.eql(button);
+  });
+
+  it('falls back to slot trigger when for attribute set but no element with given id', async () => {
     // this test case is for frameworks like Svelte, where id could be set as a property on a custom element
     const el = await fixture(html`
       <auro-popover for="test">
@@ -149,9 +173,9 @@ describe('auro-popover', () => {
 async function getFixture() {
   return await fixture (
     html`
-      <auro-popover for="popover1">
+      <auro-popover>
         tooltip text
-        <auro-button id="popover1" slot="trigger">trigger text</auro-button>
+        <auro-button slot="trigger">trigger text</auro-button>
       </auro-popover>
     `);
 }

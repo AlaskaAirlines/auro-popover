@@ -19,14 +19,19 @@ Auro popover allows two ways to layout the HTML. Please see the following exampl
 The following examples illustrates using the `trigger` slot within the scope of the `auro-popover` element.
 
 <div class="exampleWrapper" style="overflow: unset">
-  <auro-popover for="button1">
+  <auro-popover>
     Top popover content!
-    <auro-button id="button1" slot="trigger">Popover Test</auro-button>
+    <auro-button slot="trigger">Popover Test</auro-button>
   </auro-popover>
 
-  <auro-popover for="button2" placement="bottom">
+  <auro-popover placement="bottom">
     Bottom popover content!
-    <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
+    <auro-button secondary slot="trigger">Popover Test</auro-button>
+  </auro-popover>
+
+  <auro-popover for="button1">
+    Bottom popover content!
+    <auro-button id="button1" slot="trigger">Popover Test</auro-button>
   </auro-popover>
 </div>
 
@@ -35,15 +40,21 @@ The following examples illustrates using the `trigger` slot within the scope of 
 
 ```html
 <!-- The slot=trigger attribute is bound directly to the auro-button element  -->
-<auro-popover for="button1">
+<auro-popover>
   Top popover content!
-  <auro-button id="button1" slot="trigger">Popover Test</auro-button>
+  <auro-button slot="trigger">Popover Test</auro-button>
 </auro-popover>
 
 <!-- Using the placement=bottom attribute -->
-<auro-popover for="button2" placement="bottom">
+<auro-popover placement="bottom">
   Bottom popover content!
-  <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
+  <auro-button secondary slot="trigger">Popover Test</auro-button>
+</auro-popover>
+
+<!-- Using explicit for and id attributes -->
+<auro-popover for="button1">
+  More popover content!
+  <auro-button id="button1" slot="trigger">Popover Test</auro-button>
 </auro-popover>
 ```
 </auro-accordion>
@@ -53,14 +64,14 @@ The following examples illustrates using the `trigger` slot within the scope of 
 Sometimes you just need more space. For these instances, use the `addSpace` attribute.
 
 <div class="exampleWrapper" style="overflow: unset">
-  <auro-popover for="button10" addSpace>
+  <auro-popover addSpace>
     Notice this popover is a little<br>further away from the trigger.
-    <auro-button id="button10" slot="trigger">Popover w/additional space above</auro-button>
+    <auro-button slot="trigger">Popover w/additional space above</auro-button>
   </auro-popover>
 
-  <auro-popover for="button11" placement="bottom" addSpace>
+  <auro-popover placement="bottom" addSpace>
     Notice this popover is a little<br>further away from the trigger.
-    <auro-button secondary id="button11" slot="trigger">Popover w/additional space below</auro-button>
+    <auro-button secondary slot="trigger">Popover w/additional space below</auro-button>
   </auro-popover>
 </div>
 
@@ -68,14 +79,14 @@ Sometimes you just need more space. For these instances, use the `addSpace` attr
   <span slot="trigger">See code</span>
 
 ```html
-<auro-popover for="button10" addSpace>
+<auro-popover addSpace>
   Notice this popover is a little<br>further away from the trigger.
-  <auro-button id="button10" slot="trigger">Popover w/additional space above</auro-button>
+  <auro-button slot="trigger">Popover w/additional space above</auro-button>
 </auro-popover>
 
-<auro-popover for="button11" placement="bottom" addSpace>
+<auro-popover placement="bottom" addSpace>
   Notice this popover is a little<br>further away from the trigger.
-  <auro-button secondary id="button11" slot="trigger">Popover w/additional space below</auro-button>
+  <auro-button secondary slot="trigger">Popover w/additional space below</auro-button>
 </auro-popover>
 
 ```
@@ -87,9 +98,9 @@ Sometimes you just need less space. For these instances, use the `removeSpace` a
 
 <div class="exampleWrapper">
   <!-- The slot=trigger attribute is bound directly to the auro-icon element  -->
-  <auro-popover for="plugIcon" removeSpace>
+  <auro-popover removeSpace>
     Notice this popover is a little<br>closer to the trigger.
-    <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
+    <auro-icon category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
   </auro-popover>
 </div>
 
@@ -98,7 +109,7 @@ Sometimes you just need less space. For these instances, use the `removeSpace` a
 
 ```html
 <!-- The slot=trigger attribute is bound directly to the auro-icon element  -->
-<auro-popover for="plugIcon" removeSpace>
+<auro-popover removeSpace>
   Notice this popover is a little<br>closer to the trigger.
 
     <!--
@@ -106,7 +117,7 @@ Sometimes you just need less space. For these instances, use the `removeSpace` a
       be sure to add `tabindex="0"` to the element when using `auro-popover`
       otherwise users of assistive technology will not see the content.
     -->
-  <auro-icon id="plugIcon" category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
+  <auro-icon category="in-flight" name="plug" slot="trigger" tabindex="0"></auro-icon>
 </auro-popover>
 ```
 </auro-accordion>
@@ -121,9 +132,9 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
 
 <auro-alerts error noIcon>
   <div class="exampleWrapper">
-    <auro-popover for="link">
+    <auro-popover>
       This works, but not recommended
-      <auro-hyperlink id="link" href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
+      <auro-hyperlink href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
     </auro-popover>
   </div>
 </auro-alerts>
@@ -132,9 +143,9 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
   <span slot="trigger">See code</span>
 
 ```html
-<auro-popover for="link">
+<auro-popover>
   This works, but not recommended
-  <auro-hyperlink id="link" href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
+  <auro-hyperlink href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
 </auro-popover>
 ```
 </auro-accordion>
@@ -143,9 +154,9 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 
 <auro-alerts success noIcon>
   <div class="exampleWrapper">
-    <auro-popover for="linkButton">
+    <auro-popover>
       Role button is recommended
-      <auro-hyperlink id="linkButton" role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
+      <auro-hyperlink role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
     </auro-popover>
   </div>
 </auro-alerts>
@@ -154,9 +165,9 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
   <span slot="trigger">See code</span>
 
 ```html
-<auro-popover for="linkButton">
+<auro-popover>
   Role button is recommended
-  <auro-hyperlink id="linkButton" role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
+  <auro-hyperlink role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
 </auro-popover>
 ```
 </auro-accordion>
