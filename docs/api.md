@@ -13,7 +13,7 @@ Popover attaches to an element and displays on hover/blur.
 
 | Property    | Attribute   | Type     | Default | Description                                      |
 |-------------|-------------|----------|---------|--------------------------------------------------|
-| `for`       | `for`       | `String` |         | Defines an `id` for an element in the DOM to trigger on hover/blur |
+| `for`       | `for`       | `String` |         | Directly associate the popover with a trigger element with the given ID. In most cases, this should not be necessary and set slot="trigger" on the element instead. |
 | `placement` | `placement` | `String` | "top"   | Expects top/bottom - position for popover in relation to the element |
 
 ## Slots
@@ -21,4 +21,4 @@ Popover attaches to an element and displays on hover/blur.
 | Name      | Description                                      |
 |-----------|--------------------------------------------------|
 |           | Default unnamed slot for the use of popover content |
-| `trigger` | Slot for entering the trigger element into the scope of the shadow DOM |
+| `trigger` | The element in this slot triggers hiding and showing the popover. |
