@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [2.2.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.1.2...v2.2.0) (2021-08-30)
+
+
+### Features
+
+* fallback to slotted trigger when query fails [#28](https://github.com/AlaskaAirlines/auro-popover/issues/28) ([cd106c2](https://github.com/AlaskaAirlines/auro-popover/commit/cd106c283e461998e06ceb5aa31b624556240910))
+
 ## [2.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v2.1.1...v2.1.2) (2021-07-12)
 
 
