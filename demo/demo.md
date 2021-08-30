@@ -18,7 +18,7 @@ Auro popover allows two ways to layout the HTML. Please see the following exampl
 
 The following examples illustrates using the `trigger` slot within the scope of the `auro-popover` element.
 
-<div class="exampleWrapper" style="overflow: unset">
+<div class="exampleWrapper">
   <auro-popover>
     Top popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
@@ -27,11 +27,6 @@ The following examples illustrates using the `trigger` slot within the scope of 
   <auro-popover placement="bottom">
     Bottom popover content!
     <auro-button secondary slot="trigger">Popover Test</auro-button>
-  </auro-popover>
-
-  <auro-popover for="button1">
-    Bottom popover content!
-    <auro-button id="button1" slot="trigger">Popover Test</auro-button>
   </auro-popover>
 </div>
 
@@ -47,14 +42,41 @@ The following examples illustrates using the `trigger` slot within the scope of 
 
 <!-- Using the placement=bottom attribute -->
 <auro-popover placement="bottom">
-  Bottom popover content!
+  Popover content!
   <auro-button secondary slot="trigger">Popover Test</auro-button>
 </auro-popover>
+```
+</auro-accordion>
 
+### Deprecated API
+
+The use of the `for` and `id` attributes are deprecated as of v2.2.0. This code will not break in any existing scenario, but it is no longer recommend for use with this element. There are no current plans for removing this support, but be aware that this API may cause issues with some frameworks.
+
+<div class="exampleWrapper">
+  <auro-button id="button1" slot="trigger">Popover Test</auro-button>
+  <auro-popover for="button1">
+    More popover content!
+  </auro-popover>
+
+  <auro-popover for="button2" placement="bottom">
+    More popover content!
+    <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
+  </auro-popover>
+</div>
+
+<auro-accordion lowProfile justifyRight>
+  <span slot="trigger">See code</span>
+
+```html
 <!-- Using explicit for and id attributes -->
+<auro-button id="button1" slot="trigger">Popover Test</auro-button>
 <auro-popover for="button1">
   More popover content!
-  <auro-button id="button1" slot="trigger">Popover Test</auro-button>
+</auro-popover>
+
+<auro-popover for="button2" placement="bottom">
+  More popover content!
+  <auro-button secondary id="button2" slot="trigger">Popover Test</auro-button>
 </auro-popover>
 ```
 </auro-accordion>
@@ -63,7 +85,7 @@ The following examples illustrates using the `trigger` slot within the scope of 
 
 Sometimes you just need more space. For these instances, use the `addSpace` attribute.
 
-<div class="exampleWrapper" style="overflow: unset">
+<div class="exampleWrapper">
   <auro-popover addSpace>
     Notice this popover is a little<br>further away from the trigger.
     <auro-button slot="trigger">Popover w/additional space above</auro-button>
