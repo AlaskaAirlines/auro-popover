@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [2.2.1](https://github.com/AlaskaAirlines/auro-popover/compare/v2.2.0...v2.2.1) (2023-06-01)
+
+
+### Bug Fixes
+
+* **popper:** update namespace to avoid collision [#195](https://github.com/AlaskaAirlines/auro-popover/issues/195) ([06722e4](https://github.com/AlaskaAirlines/auro-popover/commit/06722e489d7183ae6d2f746ae6a23731813eaadb))
+
 # [2.2.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.1.2...v2.2.0) (2021-08-30)
 
 
