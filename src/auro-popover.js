@@ -77,8 +77,8 @@ class AuroPopover extends LitElement {
       [this.trigger] = this.shadowRoot.querySelector('slot[name="trigger"]').assignedElements();
     }
 
-    this.popover = this.shadowRoot.querySelector('#popover');
-    this.popper = new Popover(this.trigger, this.popover, this.placement);
+    this.auroPopover = this.shadowRoot.querySelector('#popover');
+    this.popper = new Popover(this.trigger, this.auroPopover, this.placement);
 
     const handleShow = () => {
       this.toggleShow();
