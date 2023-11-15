@@ -23,7 +23,6 @@
     "lit-element": "^2.5.1"
   },
   "peerDependencies": {
-    "@alaskaairux/design-tokens": "^3.3.0",
     "@aurodesignsystem/design-tokens": "^4.1.1",
     "@aurodesignsystem/webcorestylesheets": "^5.0.2",
     "@webcomponents/webcomponentsjs": "^2.4.4",
@@ -31,6 +30,7 @@
   },
   "devDependencies": {
     "@alaskaairux/design-tokens": "^3.3.0",
+    "@alaskaairux/webcorestylesheets": "^3.7.3",
     "@aurodesignsystem/design-tokens": "^4.1.1",
     "@aurodesignsystem/webcorestylesheets": "^5.0.2",
     "@babel/core": "^7.15.0",
@@ -83,8 +83,12 @@
     "wc-sass-render": "^1.2.3",
     "web-component-analyzer": "^1.1.6",
     "webpack-merge": "^5.8.0",
-    "whatwg-fetch": "^3.6.2",
-    "sass": "^1.49.9"
+    "whatwg-fetch": "^3.6.2"
+  },
+  "overrides": {
+    "wc-sass-render": {
+      "sass": "$sass"
+    }
   },
   "browserslist": [
     "last 2 Chrome versions",
@@ -113,12 +117,11 @@
     "test": "karma start --coverage",
     "test:watch": "karma start --auto-watch=true --single-run=false",
     "test:ci": "npm-run-all test lint",
-    "sassBuild": "npm-run-all sassBuild:component postCss:component sassRender",
-    "sassBuild:dev": "npm-run-all sassBuild:component postCss:component sassRender",
-    "sassBuild:component": "sass --no-source-map src:src",
+    "sassBuild": "npm-run-all sassBuild:demo sassBuild:component postCss:component sassRender",
+    "sassBuild:dev": "npm-run-all sassBuild:demo sassBuild:component postCss:component sassRender",
+    "sassBuild:demo": "node-sass ./demo/sass/ --output ./demo/css/",
+    "sassBuild:component": "node-sass ./src/ --output ./src/",
     "sassBuild:watch": "nodemon -e scss --watch src --exec npm run sassBuild:dev",
-    "sassBuild:debug": "sass —source-map scss/index.scss docs/index.css",
-    "sassBuild:release": "sass —style=compressed scss/index.scss dist/index.css",
     "postCss:component": "node ./scripts/postCss.js"
   },
   "husky": {
