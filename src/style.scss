@@ -53,7 +53,8 @@ $auro-inset-directions: '';
   }
 }
 
-:host(:not([data-show])) {
+:host(:not([data-show])),
+:host([disabled]) {
   .popover {
     @extend .util_displayHidden;
   }
