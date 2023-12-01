@@ -81,6 +81,28 @@ The use of the `for` and `id` attributes are deprecated as of v2.2.0. This code 
 ```
 </auro-accordion>
 
+## Disabled Popover
+
+When the `disabled` attribute is present, the popover will not appear on hover or focus.
+
+<div class="exampleWrapper">
+  <auro-popover disabled>
+    Top popover content!
+    <auro-button slot="trigger">Popover Test</auro-button>
+  </auro-popover>
+</div>
+
+<auro-accordion lowProfile justifyRight>
+  <span slot="trigger">See code</span>
+
+```html
+<auro-popover disabled>
+  Top popover content!
+  <auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
+```
+</auro-accordion>
+
 ## Add space around popover
 
 Sometimes you just need more space. For these instances, use the `addSpace` attribute.

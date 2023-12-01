@@ -14,9 +14,10 @@ import Popover from "./popover";
 /**
  * Popover attaches to an element and displays on hover/blur.
  *
- * @attr {String} placement - Expects top/bottom - position for popover in relation to the element
- * @attr {String} for - Directly associate the popover with a trigger element with the given ID. In most cases, this should not be necessary and set slot="trigger" on the element instead.
  * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger
+ * @attr {boolean} disabled - If true, will disable the popover from showing on hover and focus
+ * @attr {String} for - Directly associate the popover with a trigger element with the given ID. In most cases, this should not be necessary and set slot="trigger" on the element instead.
+ * @attr {String} placement - Expects top/bottom - position for popover in relation to the element
  * @attr {boolean} removeSpace - If true, will remove top and bottom space around the appearance of the popover in relation to the trigger
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
@@ -48,7 +49,8 @@ class AuroPopover extends LitElement {
   static get properties() {
     return {
       placement:  { type: String },
-      for:        { type: String }
+      for:        { type: String },
+      disabled:   { type: Boolean }
     };
   }
 
