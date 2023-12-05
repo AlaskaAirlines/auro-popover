@@ -1,5 +1,17 @@
 # Semantic Release Automated Changelog
 
+# [2.3.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.2.1...v2.3.0) (2023-12-05)
+
+
+### Features
+
+* **disabled:** add disabled attribute [#52](https://github.com/AlaskaAirlines/auro-popover/issues/52) ([46bc919](https://github.com/AlaskaAirlines/auro-popover/commit/46bc9196cd23350ab37a10b0318b42c5dd374149))
+
+
+### Performance Improvements
+
+* **csspart:** add csspart to popover ([a6e49d2](https://github.com/AlaskaAirlines/auro-popover/commit/a6e49d2bd8e502b7abdc88914d178a9134c63bf1))
+
 ## [2.2.1](https://github.com/AlaskaAirlines/auro-popover/compare/v2.2.0...v2.2.1) (2023-06-01)
 
 
