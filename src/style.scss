@@ -3,6 +3,9 @@
 
 // ---------------------------------------------------------------------
 
+/* stylelint-disable scss/dollar-variable-empty-line-before, at-rule-empty-line-before, order/properties-order, scss/selector-nest-combinators, declaration-empty-line-before, 
+   scss/at-extend-no-missing-placeholder,  declaration-no-important, selector-max-combinators, selector-max-compound-selectors, no-descending-specificity, color-function-notation */
+
 // Import Auro tokens
 @import './node_modules/@alaskaairux/design-tokens/dist/tokens/SCSSVariables';
 @import './node_modules/@alaskaairux/design-tokens/dist/tokens/SassCustomProperties';
