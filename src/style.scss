@@ -7,21 +7,21 @@
    scss/at-extend-no-missing-placeholder,  declaration-no-important, selector-max-combinators, selector-max-compound-selectors, no-descending-specificity, color-function-notation */
 
 // Import Auro tokens
-@import './node_modules/@alaskaairux/design-tokens/dist/tokens/SCSSVariables';
-@import './node_modules/@alaskaairux/design-tokens/dist/tokens/SassCustomProperties';
-@import './node_modules/@alaskaairux/design-tokens/dist/tokens/SCSSVariableMap';
+@import './../node_modules/@aurodesignsystem/design-tokens/dist/tokens/SCSSVariables';
+@import './../node_modules/@aurodesignsystem/design-tokens/dist/tokens/SassCustomProperties';
+@import './../node_modules/@aurodesignsystem/design-tokens/dist/tokens/SCSSVariableMap';
 
-@import './node_modules/@alaskaairux/webcorestylesheets/dist/breakpoints';
-@import './node_modules/@alaskaairux/webcorestylesheets/dist/core';
+@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/breakpoints';
+@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/core';
 
-@import './node_modules/@alaskaairux/webcorestylesheets/dist/utilityClasses/displayProperties';
+@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/utilityClasses/displayProperties';
 $auro-inset-spacing-options: lg;
 $auro-inset-directions: '';
-@import './node_modules/@alaskaairux/webcorestylesheets/dist/utilityMixins/insetUtility';
+@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/utilityMixins/insetUtility';
 
 ::slotted(*) {
   white-space: normal;
-  color: var(--auro-color-text-primary-on-light);
+  color: var(--ds-color-text-primary-default, $ds-color-text-primary-default);
 }
 
 ::slotted(*:hover) {
@@ -65,9 +65,9 @@ $auro-inset-directions: '';
 
 :host([data-show]) {
   .popover {
-    z-index: var(--auro-depth-tooltip);
+    z-index: var(--ds-depth-tooltip, $ds-depth-tooltip);
 
-    background-color: var(--auro-color-background-lightest);
+    background-color: var(--ds-color-background-lightest, $ds-color-background-lightest);
   }
 }
 
@@ -79,7 +79,7 @@ $auro-inset-directions: '';
 
 :host([addSpace]) {
   .popover {
-    margin: var(--auro-size-md) 0 !important;
+    margin: var(--ds-size-200, $ds-size-200) 0 !important;
   }
 
   [data-trigger-placement]::slotted(*:hover) {
@@ -110,10 +110,10 @@ $auro-inset-directions: '';
 .popover {
   display: inline-block;
 
-  max-width: calc(100% - var(--auro-size-xl));
+  max-width: calc(100% - var(--ds-size-400, $ds-size-400));
 
-  border-radius: var(--auro-border-radius);
-  background: var(--auro-color-background-lightest);
+  border-radius: var(--ds-border-radius, $ds-border-radius);
+  background: var(--ds-color-background-lightest, $ds-color-background-lightest);
   box-shadow: -2px 0 5px 2px rgba(0, 0, 0, .08),
     0 2px 5px 1px rgba(0, 0, 0, .08);
 
@@ -153,7 +153,7 @@ $auro-inset-directions: '';
 .arrow {
   position: relative;
 
-  margin-top: -var(--auro-size-xs);
+  margin-top: -var(--ds-size-100, $ds-size-100);
 
   &:before {
     position: absolute;
@@ -163,7 +163,7 @@ $auro-inset-directions: '';
 
     content: '';
 
-    background: var(--auro-color-base-white);
+    background: var(--ds-color-base-white, $ds-color-base-white);
     box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, .08);
   }
 }
