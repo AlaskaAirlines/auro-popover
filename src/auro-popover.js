@@ -3,6 +3,8 @@
 
 // ---------------------------------------------------------------------
 
+/* eslint-disable indent, sort-vars */
+
 import { LitElement, html, css } from "lit-element";
 
 // Import touch detection lib
@@ -22,7 +24,7 @@ import Popover from "./popover";
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
  */
-class AuroPopover extends LitElement {
+export class AuroPopover extends LitElement {
   constructor() {
     super();
 
@@ -38,7 +40,8 @@ class AuroPopover extends LitElement {
   }
 
   /**
-   * @private internal defaults
+   * Internal Defaults.
+   * @private
    * @returns {void}
    */
   privateDefaults() {
@@ -66,13 +69,12 @@ class AuroPopover extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('click', this.documentClickHandler)
+    document.removeEventListener('click', this.documentClickHandler);
   }
 
   firstUpdated() {
     if (this.for) {
-      this.trigger = document.querySelector(`#${this.for}`) ||
-        this.getRootNode().querySelector(`#${this.for}`);
+      this.trigger = document.querySelector(`#${this.for}`) || this.getRootNode().querySelector(`#${this.for}`);
     }
 
     if (!this.trigger) {
@@ -118,9 +120,10 @@ class AuroPopover extends LitElement {
   }
 
   /**
-    * @private Toggles the display of the popover content
-    * @returns {Void} Fires an update lifecycle.
-  */
+   * Toggles the display of the popover content.
+   * @private
+   * @returns {void} Fires an update lifecycle.
+   */
   toggle() {
     if (this.isPopoverVisible) {
       this.toggleHide();
@@ -130,8 +133,9 @@ class AuroPopover extends LitElement {
   }
 
   /**
-   * @private Hides the popover
-   * @returns {Void} Fires an update lifecycle.
+   * Hides the popover.
+   * @private
+   * @returns {void} Fires an update lifecycle.
    */
   toggleHide() {
     this.popper.hide();
@@ -140,8 +144,9 @@ class AuroPopover extends LitElement {
   }
 
   /**
-   * @private Shows the popover
-   * @returns {Void} Fires an update lifecycle.
+   * Shows the popover.
+   * @private
+   * @returns {void} Fires an update lifecycle.
    */
   toggleShow() {
     this.popper.show();

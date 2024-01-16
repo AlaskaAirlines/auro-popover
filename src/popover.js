@@ -6,8 +6,8 @@
 import { createPopper } from '@popperjs/core/dist/esm/popper';
 
 // build the component class
-const POPOVER_OFFSET_skidding = 0,
-  POPOVER_OFFSET_distance = 18;
+const popoverOffsetDistance = 18,
+  popoverOffsetSkidding = 0;
 
 export default class Popover {
 
@@ -34,8 +34,8 @@ export default class Popover {
           name: 'offset',
           options: {
             offset: [
-              POPOVER_OFFSET_skidding,
-              POPOVER_OFFSET_distance
+              popoverOffsetSkidding,
+              popoverOffsetDistance
             ]
           }
         },
@@ -47,7 +47,7 @@ export default class Popover {
           },
         },
       ]
-    })
+    });
   }
 
   triggerUpdate() {
