@@ -1,5 +1,26 @@
 # Semantic Release Automated Changelog
 
+# [3.0.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.3.0...v3.0.0) (2024-01-18)
+
+
+### Bug Fixes
+
+* **branch:** update branch reference [#57](https://github.com/AlaskaAirlines/auro-popover/issues/57) ([8e24246](https://github.com/AlaskaAirlines/auro-popover/commit/8e242465ebb79b73e3fe593403911553751dc825))
+* **docs:** update use case markdown punctuation ([015cfd0](https://github.com/AlaskaAirlines/auro-popover/commit/015cfd027884ca7e58d86ced4dbbb6519d209921))
+
+
+### Performance Improvements
+
+* **dep:** remove focus-visible support ([f474fb9](https://github.com/AlaskaAirlines/auro-popover/commit/f474fb9307eaf63bb9d8c2e11f969ae7c19385e6))
+* **modernize:** modernize repo and dependencies [#55](https://github.com/AlaskaAirlines/auro-popover/issues/55) ([45837d8](https://github.com/AlaskaAirlines/auro-popover/commit/45837d84d08ee627901bb385ed5b40a49b029f81))
+* **ssr:** update to support ssr [#54](https://github.com/AlaskaAirlines/auro-popover/issues/54) ([761af89](https://github.com/AlaskaAirlines/auro-popover/commit/761af89a40bb750b328f180e9a6e6729d9a347d8))
+* **tokens:** update to use new design tokens [#50](https://github.com/AlaskaAirlines/auro-popover/issues/50) ([f49c0cb](https://github.com/AlaskaAirlines/auro-popover/commit/f49c0cbfa17bae592845b1a6696a66cda7bf1390))
+
+
+### BREAKING CHANGES
+
+* **modernize:** update namespace to @aurodesignsystem
+
 # [2.3.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.2.1...v2.3.0) (2023-12-05)
 
 
