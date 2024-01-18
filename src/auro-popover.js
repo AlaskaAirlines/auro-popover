@@ -8,7 +8,6 @@
 import { LitElement, html, css } from "lit-element";
 
 // Import touch detection lib
-import "focus-visible/dist/focus-visible.min.js";
 import styleCss from "./style-css.js";
 
 import Popover from "./popover";
