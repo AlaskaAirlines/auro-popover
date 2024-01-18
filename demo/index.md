@@ -19,9 +19,9 @@ See for more information as how to install and full API for the `<auro-popover>`
 <!-- The below content is automatically added from ./useCases.md -->
 The `auro-popover` element should be used in situations where users may:
 
-interact with an element to get clarification on content offering
-provide definition to iconic imagery
-when helper text is required
+* interact with an element to get clarification on content offering
+* provide definition to iconic imagery
+* when helper text is required
 <!-- AURO-GENERATED-CONTENT:END -->
 
 ## Example(s)
