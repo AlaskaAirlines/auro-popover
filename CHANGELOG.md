@@ -1,5 +1,17 @@
 # Semantic Release Automated Changelog
 
+# [3.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v3.0.0...v3.1.0) (2024-01-19)
+
+
+### Bug Fixes
+
+* remove unnecessary dependency ([c269949](https://github.com/AlaskaAirlines/auro-popover/commit/c269949cc37b092aca8c46fe0b8709867f6728f8))
+
+
+### Features
+
+* update SSR support capability ([42ba36b](https://github.com/AlaskaAirlines/auro-popover/commit/42ba36b9e9bd236c582a5739d4d53c5f94ec7b11))
+
 # [3.0.0](https://github.com/AlaskaAirlines/auro-popover/compare/v2.3.0...v3.0.0) (2024-01-18)
 
 
