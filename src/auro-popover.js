@@ -5,7 +5,7 @@
 
 /* eslint-disable indent, sort-vars */
 
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from "lit";
 
 // Import touch detection lib
 import styleCss from "./style-css.js";
