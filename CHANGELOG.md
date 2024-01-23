@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [3.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v3.1.1...v3.1.2) (2024-01-23)
+
+
+### Performance Improvements
+
+* update core dependency reference ([61d0f85](https://github.com/AlaskaAirlines/auro-popover/commit/61d0f85c28cf47dd731f247bf71b58e8dd162485))
+
 ## [3.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v3.1.0...v3.1.1) (2024-01-23)
 
 
