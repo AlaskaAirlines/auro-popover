@@ -1,4 +1,4 @@
-import { AuroPopover } from './src/auro-popover';
+import { AuroPopover } from './src/auro-popover.js';
 
 /**
  * Register Custom Element.
