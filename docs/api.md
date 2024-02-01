@@ -15,6 +15,7 @@ Popover attaches to an element and displays on hover/blur.
 |-------------|-------------|-----------|---------|--------------------------------------------------|
 | `disabled`  | `disabled`  | `boolean` |         | If true, will disable the popover from showing on hover and focus |
 | `for`       | `for`       | `String`  |         | Directly associate the popover with a trigger element with the given ID. In most cases, this should not be necessary and set slot="trigger" on the element instead. |
+| `id`        |             | `string`  |         |                                                  |
 | `placement` | `placement` | `String`  | "top"   | Expects top/bottom - position for popover in relation to the element |
 
 ## Slots

@@ -1,5 +1,17 @@
 # Semantic Release Automated Changelog
 
+## [3.1.4](https://github.com/AlaskaAirlines/auro-popover/compare/v3.1.3...v3.1.4) (2024-02-01)
+
+
+### Bug Fixes
+
+* address accessibility linting error ([dbe69c5](https://github.com/AlaskaAirlines/auro-popover/commit/dbe69c59915ac2083264e862f288478b63e920ae))
+
+
+### Performance Improvements
+
+* alaskaairux ref updates ([1a0ad1c](https://github.com/AlaskaAirlines/auro-popover/commit/1a0ad1cdc02d3b648d4058aa9fb62fe12bfae244))
+
 ## [3.1.3](https://github.com/AlaskaAirlines/auro-popover/compare/v3.1.2...v3.1.3) (2024-01-27)
 
 
