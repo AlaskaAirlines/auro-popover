@@ -4,6 +4,7 @@
 // ---------------------------------------------------------------------
 
 /* eslint-disable indent, sort-vars */
+/* eslint no-magic-numbers: "warn" */
 
 import { LitElement, html, css } from "lit";
 
@@ -30,6 +31,7 @@ export class AuroPopover extends LitElement {
     this.privateDefaults();
 
     this.placement = 'top';
+    this.id = `popover-${(Math.random() + 1).toString(36).substring(7)}`;
 
     // adds toggle function to root element based on touch
     this.addEventListener('touchstart', function() {
@@ -131,6 +133,11 @@ export class AuroPopover extends LitElement {
     }
   }
 
+  // randomId() {
+  //   const random = (Math.random() + 1).toString(36).substring(7);
+  //   return `popover-${random}`
+  // }
+
   /**
    * Hides the popover.
    * @private
@@ -158,15 +165,16 @@ export class AuroPopover extends LitElement {
     return html`
       <div id="popover" class="popover util_insetLg" aria-live="polite" part="popover">
         <div id="arrow" class="arrow" data-popper-arrow></div>
-        <slot role="tooltip"></slot>
+        <span role="tooltip" aria-labelledby="${this.id}"><slot></slot></span>
       </div>
 
-      <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
+      <span id="${this.id}">
+        <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
+      </span>
     `;
   }
 }
 
-/* istanbul ignore else */
 // define the name of the custom component
 if (!customElements.get("auro-popover")) {
   customElements.define("auro-popover", AuroPopover);
