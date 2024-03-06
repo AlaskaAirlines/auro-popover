@@ -133,11 +133,6 @@ export class AuroPopover extends LitElement {
     }
   }
 
-  // randomId() {
-  //   const random = (Math.random() + 1).toString(36).substring(7);
-  //   return `popover-${random}`
-  // }
-
   /**
    * Hides the popover.
    * @private
@@ -147,6 +142,8 @@ export class AuroPopover extends LitElement {
     this.popper.hide();
     this.isPopoverVisible = false;
     this.removeAttribute('data-show');
+
+    document.querySelector('body').removeEventListener('mouseover', this.mouseoverHandler);
   }
 
   /**
@@ -158,6 +155,22 @@ export class AuroPopover extends LitElement {
     this.popper.show();
     this.isPopoverVisible = true;
     this.setAttribute('data-show', true);
+
+    this.mouseoverHandler = (evt) => this.handleMouseoverEvent(evt);
+
+    document.querySelector('body').addEventListener('mouseover', this.mouseoverHandler);
+  }
+
+  /**
+   * Hides the popover when hovering outside of the popover or it's trigger.
+   * @private
+   * @param {Event} evt - The event object.
+   * @returns {void}
+   */
+  handleMouseoverEvent(evt) {
+    if (this.isPopoverVisible && !evt.composedPath().includes(this)) {
+      this.toggleHide();
+    }
   }
 
   // function that renders the HTML and CSS into  the scope of the component
