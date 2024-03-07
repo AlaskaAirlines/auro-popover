@@ -3,6 +3,8 @@
 
 // ---------------------------------------------------------------------
 
+/* eslint-disable max-params */
+
 import { createPopper } from '@popperjs/core/dist/esm/popper';
 
 // build the component class
@@ -11,14 +13,23 @@ const popoverOffsetDistance = 18,
 
 export default class Popover {
 
-  constructor(anchor, popover, placement) {
+  constructor(anchor, popover, placement, boundary) {
     this.anchor = anchor;
     this.popover = popover;
+    this.boundaryElement = this.setBoundary(boundary);
     this.options = {
       placement,
       visibleClass: 'data-show'
     };
     this.popover.classList.remove(this.options.visibleClass);
+  }
+
+  setBoundary(boundary) {
+    if (typeof boundary === 'string') {
+      return document.querySelector(boundary) || document.body;
+    }
+
+    return boundary || document.body;
   }
 
   show() {
@@ -42,9 +53,11 @@ export default class Popover {
         {
           name: 'preventOverflow',
           options: {
+            mainAxis: true,
+            boundary: this.boundaryElement,
             rootBoundary: 'document',
             padding: 16,
-          },
+          }
         },
       ]
     });

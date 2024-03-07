@@ -21,6 +21,7 @@ import Popover from "./popover";
  * @attr {String} for - Directly associate the popover with a trigger element with the given ID. In most cases, this should not be necessary and set slot="trigger" on the element instead.
  * @attr {String} placement - Expects top/bottom - position for popover in relation to the element
  * @attr {boolean} removeSpace - If true, will remove top and bottom space around the appearance of the popover in relation to the trigger
+ * @attr {String} boundary - The element to use as the boundary for the popover. Can be a query selector or an element.
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
  */
@@ -54,7 +55,8 @@ export class AuroPopover extends LitElement {
     return {
       placement:  { type: String },
       for:        { type: String },
-      disabled:   { type: Boolean }
+      disabled:   { type: Boolean },
+      boundary:   { type: String }
     };
   }
 
@@ -83,7 +85,7 @@ export class AuroPopover extends LitElement {
     }
 
     this.auroPopover = this.shadowRoot.querySelector('#popover');
-    this.popper = new Popover(this.trigger, this.auroPopover, this.placement);
+    this.popper = new Popover(this.trigger, this.auroPopover, this.placement, this.boundary);
 
     const handleShow = () => {
       this.toggleShow();
@@ -170,6 +172,12 @@ export class AuroPopover extends LitElement {
   handleMouseoverEvent(evt) {
     if (this.isPopoverVisible && !evt.composedPath().includes(this)) {
       this.toggleHide();
+    }
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('boundary')) {
+      this.popper.boundaryElement = this.boundary;
     }
   }
 
