@@ -32,7 +32,6 @@ export class AuroPopover extends LitElement {
     this.privateDefaults();
 
     this.placement = 'top';
-    this.id = `popover-${(Math.random() + 1).toString(36).substring(7)}`;
 
     // adds toggle function to root element based on touch
     this.addEventListener('touchstart', function() {
@@ -48,6 +47,7 @@ export class AuroPopover extends LitElement {
    */
   privateDefaults() {
     this.isPopoverVisible = false;
+    this.id = `popover-${(Math.random() + 1).toString(36).substring(7)}`;
   }
 
   // function to define props used within the scope of this component
