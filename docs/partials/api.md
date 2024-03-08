@@ -68,6 +68,28 @@ Use the `removeSpace` attribute to lessen the space between the popover and it's
 
 </auro-accordion>
 
+### Property Examples
+
+#### Set overflow boundary for popover
+
+Use the `boundary` property to set the overflow boundary for the `auro-popover`, shifting the x-axis of the `auro-popover`. This example demonstrates an `auro-popover` in a container without a `boundary` set vs an `auro-popover` in a container with a `boundary` set.
+
+<div class="exampleWrapper">
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/boundary.html) -->
+  <!-- AURO-GENERATED-CONTENT:END -->
+</div>
+<auro-accordion alignRight>
+  <span slot="trigger">See code</span>
+
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/boundary.html) -->
+<!-- AURO-GENERATED-CONTENT:END -->
+
+
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/boundary.js) -->
+<!-- AURO-GENERATED-CONTENT:END -->
+
+</auro-accordion>
+
 ### Guidelines
 
 The auro-popover element is meant to be used when the interaction and it's content is passive. A popover is not to be used for cases where the user must adjust their focus and acknowledge the presented content. For these cases, please see the [auro-dialog](https://auro.alaskaair.com/components/auro/dialog) element.
