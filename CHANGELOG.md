@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [3.2.1](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.0...v3.2.1) (2024-03-08)
+
+
+### Performance Improvements
+
+* **ignores:** update ignore files ([1fbac91](https://github.com/AlaskaAirlines/auro-popover/commit/1fbac91cc2c35d4b68f5d093a8d34092a7ac07cc))
+
 # [3.2.0](https://github.com/AlaskaAirlines/auro-popover/compare/v3.1.5...v3.2.0) (2024-03-08)
 
 
