@@ -176,13 +176,15 @@ Use the `boundary` property to set the overflow boundary for the `auro-popover`,
 <div class="exampleWrapper">
   <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/boundary.html) -->
   <!-- The below content is automatically added from ./../../apiExamples/boundary.html -->
-  <div style="height: 150px; width: 200px; background-color: limegreen;">
+  <strong>Example with no boundary set</strong>
+  <div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
     <auro-popover placement="bottom">
       Popover content!
       <auro-button slot="trigger">Popover Test</auro-button>
     </auro-popover>
   </div>
-  <div id="popoverBoundary" style="height: 150px; width: 200px; background-color: red;">
+  <strong>Example with boundary set</strong>
+  <div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
     <auro-popover class="boundaryExample" placement="bottom">
       Popover content!
       <auro-button slot="trigger">Popover Test</auro-button>
@@ -196,13 +198,15 @@ Use the `boundary` property to set the overflow boundary for the `auro-popover`,
 <!-- The below code snippet is automatically added from ./../../apiExamples/boundary.html -->
 
 ```html
-<div style="height: 150px; width: 200px; background-color: limegreen;">
+<strong>Example with no boundary set</strong>
+<div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
   <auro-popover placement="bottom">
     Popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
   </auro-popover>
 </div>
-<div id="popoverBoundary" style="height: 150px; width: 200px; background-color: red;">
+<strong>Example with boundary set</strong>
+<div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
   <auro-popover class="boundaryExample" placement="bottom">
     Popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
