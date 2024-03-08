@@ -1,5 +1,19 @@
 # Semantic Release Automated Changelog
 
+# [3.2.0](https://github.com/AlaskaAirlines/auro-popover/compare/v3.1.5...v3.2.0) (2024-03-08)
+
+
+### Features
+
+* **boundary:** add boundary property for overflow ([3c8d14a](https://github.com/AlaskaAirlines/auro-popover/commit/3c8d14aa8bee29ffaa15ff524deefe71d8a6962d))
+* **examples:** implement example js system ([1839404](https://github.com/AlaskaAirlines/auro-popover/commit/183940462bd9d5dac0e67778f74ccbf91fe7378b))
+* **mouseover:** improve handling of showing popover on mouseover ([3e80158](https://github.com/AlaskaAirlines/auro-popover/commit/3e801584b70796ab0749d4d2c9654dc586d948eb))
+
+
+### Performance Improvements
+
+* **surge:** add surge demo workflow ([bc340f2](https://github.com/AlaskaAirlines/auro-popover/commit/bc340f262fbfbbd9297d26043897e3ec586f48f5))
+
 ## [3.1.5](https://github.com/AlaskaAirlines/auro-popover/compare/v3.1.4...v3.1.5) (2024-02-13)
 
 
