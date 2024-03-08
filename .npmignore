@@ -18,6 +18,7 @@ docTemplates/
 demo/**/*.css
 demo/**/*.scss
 demo/**/*.html
+demo/**/*.js
 
 dist/auro-*.js
 !dist/auro-*__bundled.js
