@@ -11,7 +11,7 @@ import { LitElement, html, css } from "lit";
 // Import touch detection lib
 import styleCss from "./style-css.js";
 
-import Popover from "./popover";
+import Popover from "./popover.js";
 
 /**
  * Popover attaches to an element and displays on hover/blur.
