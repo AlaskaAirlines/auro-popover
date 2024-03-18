@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [3.2.2](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.1...v3.2.2) (2024-03-18)
+
+
+### Performance Improvements
+
+* update popper.js install method ([6f0ebc4](https://github.com/AlaskaAirlines/auro-popover/commit/6f0ebc480cf21e12e79aca1f25c0edb15b4347fe))
+
 ## [3.2.1](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.0...v3.2.1) (2024-03-08)
 
 
