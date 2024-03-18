@@ -5,7 +5,7 @@
 
 /* eslint-disable max-params */
 
-import { createPopper } from '@popperjs/core/dist/esm/popper';
+import { createPopper } from '@popperjs/core';
 
 // build the component class
 const popoverOffsetDistance = 18,
