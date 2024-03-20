@@ -1,5 +1,17 @@
 # Semantic Release Automated Changelog
 
+## [3.2.3](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.2...v3.2.3) (2024-03-20)
+
+
+### Bug Fixes
+
+* **dom:** move event and private attr to new lifecycle function [#69](https://github.com/AlaskaAirlines/auro-popover/issues/69) ([eb801a4](https://github.com/AlaskaAirlines/auro-popover/commit/eb801a44a3433865432dcc164b26b70857892f4b))
+
+
+### Performance Improvements
+
+* **deps:** update dependencies ([de81bee](https://github.com/AlaskaAirlines/auro-popover/commit/de81beea66faca6b8d3610a193a9a85a2d4ff90c))
+
 ## [3.2.2](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.1...v3.2.2) (2024-03-18)
 
 
