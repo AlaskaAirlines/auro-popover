@@ -18,6 +18,13 @@ describe('auro-popover', () => {
     await expect(el).to.be.true;
   });
 
+  it('web component is successfully created in the document', async () => {
+    // This test fails when attributes are put onto the component before it is attached to the DOM
+    const el = document.createElement('auro-popover');
+
+    await expect(el.localName).to.equal('auro-popover');
+  });
+
   it('finds trigger in slot', async () => {
     const el = await fixture(html`
       <auro-popover>
