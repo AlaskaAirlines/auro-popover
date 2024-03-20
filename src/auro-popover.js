@@ -29,15 +29,7 @@ export class AuroPopover extends LitElement {
   constructor() {
     super();
 
-    this.privateDefaults();
-
     this.placement = 'top';
-
-    // adds toggle function to root element based on touch
-    this.addEventListener('touchstart', function() {
-      this.toggle();
-      this.setAttribute("isTouch", "true");
-    });
   }
 
   /**
@@ -68,6 +60,14 @@ export class AuroPopover extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    this.privateDefaults();
+
+    // adds toggle function to root element based on touch
+    this.addEventListener('touchstart', function() {
+      this.toggle();
+      this.setAttribute("isTouch", "true");
+    });
   }
 
   disconnectedCallback() {
