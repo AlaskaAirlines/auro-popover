@@ -290,3 +290,19 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 ### Developer Notes
 
 The default trigger for a popover is a `hover` event. Mobile devices do not support `hover` events directly, so the `hover` event is replaced with a `touchstart` event to produce the popover. This is to ensure reliability of the action versus versus a dependency on a secondary interruption of the `hover` event on mobile devices.
+
+### Theme Support
+
+The component may be restyled using the following code sample and changing the values of the following token(s).
+
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../src/tokens.scss) -->
+<!-- The below code snippet is automatically added from ./../../src/tokens.scss -->
+
+```scss
+:host {
+  --ds-auro-popover-boxshadow-color: var(--ds-color-border-divider-default, $ds-color-border-divider-default);
+  --ds-auro-popover-container-color: var(--ds-color-container-primary-default, $ds-color-container-primary-default);
+  --ds-auro-popover-text-color: var(--ds-color-text-primary-default, $ds-color-text-primary-default);
+}
+```
+<!-- AURO-GENERATED-CONTENT:END -->

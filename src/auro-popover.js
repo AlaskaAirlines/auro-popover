@@ -10,6 +10,8 @@ import { LitElement, html, css } from "lit";
 
 // Import touch detection lib
 import styleCss from "./style-css.js";
+import colorCss from "./color-css.js";
+import tokensCss from "./tokens-css.js";
 
 import Popover from "./popover.js";
 
@@ -53,9 +55,11 @@ export class AuroPopover extends LitElement {
   }
 
   static get styles() {
-    return css`
-      ${styleCss},
-    `;
+    return [
+      css`${styleCss}`,
+      css`${colorCss}`,
+      css`${tokensCss}`
+    ];
   }
 
   connectedCallback() {
