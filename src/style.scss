@@ -36,7 +36,7 @@ $auro-inset-directions: '';
     display: block;
 
     width: 100%;
-    height: 20px;
+    height: calc(var(--ds-size-200, $ds-size-200) + var(--ds-size-50, $ds-size-50));
 
     content: '';
   }
@@ -44,13 +44,13 @@ $auro-inset-directions: '';
 
 [data-trigger-placement^='top']::slotted(*:hover) {
   &:before {
-    top: -20px;
+    top: calc(-1 * calc(var(--ds-size-200, $ds-size-200) + var(--ds-size-50, $ds-size-50)));
   }
 }
 
 [data-trigger-placement^='bottom']::slotted(*:hover) {
   &:before {
-    bottom: -20px;
+    bottom: calc(-1 * calc(var(--ds-size-200, $ds-size-200) + var(--ds-size-50, $ds-size-50)));
   }
 }
 
@@ -69,7 +69,8 @@ $auro-inset-directions: '';
 
 :host([removeSpace]) {
   .popover {
-    margin: -5px 0 !important;
+    // calc = -5px
+    margin: calc(-1 * calc(var(--ds-size-50, $ds-size-50) + 1px)) 0 !important; 
   }
 }
 
@@ -80,19 +81,19 @@ $auro-inset-directions: '';
 
   [data-trigger-placement]::slotted(*:hover) {
     &:before {
-      height: 40px;
+      height: var(--ds-size-500, $ds-size-500);
     }
   }
 
   [data-trigger-placement^='top']::slotted(*:hover) {
     &:before {
-      top: -40px;
+      top: calc(-1 * var(--ds-size-500, $ds-size-500));
     }
   }
 
   [data-trigger-placement^='bottom']::slotted(*:hover) {
     &:before {
-      bottom: -40px;
+      bottom: calc(-1 * var(--ds-size-500, $ds-size-500));
     }
   }
 
@@ -122,22 +123,24 @@ $auro-inset-directions: '';
 }
 
 [data-popper-placement^='top'] > .arrow {
-  bottom: -10px;
+  // calc = -10px
+  bottom: calc(-1 * calc(var(--ds-size-100, $ds-size-100) + var(--ds-size-25, $ds-size-25)));
 
   &:before {
     top: -16px;
-    left: -6px;
+    left: calc(-1 * var(--ds-size-200, $ds-size-200));
 
     transform: rotate(45deg);
   }
 }
 
 [data-popper-placement^='bottom'] > .arrow {
-  top: -10px;
+  // calc = -10px
+  top: calc(-1 * calc(var(--ds-size-100, $ds-size-100) + var(--ds-size-25, $ds-size-25)));
 
   &:before {
-    top: 4px;
-    right: -6px;
+    top: var(--ds-size-50, $ds-size-50);
+    right: calc(-1 * var(--ds-size-200, $ds-size-200));
 
     transform: rotate(-135deg);
   }
@@ -151,8 +154,8 @@ $auro-inset-directions: '';
   &:before {
     position: absolute;
 
-    width: 12px;
-    height: 12px;
+    width: var(--ds-size-150, $ds-size-150);
+    height: var(--ds-size-150, $ds-size-150);
 
     content: '';
   }
