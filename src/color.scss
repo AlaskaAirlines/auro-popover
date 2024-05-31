@@ -1,0 +1,25 @@
+// Copyright (c) 2020 Alaska Airlines. All right reserved. Licensed under the Apache-2.0 license
+// See LICENSE in the project root for license information.
+
+// ---------------------------------------------------------------------
+
+@import './../node_modules/@aurodesignsystem/design-tokens/dist/tokens/SCSSVariables';
+
+/* stylelint-disable scss/dollar-variable-empty-line-before, at-rule-empty-line-before, order/properties-order, scss/selector-nest-combinators, declaration-empty-line-before, 
+   scss/at-extend-no-missing-placeholder,  declaration-no-important, selector-max-combinators, selector-max-compound-selectors, no-descending-specificity, color-function-notation */
+
+::slotted(*) {
+  color: var(--ds-auro-popover-text-color);
+}
+
+.popover {
+  background-color: var(--ds-auro-popover-container-color);
+  box-shadow: -2px 0 5px 2px var(--ds-auro-popover-boxshadow-color)  0 2px 5px 1px var(--ds-auro-popover-boxshadow-color);
+}
+
+.arrow {
+  &:before {
+    background-color: var(--ds-auro-popover-container-color);
+    box-shadow: 2px 2px 1px 0 var(--ds-auro-popover-boxshadow-color);
+  }
+}
