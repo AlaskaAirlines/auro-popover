@@ -3,8 +3,7 @@
 
 // ---------------------------------------------------------------------
 
-/* eslint-disable indent, sort-vars */
-/* eslint no-magic-numbers: "warn" */
+/* eslint-disable indent, sort-vars, no-magic-numbers */
 
 import { LitElement, html, css } from "lit";
 
