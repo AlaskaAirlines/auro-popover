@@ -1,5 +1,17 @@
 # Semantic Release Automated Changelog
 
+# [3.3.0-beta.1](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.3...v3.3.0-beta.1) (2024-07-01)
+
+
+### Features
+
+* refactor color token structure with tier 3 tokens [#63](https://github.com/AlaskaAirlines/auro-popover/issues/63) ([e5a59fd](https://github.com/AlaskaAirlines/auro-popover/commit/e5a59fd54c186cd47c0d591a50424db20dad3e99))
+
+
+### Performance Improvements
+
+* replace hardcoded size values with design tokens ([2c3c68d](https://github.com/AlaskaAirlines/auro-popover/commit/2c3c68db7ff11ddc37a5200119c4d13c61d7ad80))
+
 ## [3.2.3](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.2...v3.2.3) (2024-03-20)
 
 
