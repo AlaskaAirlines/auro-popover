@@ -299,10 +299,12 @@ The component may be restyled using the following code sample and changing the v
 <!-- The below code snippet is automatically added from ./../../src/tokens.scss -->
 
 ```scss
+@import './../node_modules/@aurodesignsystem/design-tokens/dist/tokens/SCSSVariables';
+
 :host {
-  --ds-auro-popover-boxshadow-color: var(--ds-color-border-divider-default, $ds-color-border-divider-default);
-  --ds-auro-popover-container-color: var(--ds-color-container-primary-default, $ds-color-container-primary-default);
-  --ds-auro-popover-text-color: var(--ds-color-text-primary-default, $ds-color-text-primary-default);
+  --ds-auro-popover-boxshadow-color: var(--ds-color-border-divider-default, #{$ds-color-border-divider-default});
+  --ds-auro-popover-container-color: var(--ds-color-container-primary-default, #{$ds-color-container-primary-default});
+  --ds-auro-popover-text-color: var(--ds-color-text-primary-default, #{$ds-color-text-primary-default});
 }
 ```
 <!-- AURO-GENERATED-CONTENT:END -->
