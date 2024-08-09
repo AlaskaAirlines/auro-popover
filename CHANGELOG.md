@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [3.3.0-beta.2](https://github.com/AlaskaAirlines/auro-popover/compare/v3.3.0-beta.1...v3.3.0-beta.2) (2024-08-09)
+
+
+### Bug Fixes
+
+* **popover:** update styles to reconfigure trigger and box-shadow ([b771780](https://github.com/AlaskaAirlines/auro-popover/commit/b771780250a03d749422fe8236981aa85b4bb365))
+
 # [3.3.0-beta.1](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.3...v3.3.0-beta.1) (2024-07-01)
 
 
