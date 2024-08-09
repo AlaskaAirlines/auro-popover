@@ -1,5 +1,9 @@
+/* stylelint-disable color-function-notation */
+
+@import './../node_modules/@aurodesignsystem/design-tokens/dist/tokens/SCSSVariables';
+
 :host {
-  --ds-auro-popover-boxshadow-color: var(--ds-color-border-divider-default, $ds-color-border-divider-default);
-  --ds-auro-popover-container-color: var(--ds-color-container-primary-default, $ds-color-container-primary-default);
-  --ds-auro-popover-text-color: var(--ds-color-text-primary-default, $ds-color-text-primary-default);
+  --ds-auro-popover-boxshadow-color: var(--ds-color-base-black-300, #{$ds-color-base-black-300});
+  --ds-auro-popover-container-color: var(--ds-color-container-primary-default, #{$ds-color-container-primary-default});
+  --ds-auro-popover-text-color: var(--ds-color-text-primary-default, #{$ds-color-text-primary-default});
 }

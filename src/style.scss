@@ -127,8 +127,11 @@ $auro-inset-directions: '';
   bottom: calc(-1 * calc(var(--ds-size-100, $ds-size-100) + var(--ds-size-25, $ds-size-25)));
 
   &:before {
-    top: -16px;
-    left: calc(-1 * var(--ds-size-200, $ds-size-200));
+    // calc = -16px
+    top: calc(-1 * var(--ds-size-200, $ds-size-200));
+
+    // calc = -6px
+    left: calc(-1 * var(--ds-size-75, $ds-size-75));
 
     transform: rotate(45deg);
   }
