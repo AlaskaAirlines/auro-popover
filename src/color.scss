@@ -14,7 +14,7 @@
 
 .popover {
   background-color: var(--ds-auro-popover-container-color);
-  box-shadow: -2px 0 5px 2px var(--ds-auro-popover-boxshadow-color)  0 2px 5px 1px var(--ds-auro-popover-boxshadow-color);
+  box-shadow: -2px 0 5px 2px var(--ds-auro-popover-boxshadow-color), 0 2px 5px 1px var(--ds-auro-popover-boxshadow-color);
 }
 
 .arrow {
