@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [3.3.0-beta.3](https://github.com/AlaskaAirlines/auro-popover/compare/v3.3.0-beta.2...v3.3.0-beta.3) (2024-08-15)
+
+
+### Performance Improvements
+
+* update deps and add name as attribute when custom registered ([e5ceef4](https://github.com/AlaskaAirlines/auro-popover/commit/e5ceef4ca9bebe8f49e2355fd7736ab7deba0e78))
+
 # [3.3.0-beta.2](https://github.com/AlaskaAirlines/auro-popover/compare/v3.3.0-beta.1...v3.3.0-beta.2) (2024-08-09)
 
 
