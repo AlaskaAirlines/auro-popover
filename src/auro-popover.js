@@ -7,6 +7,8 @@
 
 import { LitElement, html, css } from "lit";
 
+import AuroLibraryRuntimeUtils from '@aurodesignsystem/auro-library/scripts/utils/runtimeUtils.mjs';
+
 // Import touch detection lib
 import styleCss from "./style-css.js";
 import colorCss from "./color-css.js";
@@ -41,6 +43,7 @@ export class AuroPopover extends LitElement {
   privateDefaults() {
     this.isPopoverVisible = false;
     this.id = `popover-${(Math.random() + 1).toString(36).substring(7)}`;
+    this.runtimeUtils = new AuroLibraryRuntimeUtils();
   }
 
   // function to define props used within the scope of this component
@@ -79,6 +82,9 @@ export class AuroPopover extends LitElement {
   }
 
   firstUpdated() {
+    // Add the tag name as an attribute if it is different than the component name
+    this.runtimeUtils.handleComponentTagRename(this, 'auro-popover');
+
     if (this.for) {
       this.trigger = document.querySelector(`#${this.for}`) || this.getRootNode().querySelector(`#${this.for}`);
     }
