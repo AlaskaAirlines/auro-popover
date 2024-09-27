@@ -302,7 +302,7 @@ The component may be restyled using the following code sample and changing the v
 @import './../node_modules/@aurodesignsystem/design-tokens/dist/tokens/SCSSVariables';
 
 :host {
-  --ds-auro-popover-boxshadow-color: var(--ds-color-base-black-300, #{$ds-color-base-black-300});
+  --ds-auro-popover-boxshadow-color: var(--ds-elevation-200, #{$ds-elevation-200});
   --ds-auro-popover-container-color: var(--ds-color-container-primary-default, #{$ds-color-container-primary-default});
   --ds-auro-popover-text-color: var(--ds-color-text-primary-default, #{$ds-color-text-primary-default});
 }
