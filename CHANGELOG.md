@@ -1,49 +1,5 @@
 # Semantic Release Automated Changelog
 
-# [4.0.0-beta.1](https://github.com/AlaskaAirlines/auro-popover/compare/v3.3.0-beta.3...v4.0.0-beta.1) (2024-09-30)
-
-
-### Bug Fixes
-
-* resolve minor color theming issues ([89b344a](https://github.com/AlaskaAirlines/auro-popover/commit/89b344a05937df074cd260edfa67cfb0f29e4934))
-
-
-### Performance Improvements
-
-* refactor custom component registration config ([d080c60](https://github.com/AlaskaAirlines/auro-popover/commit/d080c609faec0c6bd990204f5d72ef5c35c4ad8b))
-* update dependencies ([74ab81a](https://github.com/AlaskaAirlines/auro-popover/commit/74ab81a5881baf1efce5cdd37a3a34b6e05c3847))
-
-
-### BREAKING CHANGES
-
-* trigger major release for color theme support #63
-
-# [3.3.0-beta.3](https://github.com/AlaskaAirlines/auro-popover/compare/v3.3.0-beta.2...v3.3.0-beta.3) (2024-08-15)
-
-
-### Performance Improvements
-
-* update deps and add name as attribute when custom registered ([e5ceef4](https://github.com/AlaskaAirlines/auro-popover/commit/e5ceef4ca9bebe8f49e2355fd7736ab7deba0e78))
-
-# [3.3.0-beta.2](https://github.com/AlaskaAirlines/auro-popover/compare/v3.3.0-beta.1...v3.3.0-beta.2) (2024-08-09)
-
-
-### Bug Fixes
-
-* **popover:** update styles to reconfigure trigger and box-shadow ([b771780](https://github.com/AlaskaAirlines/auro-popover/commit/b771780250a03d749422fe8236981aa85b4bb365))
-
-# [3.3.0-beta.1](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.3...v3.3.0-beta.1) (2024-07-01)
-
-
-### Features
-
-* refactor color token structure with tier 3 tokens [#63](https://github.com/AlaskaAirlines/auro-popover/issues/63) ([e5a59fd](https://github.com/AlaskaAirlines/auro-popover/commit/e5a59fd54c186cd47c0d591a50424db20dad3e99))
-
-
-### Performance Improvements
-
-* replace hardcoded size values with design tokens ([2c3c68d](https://github.com/AlaskaAirlines/auro-popover/commit/2c3c68db7ff11ddc37a5200119c4d13c61d7ad80))
-
 ## [3.2.3](https://github.com/AlaskaAirlines/auro-popover/compare/v3.2.2...v3.2.3) (2024-03-20)
 
 
