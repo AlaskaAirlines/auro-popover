@@ -34,6 +34,7 @@ The `auro-popover` element should be used in situations where users may:
     Top popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
   </auro-popover>
+  
   <!-- Using the placement=bottom attribute -->
   <auro-popover placement="bottom">
     Popover content!
@@ -41,17 +42,19 @@ The `auro-popover` element should be used in situations where users may:
   </auro-popover>
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
+
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
+
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/basic.html) -->
 <!-- The below code snippet is automatically added from ./../../apiExamples/basic.html -->
-
 ```html
 <!-- The slot=trigger attribute is bound directly to the auro-button element  -->
 <auro-popover>
   Top popover content!
   <auro-button slot="trigger">Popover Test</auro-button>
 </auro-popover>
+
 <!-- Using the placement=bottom attribute -->
 <auro-popover placement="bottom">
   Popover content!
@@ -59,6 +62,7 @@ The `auro-popover` element should be used in situations where users may:
 </auro-popover>
 ```
 <!-- AURO-GENERATED-CONTENT:END -->
+
 </auro-accordion>
 
 ## Recommended Use and Version Control
@@ -84,6 +88,7 @@ This will create a new custom element that you can use in your HTML that will fu
     Top popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
   </custom-popover>
+  
   <!-- Using the placement=bottom attribute -->
   <custom-popover placement="bottom">
     Popover content!
@@ -91,17 +96,19 @@ This will create a new custom element that you can use in your HTML that will fu
   </custom-popover>
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
+
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
+
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/custom.html) -->
 <!-- The below code snippet is automatically added from ./../../apiExamples/custom.html -->
-
 ```html
 <!-- The slot=trigger attribute is bound directly to the auro-button element  -->
 <custom-popover>
   Top popover content!
   <auro-button slot="trigger">Popover Test</auro-button>
 </custom-popover>
+
 <!-- Using the placement=bottom attribute -->
 <custom-popover placement="bottom">
   Popover content!
@@ -109,4 +116,5 @@ This will create a new custom element that you can use in your HTML that will fu
 </custom-popover>
 ```
 <!-- AURO-GENERATED-CONTENT:END -->
+
 </auro-accordion>
