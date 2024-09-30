@@ -132,7 +132,7 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 
 ### Developer Notes
 
-The default trigger for a popover is a `hover` event. Mobile devices do not support `hover` events directly, so the `hover` event is replaced with a `touchstart` event to produce the popover. This is to ensure reliability of the action versus versus a dependency on a secondary interruption of the `hover` event on mobile devices.
+The default trigger for a popover is a `hover` event. Mobile devices do not support `hover` events directly, so the `hover` event is replaced with a `touchstart` event to produce the popover. This is to ensure reliability of the action versus a dependency on a secondary interruption of the `hover` event on mobile devices.
 
 ### Theme Support
 
