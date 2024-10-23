@@ -34,7 +34,6 @@ The `auro-popover` element should be used in situations where users may:
     Top popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
   </auro-popover>
-  
   <!-- Using the placement=bottom attribute -->
   <auro-popover placement="bottom">
     Popover content!
@@ -42,19 +41,17 @@ The `auro-popover` element should be used in situations where users may:
   </auro-popover>
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
-
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
-
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/basic.html) -->
 <!-- The below code snippet is automatically added from ./../../apiExamples/basic.html -->
+
 ```html
 <!-- The slot=trigger attribute is bound directly to the auro-button element  -->
 <auro-popover>
   Top popover content!
   <auro-button slot="trigger">Popover Test</auro-button>
 </auro-popover>
-
 <!-- Using the placement=bottom attribute -->
 <auro-popover placement="bottom">
   Popover content!
@@ -62,20 +59,18 @@ The `auro-popover` element should be used in situations where users may:
 </auro-popover>
 ```
 <!-- AURO-GENERATED-CONTENT:END -->
-
 </auro-accordion>
 
 ## Recommended Use and Version Control
 
-There are two important parts of every Auro component. The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">class</a> and the custom clement. The class is exported and then used as part of defining the Web Component. When importing this component as described in the <a href="#install">install</a> section, the class is imported and the `auro-popover` custom element is defined automatically.
+There are two important parts of every Auro component. The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">class</a> and the custom element. The class is exported and then used as part of defining the Web Component. When importing this component as described in the <a href="#install">install</a> section, the class is imported and the `auro-popover` custom element is defined automatically.
 
-To protect from versioning conflicts with other instances of the component being loaded, it is recommended to use our `registerComponent(name)` method and pass in a unique name.
+To protect from versioning conflicts with other instances of the component being loaded, it is recommended to use our `AuroPopover.register(name)` method and pass in a unique name.
 
 ```js
 import { AuroPopover } from './src/auro-popover.js';
-import * as RuntimeUtils from '@aurodesignsystem/auro-library/scripts/utils/runtimeUtils.mjs';
 
-RuntimeUtils.default.prototype.registerComponent('custom-popover', AuroPopover);
+AuroPopover.register('custom-popover');
 ```
 
 This will create a new custom element that you can use in your HTML that will function identically to the `auro-popover` element.
@@ -88,7 +83,6 @@ This will create a new custom element that you can use in your HTML that will fu
     Top popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
   </custom-popover>
-  
   <!-- Using the placement=bottom attribute -->
   <custom-popover placement="bottom">
     Popover content!
@@ -96,19 +90,17 @@ This will create a new custom element that you can use in your HTML that will fu
   </custom-popover>
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
-
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
-
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/custom.html) -->
 <!-- The below code snippet is automatically added from ./../../apiExamples/custom.html -->
+
 ```html
 <!-- The slot=trigger attribute is bound directly to the auro-button element  -->
 <custom-popover>
   Top popover content!
   <auro-button slot="trigger">Popover Test</auro-button>
 </custom-popover>
-
 <!-- Using the placement=bottom attribute -->
 <custom-popover placement="bottom">
   Popover content!
@@ -116,5 +108,4 @@ This will create a new custom element that you can use in your HTML that will fu
 </custom-popover>
 ```
 <!-- AURO-GENERATED-CONTENT:END -->
-
 </auro-accordion>

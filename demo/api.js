@@ -1,6 +1,7 @@
 /* eslint-disable jsdoc/require-jsdoc, no-magic-numbers, no-param-reassign */
 
 import { boundaryExample } from "../apiExamples/boundary";
+import '../index';
 
 export function initExamples(initCount) {
   initCount = initCount || 0;

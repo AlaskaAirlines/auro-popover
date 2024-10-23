@@ -64,6 +64,18 @@ export class AuroPopover extends LitElement {
     ];
   }
 
+  /**
+   * This will register this element with the browser.
+   * @param {string} [name="auro-popover"] - The name of element that you want to register to.
+   *
+   * @example
+   * AuroPopover.register("custom-popover") // this will register this element to <custom-popover/>
+   *
+   */
+  static register(name = "auro-popover") {
+    AuroLibraryRuntimeUtils.prototype.registerComponent(name, AuroPopover);
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -203,9 +215,4 @@ export class AuroPopover extends LitElement {
       </span>
     `;
   }
-}
-
-// define the name of the custom component
-if (!customElements.get("auro-popover")) {
-  customElements.define("auro-popover", AuroPopover);
 }
