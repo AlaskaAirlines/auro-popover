@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+# [4.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v4.0.1...v4.1.0) (2024-10-23)
+
+
+### Features
+
+* **api:** add register static method [#82](https://github.com/AlaskaAirlines/auro-popover/issues/82) ([2ac3681](https://github.com/AlaskaAirlines/auro-popover/commit/2ac36812dd149815740db6862829eea688f2ef37))
+
 ## [4.0.1](https://github.com/AlaskaAirlines/auro-popover/compare/v4.0.0...v4.0.1) (2024-10-04)
 
 
