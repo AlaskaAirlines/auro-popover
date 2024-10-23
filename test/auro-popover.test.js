@@ -1,5 +1,5 @@
 import { fixture, html, expect } from '@open-wc/testing';
-import '../src/auro-popover.js';
+import '../index';
 import './shadow-popover';
 
 describe('auro-popover', () => {

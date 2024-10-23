@@ -23,6 +23,16 @@ const modernConfig = {
   ]
 };
 
+const indexExamplesConfig = {
+  input: {
+    ['index.min']: './demo/index.js',
+  },
+  output: {
+    format: 'esm',
+    dir: 'demo/'
+  }
+};
+
 const apiExamplesConfig = {
   input: {
     ['api.min']: './demo/api.js',
@@ -33,4 +43,4 @@ const apiExamplesConfig = {
   }
 };
 
-export default [modernConfig, apiExamplesConfig];
+export default [modernConfig, indexExamplesConfig, apiExamplesConfig];
