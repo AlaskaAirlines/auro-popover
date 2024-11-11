@@ -1,4 +1,4 @@
-<!-- AURO-GENERATED-CONTENT:START (FILE:src=./../api.md) -->
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../docs/api.md) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 ## API Examples
@@ -6,14 +6,14 @@
 ### Basic
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/basic.html) -->
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/basic.html) -->
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
 
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/basic.html) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/basic.html) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 </auro-accordion>
@@ -25,13 +25,13 @@
 When the `disabled` attribute is present, the popover will not appear on hover or focus.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/disabled.html) -->
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/disabled.html) -->
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/disabled.html) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/disabled.html) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 </auro-accordion>
@@ -41,13 +41,13 @@ When the `disabled` attribute is present, the popover will not appear on hover o
 Use the `addSpace` attribute to add more space between the popover and it's trigger.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/addSpace.html) -->
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/addSpace.html) -->
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/addSpace.html) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/addSpace.html) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 </auro-accordion>
@@ -57,13 +57,13 @@ Use the `addSpace` attribute to add more space between the popover and it's trig
 Use the `removeSpace` attribute to lessen the space between the popover and it's trigger.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/removeSpace.html) -->
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/removeSpace.html) -->
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/removeSpace.html) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/removeSpace.html) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 </auro-accordion>
@@ -75,17 +75,17 @@ Use the `removeSpace` attribute to lessen the space between the popover and it's
 Use the `boundary` property to set the overflow boundary for the `auro-popover`, shifting the x-axis of the `auro-popover`. This example demonstrates an `auro-popover` in a container without a `boundary` set vs an `auro-popover` in a container with a `boundary` set. The value passed to the `boundary` attribute can be a valid selector string or HTML Element.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/boundary.html) -->
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/boundary.html) -->
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/boundary.html) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/boundary.html) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/boundary.js) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/boundary.js) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 </auro-accordion>
@@ -100,7 +100,7 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
 
 <auro-alert type="error" noIcon>
   <div class="exampleWrapper">
-    <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/notRecommended.html) -->
+    <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/notRecommended.html) -->
     <!-- AURO-GENERATED-CONTENT:END -->
   </div>
 </auro-alert>
@@ -108,7 +108,7 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/notRecommended.html) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/notRecommended.html) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 </auro-accordion>
@@ -117,7 +117,7 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 
 <auro-alert type="success" noIcon>
   <div class="exampleWrapper">
-    <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../../apiExamples/recommended.html) -->
+    <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/recommended.html) -->
     <!-- AURO-GENERATED-CONTENT:END -->
   </div>
 </auro-alert>
@@ -125,7 +125,7 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../apiExamples/recommended.html) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/recommended.html) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
 </auro-accordion>
@@ -138,5 +138,5 @@ The default trigger for a popover is a `hover` event. Mobile devices do not supp
 
 The component may be restyled using the following code sample and changing the values of the following token(s).
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../../src/tokens.scss) -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../src/tokens.scss) -->
 <!-- AURO-GENERATED-CONTENT:END -->
