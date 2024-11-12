@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [4.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.0...v4.1.1) (2024-11-12)
+
+
+### Bug Fixes
+
+* update markdown partial pathing to consume new auro lib [#84](https://github.com/AlaskaAirlines/auro-popover/issues/84) ([caf1c9c](https://github.com/AlaskaAirlines/auro-popover/commit/caf1c9c399c36c92fc07294bec7886558687fd99))
+
 # [4.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v4.0.1...v4.1.0) (2024-10-23)
 
 
