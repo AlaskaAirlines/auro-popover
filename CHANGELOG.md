@@ -1,5 +1,13 @@
 # Semantic Release Automated Changelog
 
+## [4.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.1...v4.1.2) (2024-12-22)
+
+
+### Performance Improvements
+
+* change master to main branch ([044c1b3](https://github.com/AlaskaAirlines/auro-popover/commit/044c1b3bb8434109eea5e0fe44448591f72cb3ff))
+* update node to version 22 ([91365f1](https://github.com/AlaskaAirlines/auro-popover/commit/91365f1c8c8a0eb83c64bd95be03cfa6a8c17299))
+
 ## [4.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.0...v4.1.1) (2024-11-12)
 
 
