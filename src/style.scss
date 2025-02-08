@@ -3,7 +3,7 @@
 
 // ---------------------------------------------------------------------
 
-/* stylelint-disable scss/dollar-variable-empty-line-before, at-rule-empty-line-before, order/properties-order, scss/selector-nest-combinators, declaration-empty-line-before, 
+/* stylelint-disable scss/dollar-variable-empty-line-before, at-rule-empty-line-before, order/properties-order, scss/selector-nest-combinators, declaration-empty-line-before,
    scss/at-extend-no-missing-placeholder,  declaration-no-important, selector-max-combinators, selector-max-compound-selectors, no-descending-specificity, color-function-notation */
 
 // Import Auro tokens
@@ -70,7 +70,7 @@ $auro-inset-directions: '';
 :host([removeSpace]) {
   .popover {
     // calc = -5px
-    margin: calc(-1 * calc(var(--ds-size-50, $ds-size-50) + 1px)) 0 !important; 
+    margin: calc(-1 * calc(var(--ds-size-50, $ds-size-50) + 1px)) 0 !important;
   }
 }
 
@@ -111,13 +111,13 @@ $auro-inset-directions: '';
 
   border-radius: var(--ds-border-radius, $ds-border-radius);
 
-  @include auro_breakpoint--sm {
+  @include auro_grid-breakpoint--sm {
     max-width: 50%;
   }
-  @include auro_breakpoint--md {
+  @include auro_grid-breakpoint--md {
     max-width: 40%;
   }
-  @include auro_breakpoint--lg {
+  @include auro_grid-breakpoint--lg {
     max-width: 27rem;
   }
 }
