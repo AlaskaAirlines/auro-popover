@@ -1,5 +1,13 @@
 # Semantic Release Automated Changelog
 
+## [4.1.3](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.2...v4.1.3) (2025-02-08)
+
+
+### Performance Improvements
+
+* update dependencies ([d6f7bf1](https://github.com/AlaskaAirlines/auro-popover/commit/d6f7bf133c1f49901402c998e6c02a3be20a0832))
+* update mixin per updated npm spec ([57cf09a](https://github.com/AlaskaAirlines/auro-popover/commit/57cf09a7fe5cbcc17d990720694ecb183593dafe))
+
 ## [4.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.1...v4.1.2) (2024-12-22)
 
 
