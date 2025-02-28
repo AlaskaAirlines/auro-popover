@@ -1,5 +1,20 @@
 # Semantic Release Automated Changelog
 
+# [5.0.0](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.3...v5.0.0) (2025-02-28)
+
+
+* feat!: move peer dependencies to "real" dependencies ([7750a60](https://github.com/AlaskaAirlines/auro-popover/commit/7750a60bc6f2de9718fa061208d560cd903f0400))
+
+
+### BREAKING CHANGES
+
+* last change was breaking _on a patch version_ because of pee
+
+Summary:
+    Our current build process relies on peer dependencies being present, but
+    the peer dependency pipeline is causing far more issues than it's worth.
+    Why not just make them regular dependencies? This is what this PR does :)
+
 ## [4.1.3](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.2...v4.1.3) (2025-02-08)
 
 
