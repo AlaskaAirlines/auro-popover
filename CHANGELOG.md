@@ -8,7 +8,7 @@
 
 ### BREAKING CHANGES
 
-* last change was breaking _on a patch version_ because of pee
+* last change was breaking _on a patch version_ because of peer dependencies
 
 Summary:
     Our current build process relies on peer dependencies being present, but
