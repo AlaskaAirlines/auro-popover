@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [5.0.1](https://github.com/AlaskaAirlines/auro-popover/compare/v5.0.0...v5.0.1) (2025-04-09)
+
+
+### Performance Improvements
+
+* add wca script for docs api ([a554650](https://github.com/AlaskaAirlines/auro-popover/commit/a5546506cb170ec4c1b3e888f0a0933b3f3e96f6))
+
 # [5.0.0](https://github.com/AlaskaAirlines/auro-popover/compare/v4.1.3...v5.0.0) (2025-02-28)
 
 
