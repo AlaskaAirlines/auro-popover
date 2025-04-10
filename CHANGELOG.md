@@ -1,5 +1,13 @@
 # Semantic Release Automated Changelog
 
+## [5.0.2](https://github.com/AlaskaAirlines/auro-popover/compare/v5.0.1...v5.0.2) (2025-04-10)
+
+
+### Performance Improvements
+
+* update color tokens for theming [#99](https://github.com/AlaskaAirlines/auro-popover/issues/99) ([ef8bd9b](https://github.com/AlaskaAirlines/auro-popover/commit/ef8bd9b58b3f373060a565c26c0015329b41a6e8))
+* update dependencies and tsconfig ([08c93e1](https://github.com/AlaskaAirlines/auro-popover/commit/08c93e1a2041c9629dd5a7c5a055c7127b9f04cf))
+
 ## [5.0.1](https://github.com/AlaskaAirlines/auro-popover/compare/v5.0.0...v5.0.1) (2025-04-09)
 
 
