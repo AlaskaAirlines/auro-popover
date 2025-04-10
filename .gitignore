@@ -4,6 +4,7 @@ docTemplates/
 .cache/
 
 ## Demo support files
+demo/**/*.min.js
 demo/*.css
 demo/*.css.map
 
