@@ -1,8 +1,8 @@
-@import './../node_modules/@aurodesignsystem/design-tokens/dist/auro-classic/SCSSVariables';
-@import "./../node_modules/@aurodesignsystem/design-tokens/dist/alaska/SCSSVariables--alaska";
+@use "@aurodesignsystem/design-tokens/dist/legacy/auro-classic/SCSSVariables" as vac;
+@use "@aurodesignsystem/design-tokens/dist/themes/alaska/SCSSVariables--alaska" as v;
 
 :host {
-  --ds-auro-popover-boxshadow-color: var(--ds-elevation-200, #{$ds-elevation-200});
-  --ds-auro-popover-container-color: var(--ds-basic-color-surface-default, #{$ds-basic-color-surface-default});
-  --ds-auro-popover-text-color: var(--ds-basic-color-texticon-default, #{$ds-basic-color-texticon-default});
+  --ds-auro-popover-boxshadow-color: var(--ds-elevation-200, #{vac.$ds-elevation-200});
+  --ds-auro-popover-container-color: var(--ds-basic-color-surface-default, #{v.$ds-basic-color-surface-default});
+  --ds-auro-popover-text-color: var(--ds-basic-color-texticon-default, #{v.$ds-basic-color-texticon-default});
 }

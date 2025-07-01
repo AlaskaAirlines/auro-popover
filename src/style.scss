@@ -7,15 +7,16 @@
    scss/at-extend-no-missing-placeholder,  declaration-no-important, selector-max-combinators, selector-max-compound-selectors, no-descending-specificity, color-function-notation */
 
 // Import Auro tokens
-@import './../node_modules/@aurodesignsystem/design-tokens/dist/auro-classic/SCSSVariables';
+@use "@aurodesignsystem/design-tokens/dist/legacy/auro-classic/SCSSVariables" as vac;
+@use "@aurodesignsystem/webcorestylesheets/dist/bundled/type/classes.alaska.min.css";
 
-@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/breakpoints';
-@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/core';
+@use "@aurodesignsystem/webcorestylesheets/src/breakpoints" as bp;
+@use "@aurodesignsystem/webcorestylesheets/src/core";
 
-@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/utilityClasses/displayProperties';
+@use "@aurodesignsystem/webcorestylesheets/src/utilityClasses/displayProperties";
 $auro-inset-spacing-options: lg;
 $auro-inset-directions: '';
-@import './../node_modules/@aurodesignsystem/webcorestylesheets/src/utilityMixins/insetUtility';
+@use "@aurodesignsystem/webcorestylesheets/src/utilityMixins/insetUtility";
 
 ::slotted(*) {
   white-space: normal;
@@ -35,7 +36,7 @@ $auro-inset-directions: '';
     display: block;
 
     width: 100%;
-    height: calc(var(--ds-size-200, $ds-size-200) + var(--ds-size-50, $ds-size-50));
+    height: calc(var(--ds-size-200, vac.$ds-size-200) + var(--ds-size-50, vac.$ds-size-50));
 
     content: '';
   }
@@ -43,13 +44,13 @@ $auro-inset-directions: '';
 
 [data-trigger-placement^='top']::slotted(*:hover) {
   &:before {
-    top: calc(-1 * calc(var(--ds-size-200, $ds-size-200) + var(--ds-size-50, $ds-size-50)));
+    top: calc(-1 * calc(var(--ds-size-200, vac.$ds-size-200) + var(--ds-size-50, vac.$ds-size-50)));
   }
 }
 
 [data-trigger-placement^='bottom']::slotted(*:hover) {
   &:before {
-    bottom: calc(-1 * calc(var(--ds-size-200, $ds-size-200) + var(--ds-size-50, $ds-size-50)));
+    bottom: calc(-1 * calc(var(--ds-size-200, vac.$ds-size-200) + var(--ds-size-50, vac.$ds-size-50)));
   }
 }
 
@@ -62,37 +63,37 @@ $auro-inset-directions: '';
 
 :host([data-show]) {
   .popover {
-    z-index: var(--ds-depth-tooltip, $ds-depth-tooltip);
+    z-index: var(--ds-depth-tooltip, vac.$ds-depth-tooltip);
   }
 }
 
 :host([removeSpace]) {
   .popover {
     // calc = -5px
-    margin: calc(-1 * calc(var(--ds-size-50, $ds-size-50) + 1px)) 0 !important;
+    margin: calc(-1 * calc(var(--ds-size-50, vac.$ds-size-50) + 1px)) 0 !important;
   }
 }
 
 :host([addSpace]) {
   .popover {
-    margin: var(--ds-size-200, $ds-size-200) 0 !important;
+    margin: var(--ds-size-200, vac.$ds-size-200) 0 !important;
   }
 
   [data-trigger-placement]::slotted(*:hover) {
     &:before {
-      height: var(--ds-size-500, $ds-size-500);
+      height: var(--ds-size-500, vac.$ds-size-500);
     }
   }
 
   [data-trigger-placement^='top']::slotted(*:hover) {
     &:before {
-      top: calc(-1 * var(--ds-size-500, $ds-size-500));
+      top: calc(-1 * var(--ds-size-500, vac.$ds-size-500));
     }
   }
 
   [data-trigger-placement^='bottom']::slotted(*:hover) {
     &:before {
-      bottom: calc(-1 * var(--ds-size-500, $ds-size-500));
+      bottom: calc(-1 * var(--ds-size-500, vac.$ds-size-500));
     }
   }
 
@@ -106,31 +107,31 @@ $auro-inset-directions: '';
 .popover {
   display: inline-block;
 
-  max-width: calc(100% - var(--ds-size-400, $ds-size-400));
+  max-width: calc(100% - var(--ds-size-400, vac.$ds-size-400));
 
-  border-radius: var(--ds-border-radius, $ds-border-radius);
+  border-radius: var(--ds-border-radius, vac.$ds-border-radius);
 
-  @include auro_grid-breakpoint--sm {
+  @include bp.auro_grid-breakpoint--sm {
     max-width: 50%;
   }
-  @include auro_grid-breakpoint--md {
+  @include bp.auro_grid-breakpoint--md {
     max-width: 40%;
   }
-  @include auro_grid-breakpoint--lg {
+  @include bp.auro_grid-breakpoint--lg {
     max-width: 27rem;
   }
 }
 
 [data-popper-placement^='top'] > .arrow {
   // calc = -10px
-  bottom: calc(-1 * calc(var(--ds-size-100, $ds-size-100) + var(--ds-size-25, $ds-size-25)));
+  bottom: calc(-1 * calc(var(--ds-size-100, vac.$ds-size-100) + var(--ds-size-25, vac.$ds-size-25)));
 
   &:before {
     // calc = -16px
-    top: calc(-1 * var(--ds-size-200, $ds-size-200));
+    top: calc(-1 * var(--ds-size-200, vac.$ds-size-200));
 
     // calc = -6px
-    left: calc(-1 * var(--ds-size-75, $ds-size-75));
+    left: calc(-1 * var(--ds-size-75, vac.$ds-size-75));
 
     transform: rotate(45deg);
   }
@@ -138,11 +139,11 @@ $auro-inset-directions: '';
 
 [data-popper-placement^='bottom'] > .arrow {
   // calc = -10px
-  top: calc(-1 * calc(var(--ds-size-100, $ds-size-100) + var(--ds-size-25, $ds-size-25)));
+  top: calc(-1 * calc(var(--ds-size-100, vac.$ds-size-100) + var(--ds-size-25, vac.$ds-size-25)));
 
   &:before {
-    top: var(--ds-size-50, $ds-size-50);
-    right: calc(-1 * var(--ds-size-200, $ds-size-200));
+    top: var(--ds-size-50, vac.$ds-size-50);
+    right: calc(-1 * var(--ds-size-200, vac.$ds-size-200));
 
     transform: rotate(-135deg);
   }
@@ -151,13 +152,13 @@ $auro-inset-directions: '';
 .arrow {
   position: relative;
 
-  margin-top: -var(--ds-size-100, $ds-size-100);
+  margin-top: -var(--ds-size-100, vac.$ds-size-100);
 
   &:before {
     position: absolute;
 
-    width: var(--ds-size-150, $ds-size-150);
-    height: var(--ds-size-150, $ds-size-150);
+    width: var(--ds-size-150, vac.$ds-size-150);
+    height: var(--ds-size-150, vac.$ds-size-150);
 
     content: '';
   }

@@ -205,7 +205,7 @@ export class AuroPopover extends LitElement {
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="popover" class="popover util_insetLg" aria-live="polite" part="popover">
+      <div id="popover" class="popover util_insetLg body-default" aria-live="polite" part="popover">
         <div id="arrow" class="arrow" data-popper-arrow></div>
         <span role="tooltip" aria-labelledby="${this.id}"><slot></slot></span>
       </div>
