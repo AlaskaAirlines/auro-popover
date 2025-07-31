@@ -3,36 +3,46 @@
 
 // ---------------------------------------------------------------------
 
-/* eslint-disable indent, sort-vars, no-magic-numbers */
+/* eslint-disable */
 
-import { LitElement, html, css } from "lit";
+import { html } from "lit/static-html.js";
+import { LitElement, css } from "lit";
+import { createRef, ref } from 'lit/directives/ref.js';
 
+import { AuroDependencyVersioning } from '@aurodesignsystem/auro-library/scripts/runtime/dependencyTagVersioning.mjs';
 import AuroLibraryRuntimeUtils from '@aurodesignsystem/auro-library/scripts/utils/runtimeUtils.mjs';
+
+import {AuroLayover} from "@aurodesignsystem/auro-layover/class";
+import layoverVersion from './layoverVersion.js';
 
 // Import touch detection lib
 import styleCss from "./style-css.js";
 import colorCss from "./color-css.js";
 import tokensCss from "./tokens-css.js";
 
-import Popover from "./popover.js";
+const DEFAULTS = {
+  placement: 'top',
+}
+
+/** The amount of extra spacing to add when the user passes "addSpace" */
+const ADD_SPACE_AMOUNT = 22;
 
 /**
  * Popover attaches to an element and displays on hover/blur.
  *
- * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger
  * @attr {boolean} disabled - If true, will disable the popover from showing on hover and focus
- * @attr {String} for - Directly associate the popover with a trigger element with the given ID. In most cases, this should not be necessary and set slot="trigger" on the element instead.
- * @attr {String} placement - Expects top/bottom - position for popover in relation to the element
+ * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger
  * @attr {boolean} removeSpace - If true, will remove top and bottom space around the appearance of the popover in relation to the trigger
- * @attr {String | Object} boundary - The element to use as the boundary for the popover. Can be a query selector or an HTML element.
+ * @attr {"top"|"bottom"} placement - position for popover in relation to the element
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
  */
 export class AuroPopover extends LitElement {
   constructor() {
     super();
-
-    this.placement = 'top';
+    this._privateDefaults();
+    this._setDefaults(DEFAULTS);
+    this._createRefs();
   }
 
   /**
@@ -40,19 +50,40 @@ export class AuroPopover extends LitElement {
    * @private
    * @returns {void}
    */
-  privateDefaults() {
-    this.isPopoverVisible = false;
-    this.id = `popover-${(Math.random() + 1).toString(36).substring(7)}`;
+  _setDefaults(defaults) {
+    Object.keys(defaults).forEach((key) => {
+      if (this[key] === undefined) {
+        this[key] = defaults[key];
+      }
+    });
+  };
+
+  /**
+   * Creates references for the layover and arrow elements.
+   * @returns {void}
+   */
+  _createRefs() {
+    this._layoverRef = createRef();
+    this._arrowRef = createRef();
+  }
+
+  /**
+   * Creates versioned tags for internal use.
+   * @returns {void}
+   */
+  _privateDefaults() {
+    const versioning = new AuroDependencyVersioning();
     this.runtimeUtils = new AuroLibraryRuntimeUtils();
+    this.layoverTag = versioning.generateTag("auro-popover-layover", layoverVersion, AuroLayover);
   }
 
   // function to define props used within the scope of this component
   static get properties() {
     return {
       placement:  { type: String },
-      for:        { type: String },
       disabled:   { type: Boolean },
-      boundary:   { type: String }
+      boundary:   { type: String },
+      addSpace:   { type: Boolean, reflect: true }
     };
   }
 
@@ -76,71 +107,8 @@ export class AuroPopover extends LitElement {
     AuroLibraryRuntimeUtils.prototype.registerComponent(name, AuroPopover);
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-
-    this.privateDefaults();
-
-    // adds toggle function to root element based on touch
-    this.addEventListener('touchstart', function() {
-      this.toggle();
-      this.setAttribute("isTouch", "true");
-    });
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    document.removeEventListener('click', this.documentClickHandler);
-  }
-
-  firstUpdated() {
-    // Add the tag name as an attribute if it is different than the component name
-    this.runtimeUtils.handleComponentTagRename(this, 'auro-popover');
-
-    if (this.for) {
-      this.trigger = document.querySelector(`#${this.for}`) || this.getRootNode().querySelector(`#${this.for}`);
-    }
-
-    if (!this.trigger) {
-      [this.trigger] = this.shadowRoot.querySelector('slot[name="trigger"]').assignedElements();
-    }
-
-    this.auroPopover = this.shadowRoot.querySelector('#popover');
-    this.popper = new Popover(this.trigger, this.auroPopover, this.placement, this.boundary);
-
-    const handleShow = () => {
-      this.toggleShow();
-    },
-    handleHide = () => {
-      this.toggleHide();
-    },
-    handleKeyboardWhenFocusOnTrigger = (event) => {
-      const key = event.key.toLowerCase();
-
-      if (this.isPopoverVisible) {
-        if (key === 'tab' || key === 'escape') {
-          this.toggleHide();
-        }
-      }
-
-      if (key === ' ' || key === 'enter') {
-        this.toggle();
-      }
-    },
-    element = this.trigger.parentElement.nodeName === 'AURO-POPOVER' ? this : this.trigger;
-
-    element.addEventListener('mouseenter', handleShow);
-    element.addEventListener('mouseleave', handleHide);
-
-    // if user tabs off of trigger, then hide the popover.
-    this.trigger.addEventListener('keydown', handleKeyboardWhenFocusOnTrigger);
-
-    // handle gain/loss of focus
-    this.trigger.addEventListener('focus', handleShow);
-    this.trigger.addEventListener('blur', handleHide);
-
-    // e.g. for a closePopover button in the popover
-    this.addEventListener('hidePopover', handleHide);
+  get _layover () {
+    return this._layoverRef.value;
   }
 
   /**
@@ -149,11 +117,7 @@ export class AuroPopover extends LitElement {
    * @returns {void} Fires an update lifecycle.
    */
   toggle() {
-    if (this.isPopoverVisible) {
-      this.toggleHide();
-    } else {
-      this.toggleShow();
-    }
+    this._layover.toggle();
   }
 
   /**
@@ -162,11 +126,7 @@ export class AuroPopover extends LitElement {
    * @returns {void} Fires an update lifecycle.
    */
   toggleHide() {
-    this.popper.hide();
-    this.isPopoverVisible = false;
-    this.removeAttribute('data-show');
-
-    document.querySelector('body').removeEventListener('mouseover', this.mouseoverHandler);
+    this._layover.hide();
   }
 
   /**
@@ -175,44 +135,31 @@ export class AuroPopover extends LitElement {
    * @returns {void} Fires an update lifecycle.
    */
   toggleShow() {
-    this.popper.show();
-    this.isPopoverVisible = true;
-    this.setAttribute('data-show', true);
-
-    this.mouseoverHandler = (evt) => this.handleMouseoverEvent(evt);
-
-    document.querySelector('body').addEventListener('mouseover', this.mouseoverHandler);
+    this._layover.show();
   }
 
-  /**
-   * Hides the popover when hovering outside of the popover or it's trigger.
-   * @private
-   * @param {Event} evt - The event object.
-   * @returns {void}
-   */
-  handleMouseoverEvent(evt) {
-    if (this.isPopoverVisible && !evt.composedPath().includes(this)) {
-      this.toggleHide();
-    }
-  }
-
-  updated(changedProperties) {
-    if (changedProperties.has('boundary')) {
-      this.popper.boundaryElement = this.boundary;
-    }
+  get _popoverOffset() {
+    // If addSpace is true, we add extra space to the offset
+    return this.addSpace ? 12 + ADD_SPACE_AMOUNT : 12;
   }
 
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="popover" class="popover util_insetLg body-default" aria-live="polite" part="popover">
-        <div id="arrow" class="arrow" data-popper-arrow></div>
-        <span role="tooltip" aria-labelledby="${this.id}"><slot></slot></span>
-      </div>
-
-      <span id="${this.id}">
-        <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
-      </span>
+      <${this.layoverTag}
+        ${ref(this._layoverRef)}
+        behavior="tooltip"
+        .placement="${this.placement}"
+        inline="true"
+        offset="${this._popoverOffset}"
+        ?disabled="${this.disabled}"
+      >
+        <div slot="arrow" ${ref(this._arrowRef)} data-placement="${this.placement}" id="arrow" class="arrow"></div>
+        <slot name="trigger" slot="trigger"></slot>
+        <div id="popover" class="popover util_insetLg body-default" aria-live="polite" part="popover">
+          <slot></slot>
+        </div>
+      </${this.layoverTag}>
     `;
   }
 }

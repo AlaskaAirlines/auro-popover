@@ -169,70 +169,9 @@ Use the `removeSpace` attribute to lessen the space between the popover and it's
 
 ### Property Examples
 
-#### Set overflow boundary for popover
-
-Use the `boundary` property to set the overflow boundary for the `auro-popover`, shifting the x-axis of the `auro-popover`. This example demonstrates an `auro-popover` in a container without a `boundary` set vs an `auro-popover` in a container with a `boundary` set. The value passed to the `boundary` attribute can be a valid selector string or HTML Element.
-
-<div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/boundary.html) -->
-  <!-- The below content is automatically added from ../apiExamples/boundary.html -->
-  <strong>Example with no boundary set</strong>
-  <div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-    <auro-popover placement="bottom">
-      Popover content!
-      <auro-button slot="trigger">Popover Test</auro-button>
-    </auro-popover>
-  </div>
-  <strong>Example with boundary set</strong>
-  <div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-    <auro-popover class="boundaryExample" placement="bottom">
-      Popover content!
-      <auro-button slot="trigger">Popover Test</auro-button>
-    </auro-popover>
-  </div>
-  <!-- AURO-GENERATED-CONTENT:END -->
-</div>
-<auro-accordion alignRight>
-  <span slot="trigger">See code</span>
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/boundary.html) -->
-<!-- The below code snippet is automatically added from ../apiExamples/boundary.html -->
-
-```html
-<strong>Example with no boundary set</strong>
-<div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-  <auro-popover placement="bottom">
-    Popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </auro-popover>
-</div>
-<strong>Example with boundary set</strong>
-<div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-  <auro-popover class="boundaryExample" placement="bottom">
-    Popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </auro-popover>
-</div>
-```
-<!-- AURO-GENERATED-CONTENT:END -->
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/boundary.js) -->
-<!-- The below code snippet is automatically added from ../apiExamples/boundary.js -->
-
-```js
-export function boundaryExample() {
-  const boundaryExample = document.querySelector('.boundaryExample');
-  const popoverBoundary = document.querySelector('#popoverBoundary');
-
-  boundaryExample.boundary = popoverBoundary;
-}
-```
-<!-- AURO-GENERATED-CONTENT:END -->
-</auro-accordion>
-
 ### Guidelines
 
 The auro-popover element is meant to be used when the interaction and it's content is passive. A popover is not to be used for cases where the user must adjust their focus and acknowledge the presented content. For these cases, please see the [auro-dialog](https://auro.alaskaair.com/components/auro/dialog) element.
-
-Binding a `trigger` event to a hyperlink is **not** recommended. This is a poor user experience for mobile devices, the event required to make the popover appear is a `tap`. The tap will also trigger the hyperlink to fire as well, thus negating the impact of the popover.
 
 The use of a hyperlink for to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
 
