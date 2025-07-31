@@ -1,6 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc, no-magic-numbers, no-param-reassign */
 
-import { boundaryExample } from "../apiExamples/boundary";
 import '../index';
 
 export function initExamples(initCount) {
@@ -8,7 +7,7 @@ export function initExamples(initCount) {
 
   try {
     // javascript example function calls to be added here upon creation to test examples
-    boundaryExample();
+    // boundaryExample();
   } catch (err) {
     if (initCount <= 20) {
       // setTimeout handles issue where content is sometimes loaded after the functions get called

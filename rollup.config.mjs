@@ -18,7 +18,7 @@ const modernConfig = {
     !production &&
       serve({
         open: true,
-        openPage: '/docs/'
+        openPage: '/demo/'
       })
   ]
 };
