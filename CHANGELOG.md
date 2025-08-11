@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [5.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v5.1.0...v5.1.1) (2025-08-11)
+
+
+### Bug Fixes
+
+* auro library was causing aqua scan failures ([d2ec10b](https://github.com/AlaskaAirlines/auro-popover/commit/d2ec10bfe14b450a43043d972369747b3ef33432))
+
 # [5.1.0](https://github.com/AlaskaAirlines/auro-popover/compare/v5.0.2...v5.1.0) (2025-07-01)
 
 
