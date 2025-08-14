@@ -1,5 +1,12 @@
 # Semantic Release Automated Changelog
 
+## [5.1.2](https://github.com/AlaskaAirlines/auro-popover/compare/v5.1.1...v5.1.2) (2025-08-14)
+
+
+### Bug Fixes
+
+* update auro-library to latest version ([35f1dd3](https://github.com/AlaskaAirlines/auro-popover/commit/35f1dd3ec0e9b7d3cd417a6aa88c6ee49b9797b6))
+
 ## [5.1.1](https://github.com/AlaskaAirlines/auro-popover/compare/v5.1.0...v5.1.1) (2025-08-11)
 
 
