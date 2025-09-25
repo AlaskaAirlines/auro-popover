@@ -17,7 +17,7 @@
   "main": "index.js",
   "license": "Apache-2.0",
   "engines": {
-    "node": "^20.x || ^22.x "
+    "node": "^20.x || ^22.x"
   },
   "dependencies": {
     "@aurodesignsystem/auro-library": "^5.4.0",
@@ -28,9 +28,7 @@
     "lit": "^3.2.1"
   },
   "devDependencies": {
-    "@aurodesignsystem/eslint-config": "1.3.5",
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
+    "@aurodesignsystem/auro-config": "^1.3.0",
     "@open-wc/testing": "^4.0.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@semantic-release/changelog": "^6.0.3",
@@ -44,8 +42,6 @@
     "concurrently": "^9.0.1",
     "copyfiles": "^2.4.1",
     "core-js": "^3.41.0",
-    "eslint": "^9.24.0",
-    "eslint-plugin-jsdoc": "^50.6.9",
     "husky": "^9.1.6",
     "lodash": "^4.17.21",
     "markdown-magic": "^3.4.1",
@@ -58,17 +54,10 @@
     "rollup-plugin-serve": "^3.0.0",
     "sass": "^1.86.3",
     "semantic-release": "^24.1.3",
-    "stylelint": "^16.18.0",
-    "stylelint-config-idiomatic-order": "^10.0.0",
-    "stylelint-config-standard": "^38.0.0",
-    "stylelint-config-standard-scss": "^14.0.0",
-    "stylelint-order": "^6.0.4",
-    "stylelint-scss": "^6.8.1",
     "typescript": "^5.8.3",
     "wc-sass-render": "^1.4.0",
     "web-component-analyzer": "^2.0.0",
-    "whatwg-fetch": "^3.6.20",
-    "yaml-lint": "^1.7.0"
+    "whatwg-fetch": "^3.6.20"
   },
   "overrides": {
     "wc-sass-render": {
@@ -136,7 +125,7 @@
   ],
   "scripts": {
     "build": "npm-run-all build:sass sass:render types",
-    "build:test": "npm-run-all test linters",
+    "build:test": "npm-run-all test lint",
     "build:release": "npm-run-all build build:test build:api build:docs bundler postinstall",
     "build:ci": "npm-run-all sweep build:release",
     "build:api": "wca analyze 'scripts/wca/*' --outFiles docs/api.md",
@@ -147,11 +136,8 @@
     "build:watch": "nodemon -e scss,js,html --watch src --watch apiExamples/**/* --exec npm run build:dev:assets",
     "bundler": "rollup -c",
     "bundler:test": "rollup -c -w",
-    "scssLint": "stylelint \"./src/**/*.scss\"",
     "dev": "npm run bundler && concurrently --kill-others \"npm run build:watch\" \"npm run bundler:test\" \"npm run serve\"",
     "dist:js": "copyfiles -u 1 -V './src/**/*.js' ./dist",
-    "esLint": "eslint src/auro-*.js",
-    "linters": "npm-run-all scssLint esLint",
     "preCommit": "node ./node_modules/@aurodesignsystem/auro-library/scripts/build/pre-commit.mjs",
     "postCss:component": "node ./node_modules/@aurodesignsystem/auro-library/scripts/build/postCss.mjs",
     "postinstall": "node packageScripts/postinstall.mjs",
@@ -161,7 +147,7 @@
     "test": "wtr --coverage",
     "test:watch": "wtr --watch",
     "types": "tsc",
-    "prepare": "husky install",
+    "prepare": "husky",
     "postversion": "npm-run-all build:api build:docs"
   }
 }
