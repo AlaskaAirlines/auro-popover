@@ -1,7 +1,5 @@
-/* eslint-disable jsdoc/require-jsdoc, no-magic-numbers, no-param-reassign */
-
 import { boundaryExample } from "../apiExamples/boundary";
-import "../index";
+import "../src/registered";
 
 export function initExamples(initCount) {
   // biome-ignore lint: no-unused-vars

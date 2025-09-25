@@ -3,15 +3,13 @@
 
 // ---------------------------------------------------------------------
 
-/* eslint-disable indent, sort-vars, no-magic-numbers */
-
 import AuroLibraryRuntimeUtils from "@aurodesignsystem/auro-library/scripts/utils/runtimeUtils.mjs";
 import { css, html, LitElement } from "lit";
-import colorCss from "./color-css.js";
 import Popover from "./popover.js";
-// Import touch detection lib
-import styleCss from "./style-css.js";
-import tokensCss from "./tokens-css.js";
+
+import colorCss from "./styles/color.scss";
+import styleCss from "./styles/style.scss";
+import tokensCss from "./styles/tokens.scss";
 
 /**
  * Popover attaches to an element and displays on hover/blur.
