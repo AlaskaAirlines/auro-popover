@@ -1,9 +1,9 @@
-import { fixture, html, expect } from '@open-wc/testing';
-import '../index';
-import './shadow-popover';
+import { expect, fixture, html } from "@open-wc/testing";
+import "../index";
+import "./shadow-popover";
 
-describe('auro-popover', () => {
-  it('is accessible', async () => {
+describe("auro-popover", () => {
+  it("is accessible", async () => {
     const el = await fixture(html`
       <button id="button1">Test</button>
       <auro-popover for="button1"></auro-popover>
@@ -12,32 +12,32 @@ describe('auro-popover', () => {
     await expect(el).to.be.accessible();
   });
 
-  it('custom element is defined', async () => {
+  it("custom element is defined", async () => {
     const el = await Boolean(customElements.get("auro-popover"));
 
     await expect(el).to.be.true;
   });
 
-  it('web component is successfully created in the document', async () => {
+  it("web component is successfully created in the document", async () => {
     // This test fails when attributes are put onto the component before it is attached to the DOM
-    const el = document.createElement('auro-popover');
+    const el = document.createElement("auro-popover");
 
-    await expect(el.localName).to.equal('auro-popover');
+    await expect(el.localName).to.equal("auro-popover");
   });
 
-  it('finds trigger in slot', async () => {
+  it("finds trigger in slot", async () => {
     const el = await fixture(html`
       <auro-popover>
         tooltip text
         <auro-button slot="trigger">trigger text</auro-button>
       </auro-popover>
     `);
-    const button = el.querySelector('auro-button');
+    const button = el.querySelector("auro-button");
 
     expect(el.trigger).to.eql(button);
   });
 
-  it('finds trigger with id and for attributes', async () => {
+  it("finds trigger with id and for attributes", async () => {
     const el = await fixture(html`
       <auro-popover for="popover1">
         tooltip text
@@ -45,11 +45,11 @@ describe('auro-popover', () => {
       </auro-popover>
     `);
 
-    const trigger = el.querySelector('auro-button');
+    const trigger = el.querySelector("auro-button");
     expect(el.trigger).to.eql(trigger);
-  })
+  });
 
-  it('finds trigger in shadow root using for attribute', async () => {
+  it("finds trigger in shadow root using for attribute", async () => {
     const el = await fixture(html`
       <shadow-popover></shadow-popover>
     `);
@@ -57,19 +57,19 @@ describe('auro-popover', () => {
     expect(el.popover.trigger).to.eql(el.trigger);
   });
 
-  it('finds trigger in slot', async () => {
+  it("finds trigger in slot", async () => {
     const el = await fixture(html`
       <auro-popover>
         tooltip text
         <auro-button slot="trigger">trigger text</auro-button>
       </auro-popover>
     `);
-    const button = el.querySelector('auro-button');
+    const button = el.querySelector("auro-button");
 
     expect(el.trigger).to.eql(button);
   });
 
-  it('falls back to slot trigger when for attribute set but no element with given id', async () => {
+  it("falls back to slot trigger when for attribute set but no element with given id", async () => {
     // this test case is for frameworks like Svelte, where id could be set as a property on a custom element
     const el = await fixture(html`
       <auro-popover for="test">
@@ -77,120 +77,121 @@ describe('auro-popover', () => {
         <auro-button slot="trigger">trigger text</auro-button>
       </auro-popover>
     `);
-    const button = el.querySelector('auro-button');
+    const button = el.querySelector("auro-button");
 
     expect(el.trigger).to.eql(button);
   });
 
-  describe('visibility via mouse', () => {
-    it('shows hidden content on hover', async () => {
+  describe("visibility via mouse", () => {
+    it("shows hidden content on hover", async () => {
       const el = await getFixture();
 
       expectPopoverHidden(el);
 
-      el.dispatchEvent(new MouseEvent('mouseenter'));
+      el.dispatchEvent(new MouseEvent("mouseenter"));
 
-      expect(el.textContent).to.include('tooltip');
+      expect(el.textContent).to.include("tooltip");
 
       expectPopoverShown(el);
-    })
+    });
 
-    it('hides popover content on hover off', async () => {
+    it("hides popover content on hover off", async () => {
       const el = await getFixture();
 
       expectPopoverHidden(el);
 
-      el.dispatchEvent(new MouseEvent('mouseenter'));
+      el.dispatchEvent(new MouseEvent("mouseenter"));
 
       expectPopoverShown(el);
 
-      el.dispatchEvent(new MouseEvent('mouseleave'));
+      el.dispatchEvent(new MouseEvent("mouseleave"));
 
       expectPopoverHidden(el);
-    })
-  })
+    });
+  });
 
-  describe('visibility via keyboard', () => {
-    it ('toggles hidden content trigger focus and space key', async () => {
+  describe("visibility via keyboard", () => {
+    it("toggles hidden content trigger focus and space key", async () => {
       const el = await getFixture();
 
       expectPopoverHidden(el);
 
-      el.trigger.dispatchEvent(new Event('focus'));
+      el.trigger.dispatchEvent(new Event("focus"));
 
       expectPopoverShown(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'escape' }));
+      el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "escape" }));
 
       expectPopoverHidden(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+      el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: " " }));
 
       expectPopoverShown(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+      el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: " " }));
 
       expectPopoverHidden(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+      el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: " " }));
 
       expectPopoverShown(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'tab' }));
+      el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "tab" }));
 
       expectPopoverHidden(el);
-    })
+    });
 
-    it ('toggles hidden content trigger focus and enter key', async () => {
+    it("toggles hidden content trigger focus and enter key", async () => {
       const el = await getFixture();
 
       expectPopoverHidden(el);
 
-      el.trigger.dispatchEvent(new Event('focus'));
+      el.trigger.dispatchEvent(new Event("focus"));
 
       expectPopoverShown(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'enter' }));
+      el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "enter" }));
 
       expectPopoverHidden(el);
 
-      el.trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'enter' }));
+      el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "enter" }));
 
       expectPopoverShown(el);
-    })
-  })
+    });
+  });
 
-  describe('visibility via touch', () => {
-    it('toggles popover content on touch', async () => {
+  describe("visibility via touch", () => {
+    it("toggles popover content on touch", async () => {
       const el = await getFixture();
 
       expectPopoverHidden(el);
 
-      el.dispatchEvent(new MouseEvent('touchstart'));
+      el.dispatchEvent(new MouseEvent("touchstart"));
 
       expectPopoverShown(el);
 
-      el.dispatchEvent(new MouseEvent('touchstart'));
+      el.dispatchEvent(new MouseEvent("touchstart"));
 
       expectPopoverHidden(el);
-    })
-  })
+    });
+  });
 });
 
 async function getFixture() {
-  return await fixture (
+  return await fixture(
     html`
       <auro-popover>
         tooltip text
         <auro-button slot="trigger">trigger text</auro-button>
       </auro-popover>
-    `);
+    `,
+  );
 }
 
 function expectPopoverShown(el) {
-  expect(el.hasAttribute('data-show')).to.equal(true);
+  expect(el.hasAttribute("data-show")).to.equal(true);
 }
 
 function expectPopoverHidden(el) {
-  expect(el.hasAttribute('data-show')).to.equal(false);
+  expect(el.hasAttribute("data-show")).to.equal(false);
 }

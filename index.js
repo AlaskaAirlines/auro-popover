@@ -1,3 +1,3 @@
-import { AuroPopover } from './src/auro-popover.js';
+import { AuroPopover } from "./src/auro-popover.js";
 
 AuroPopover.register();
