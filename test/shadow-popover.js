@@ -1,4 +1,4 @@
-import "../src/auro-popover";
+import "../src/registered";
 import { html, LitElement } from "lit-element";
 
 class ShadowPopover extends LitElement {
