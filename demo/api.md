@@ -219,8 +219,8 @@ Use the `boundary` property to set the overflow boundary for the `auro-popover`,
 
 ```js
 export function boundaryExample() {
-  const boundaryExample = document.querySelector('.boundaryExample');
-  const popoverBoundary = document.querySelector('#popoverBoundary');
+  const boundaryExample = document.querySelector(".boundaryExample");
+  const popoverBoundary = document.querySelector("#popoverBoundary");
 
   boundaryExample.boundary = popoverBoundary;
 }
@@ -295,8 +295,8 @@ The default trigger for a popover is a `hover` event. Mobile devices do not supp
 
 The component may be restyled using the following code sample and changing the values of the following token(s).
 
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=../src/tokens.scss) -->
-<!-- The below code snippet is automatically added from ../src/tokens.scss -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../src/styles/tokens.scss) -->
+<!-- The below code snippet is automatically added from ../src/styles/tokens.scss -->
 
 ```scss
 @use "@aurodesignsystem/design-tokens/dist/legacy/auro-classic/SCSSVariables" as vac;

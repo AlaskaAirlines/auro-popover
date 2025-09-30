@@ -5,27 +5,26 @@
 
 /* eslint-disable max-params */
 
-import { createPopper } from '@popperjs/core';
+import { createPopper } from "@popperjs/core";
 
 // build the component class
-const popoverOffsetDistance = 18,
-  popoverOffsetSkidding = 0;
+const popoverOffsetDistance = 18;
+const popoverOffsetSkidding = 0;
 
 export default class Popover {
-
   constructor(anchor, popover, placement, boundary) {
     this.anchor = anchor;
     this.popover = popover;
     this.boundaryElement = this.setBoundary(boundary);
     this.options = {
       placement,
-      visibleClass: 'data-show'
+      visibleClass: "data-show",
     };
     this.popover.classList.remove(this.options.visibleClass);
   }
 
   setBoundary(boundary) {
-    if (typeof boundary === 'string') {
+    if (typeof boundary === "string") {
       return document.querySelector(boundary) || document.body;
     }
 
@@ -42,24 +41,21 @@ export default class Popover {
       placement: this.options.placement,
       modifiers: [
         {
-          name: 'offset',
+          name: "offset",
           options: {
-            offset: [
-              popoverOffsetSkidding,
-              popoverOffsetDistance
-            ]
-          }
+            offset: [popoverOffsetSkidding, popoverOffsetDistance],
+          },
         },
         {
-          name: 'preventOverflow',
+          name: "preventOverflow",
           options: {
             mainAxis: true,
             boundary: this.boundaryElement,
-            rootBoundary: 'document',
+            rootBoundary: "document",
             padding: 16,
-          }
+          },
         },
-      ]
+      ],
     });
   }
 

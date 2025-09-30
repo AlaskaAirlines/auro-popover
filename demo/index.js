@@ -1,5 +1,4 @@
-/* eslint-disable jsdoc/require-jsdoc, no-magic-numbers, no-param-reassign */
-import { AuroPopover } from '../src/auro-popover.js';
+import { AuroPopover } from "../src/index";
 
 AuroPopover.register();
-AuroPopover.register('custom-popover');
+AuroPopover.register("custom-popover");

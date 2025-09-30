@@ -36,7 +36,7 @@ There are two important parts of every Auro component. The <a href="https://deve
 To protect from versioning conflicts with other instances of the component being loaded, it is recommended to use our `AuroPopover.register(name)` method and pass in a unique name.
 
 ```js
-import { AuroPopover } from './src/auro-popover.js';
+import { AuroPopover } from '@aurodesignsystem/auro-popover/class';
 
 AuroPopover.register('custom-popover');
 ```

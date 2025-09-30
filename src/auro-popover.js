@@ -3,18 +3,13 @@
 
 // ---------------------------------------------------------------------
 
-/* eslint-disable indent, sort-vars, no-magic-numbers */
-
-import { LitElement, html, css } from "lit";
-
-import AuroLibraryRuntimeUtils from '@aurodesignsystem/auro-library/scripts/utils/runtimeUtils.mjs';
-
-// Import touch detection lib
-import styleCss from "./style-css.js";
-import colorCss from "./color-css.js";
-import tokensCss from "./tokens-css.js";
-
+import AuroLibraryRuntimeUtils from "@aurodesignsystem/auro-library/scripts/utils/runtimeUtils.mjs";
+import { css, html, LitElement } from "lit";
 import Popover from "./popover.js";
+
+import colorCss from "./styles/color.scss";
+import styleCss from "./styles/style.scss";
+import tokensCss from "./styles/tokens.scss";
 
 /**
  * Popover attaches to an element and displays on hover/blur.
@@ -32,7 +27,7 @@ export class AuroPopover extends LitElement {
   constructor() {
     super();
 
-    this.placement = 'top';
+    this.placement = "top";
   }
 
   /**
@@ -49,19 +44,15 @@ export class AuroPopover extends LitElement {
   // function to define props used within the scope of this component
   static get properties() {
     return {
-      placement:  { type: String },
-      for:        { type: String },
-      disabled:   { type: Boolean },
-      boundary:   { type: String }
+      placement: { type: String },
+      for: { type: String },
+      disabled: { type: Boolean },
+      boundary: { type: String },
     };
   }
 
   static get styles() {
-    return [
-      css`${styleCss}`,
-      css`${colorCss}`,
-      css`${tokensCss}`
-    ];
+    return [css`${styleCss}`, css`${colorCss}`, css`${tokensCss}`];
   }
 
   /**
@@ -82,7 +73,7 @@ export class AuroPopover extends LitElement {
     this.privateDefaults();
 
     // adds toggle function to root element based on touch
-    this.addEventListener('touchstart', function() {
+    this.addEventListener("touchstart", function () {
       this.toggle();
       this.setAttribute("isTouch", "true");
     });
@@ -90,57 +81,69 @@ export class AuroPopover extends LitElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('click', this.documentClickHandler);
+    document.removeEventListener("click", this.documentClickHandler);
   }
 
   firstUpdated() {
     // Add the tag name as an attribute if it is different than the component name
-    this.runtimeUtils.handleComponentTagRename(this, 'auro-popover');
+    this.runtimeUtils.handleComponentTagRename(this, "auro-popover");
 
     if (this.for) {
-      this.trigger = document.querySelector(`#${this.for}`) || this.getRootNode().querySelector(`#${this.for}`);
+      this.trigger =
+        document.querySelector(`#${this.for}`) ||
+        this.getRootNode().querySelector(`#${this.for}`);
     }
 
     if (!this.trigger) {
-      [this.trigger] = this.shadowRoot.querySelector('slot[name="trigger"]').assignedElements();
+      [this.trigger] = this.shadowRoot
+        .querySelector('slot[name="trigger"]')
+        .assignedElements();
     }
 
-    this.auroPopover = this.shadowRoot.querySelector('#popover');
-    this.popper = new Popover(this.trigger, this.auroPopover, this.placement, this.boundary);
+    this.auroPopover = this.shadowRoot.querySelector("#popover");
+    this.popper = new Popover(
+      this.trigger,
+      this.auroPopover,
+      this.placement,
+      this.boundary,
+    );
 
     const handleShow = () => {
       this.toggleShow();
-    },
-    handleHide = () => {
+    };
+    const handleHide = () => {
       this.toggleHide();
-    },
-    handleKeyboardWhenFocusOnTrigger = (event) => {
+    };
+    const handleKeyboardWhenFocusOnTrigger = (event) => {
       const key = event.key.toLowerCase();
 
       if (this.isPopoverVisible) {
-        if (key === 'tab' || key === 'escape') {
+        if (key === "tab" || key === "escape") {
           this.toggleHide();
         }
       }
 
-      if (key === ' ' || key === 'enter') {
+      if (key === " " || key === "enter") {
         this.toggle();
       }
-    },
-    element = this.trigger.parentElement.nodeName === 'AURO-POPOVER' ? this : this.trigger;
+    };
+    const element =
+      this.trigger.parentElement.nodeName === "AURO-POPOVER"
+        ? this
+        : this.trigger;
 
-    element.addEventListener('mouseenter', handleShow);
-    element.addEventListener('mouseleave', handleHide);
+    element.addEventListener("mouseenter", handleShow);
+    element.addEventListener("mouseleave", handleHide);
 
     // if user tabs off of trigger, then hide the popover.
-    this.trigger.addEventListener('keydown', handleKeyboardWhenFocusOnTrigger);
+    this.trigger.addEventListener("keydown", handleKeyboardWhenFocusOnTrigger);
 
     // handle gain/loss of focus
-    this.trigger.addEventListener('focus', handleShow);
-    this.trigger.addEventListener('blur', handleHide);
+    this.trigger.addEventListener("focus", handleShow);
+    this.trigger.addEventListener("blur", handleHide);
 
     // e.g. for a closePopover button in the popover
-    this.addEventListener('hidePopover', handleHide);
+    this.addEventListener("hidePopover", handleHide);
   }
 
   /**
@@ -164,9 +167,11 @@ export class AuroPopover extends LitElement {
   toggleHide() {
     this.popper.hide();
     this.isPopoverVisible = false;
-    this.removeAttribute('data-show');
+    this.removeAttribute("data-show");
 
-    document.querySelector('body').removeEventListener('mouseover', this.mouseoverHandler);
+    document
+      .querySelector("body")
+      .removeEventListener("mouseover", this.mouseoverHandler);
   }
 
   /**
@@ -177,11 +182,13 @@ export class AuroPopover extends LitElement {
   toggleShow() {
     this.popper.show();
     this.isPopoverVisible = true;
-    this.setAttribute('data-show', true);
+    this.setAttribute("data-show", true);
 
     this.mouseoverHandler = (evt) => this.handleMouseoverEvent(evt);
 
-    document.querySelector('body').addEventListener('mouseover', this.mouseoverHandler);
+    document
+      .querySelector("body")
+      .addEventListener("mouseover", this.mouseoverHandler);
   }
 
   /**
@@ -197,7 +204,7 @@ export class AuroPopover extends LitElement {
   }
 
   updated(changedProperties) {
-    if (changedProperties.has('boundary')) {
+    if (changedProperties.has("boundary")) {
       this.popper.boundaryElement = this.boundary;
     }
   }

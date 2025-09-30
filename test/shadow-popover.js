@@ -1,13 +1,13 @@
-import "../src/auro-popover";
+import "../src/registered";
 import { html, LitElement } from "lit-element";
 
 class ShadowPopover extends LitElement {
   get popover() {
-    return this.shadowRoot.querySelector('auro-popover');
+    return this.shadowRoot.querySelector("auro-popover");
   }
 
   get trigger() {
-    return this.shadowRoot.querySelector('button');
+    return this.shadowRoot.querySelector("button");
   }
 
   render() {
@@ -20,4 +20,4 @@ class ShadowPopover extends LitElement {
   }
 }
 
-customElements.define('shadow-popover', ShadowPopover);
+customElements.define("shadow-popover", ShadowPopover);

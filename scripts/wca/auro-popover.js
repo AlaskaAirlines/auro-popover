@@ -1,5 +1,4 @@
-
-import { AuroPopover } from '../../src/auro-popover.js';
+import { AuroPopover } from "../../src/auro-popover.js";
 
 /**
  * Popover attaches to an element and displays on hover/blur.
