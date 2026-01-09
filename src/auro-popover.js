@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Alaska Airlines. All right reserved. Licensed under the Apache-2.0 license
+// Copyright (c) 2025 Alaska Airlines. All right reserved. Licensed under the Apache-2.0 license
 // See LICENSE in the project root for license information.
 
 // ---------------------------------------------------------------------
@@ -12,14 +12,9 @@ import styleCss from "./styles/style.scss";
 import tokensCss from "./styles/tokens.scss";
 
 /**
- * Popover attaches to an element and displays on hover/blur.
+ * The `auro-popover` element attaches to another element and displays on hover.
+ * @customElement auro-popover
  *
- * @attr {boolean} addSpace - If true, will add additional top and bottom space around the appearance of the popover in relation to the trigger
- * @attr {boolean} disabled - If true, will disable the popover from showing on hover and focus
- * @attr {String} for - Directly associate the popover with a trigger element with the given ID. In most cases, this should not be necessary and set slot="trigger" on the element instead.
- * @attr {String} placement - Expects top/bottom - position for popover in relation to the element
- * @attr {boolean} removeSpace - If true, will remove top and bottom space around the appearance of the popover in relation to the trigger
- * @attr {String | Object} boundary - The element to use as the boundary for the popover. Can be a query selector or an HTML element.
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
  */
@@ -35,7 +30,8 @@ export class AuroPopover extends LitElement {
    * @private
    * @returns {void}
    */
-  privateDefaults() {
+  _initializeDefaults() {
+    // this.placement = "top";
     this.isPopoverVisible = false;
     this.id = `popover-${(Math.random() + 1).toString(36).substring(7)}`;
     this.runtimeUtils = new AuroLibraryRuntimeUtils();
@@ -44,10 +40,50 @@ export class AuroPopover extends LitElement {
   // function to define props used within the scope of this component
   static get properties() {
     return {
-      placement: { type: String },
-      for: { type: String },
-      disabled: { type: Boolean },
+      /** 
+       * Adds additional top and bottom space around the appearance of the popover in relation to the trigger.
+       */
+      addSpace: { 
+        type: Boolean, 
+        reflect: true 
+      },
+
+      /** 
+       * The element to use as the boundary for the popover. Can be a query selector or an HTML element.
+       * @type {string | object}
+       */
       boundary: { type: String },
+
+      /** 
+       * Disables the popover from showing on hover and focus.
+       */
+      disabled: { 
+        type: Boolean,
+        reflect: true
+      },
+
+      /** 
+       * Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead.
+       */
+      for: { 
+        type: String,
+        reflect: true
+      },
+
+      /**
+       * Position for popover in relation to the element.
+       * @type {'top' | 'bottom'}
+       * @default 'top'
+       */
+      placement: { type: String},
+
+      /** 
+       * Removes top and bottom space around the appearance of the popover in relation to the trigger.
+       */
+      removeSpace: { 
+        type: Boolean, 
+        reflect: true 
+      },
     };
   }
 
@@ -57,7 +93,7 @@ export class AuroPopover extends LitElement {
 
   /**
    * This will register this element with the browser.
-   * @param {string} [name="auro-popover"] - The name of element that you want to register to.
+   * @param {string} [name="auro-popover"] - The name of the element that you want to register.
    *
    * @example
    * AuroPopover.register("custom-popover") // this will register this element to <custom-popover/>
@@ -70,7 +106,7 @@ export class AuroPopover extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.privateDefaults();
+    this._initializeDefaults();
 
     // adds toggle function to root element based on touch
     this.addEventListener("touchstart", function () {

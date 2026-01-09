@@ -1,3 +1,1 @@
-The Auro Design System fully supports `top` and `bottom` placed popovers. The following examples illustrate common popover uses followed up by code examples.
-
-See for more information as how to install and full API for the `<auro-popover>` element.
+The `<auro-popover>` element attaches to another element and displays on hover. It uses the [Popper.js](https://popper.js.org/) library to position itself relative to the trigger element and supports placement options such as `top` and `bottom`.
