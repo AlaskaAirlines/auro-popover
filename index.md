@@ -1,22 +1,20 @@
 <!--
-The index.md file is a compiled document. No edits should be made directly to this file.
-README.md is created by running `npm run build:docs`.
-This file is generated based on a template fetched from `./docs/partials/index.md`
+ THIS PAGE'S CONTENT SHOULD BE KEPT MINIMAL.
+ ONLY ADD EXAMPLES THAT ARE TRULY NECESSARY FOR THE INDEX PAGE — THE BASIC EXAMPLE IS USUALLY ENOUGH.
+ ALL OTHER EXAMPLES SHOULD GO IN THE API DOCUMENTATION.
 -->
 
 # Popover
 
-<!-- AURO-GENERATED-CONTENT:START (FILE:src=../docs/partials/description.md) -->
-<!-- The below content is automatically added from ../docs/partials/description.md -->
-The Auro Design System fully supports `top` and `bottom` placed popovers. The following examples illustrate common popover uses followed up by code examples.
-
-See for more information as how to install and full API for the `<auro-popover>` element.
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=./../docs/partials/description.md) -->
+<!-- The below content is automatically added from ./../docs/partials/description.md -->
+The `<auro-popover>` element attaches to another element and displays on hover. It uses the [Popper.js](https://popper.js.org/) library to position itself relative to the trigger element and supports placement options such as `top` and `bottom`.
 <!-- AURO-GENERATED-CONTENT:END -->
 
-## auro-popover use cases
+## Use Cases
 
-<!-- AURO-GENERATED-CONTENT:START (FILE:src=../docs/partials/useCases.md) -->
-<!-- The below content is automatically added from ../docs/partials/useCases.md -->
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=./../docs/partials/useCases.md) -->
+<!-- The below content is automatically added from ./../docs/partials/useCases.md -->
 The `auro-popover` element should be used in situations where users may:
 
 * interact with an element to get clarification on content offering
@@ -24,88 +22,33 @@ The `auro-popover` element should be used in situations where users may:
 * when helper text is required
 <!-- AURO-GENERATED-CONTENT:END -->
 
+## Developer Notes
+
+The default trigger for a popover is a `hover` event. Mobile devices do not support `hover` events directly, so the `hover` event is replaced with a `touchstart` event to produce the popover. This is to ensure reliability of the action versus a dependency on a secondary interruption of the `hover` event on mobile devices.
+
 ## Example(s)
 
+### Basic
+
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/basic.html) -->
-  <!-- The below content is automatically added from ../apiExamples/basic.html -->
-  <!-- The slot=trigger attribute is bound directly to the auro-button element  -->
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/basic.html) -->
+  <!-- The below content is automatically added from ./../apiExamples/basic.html -->
   <auro-popover>
     Top popover content!
     <auro-button slot="trigger">Popover Test</auro-button>
   </auro-popover>
-  <!-- Using the placement=bottom attribute -->
-  <auro-popover placement="bottom">
-    Popover content!
-    <auro-button secondary slot="trigger">Popover Test</auro-button>
-  </auro-popover>
   <!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/basic.html) -->
-<!-- The below code snippet is automatically added from ../apiExamples/basic.html -->
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../apiExamples/basic.html) -->
+<!-- The below code snippet is automatically added from ./../apiExamples/basic.html -->
 
 ```html
-<!-- The slot=trigger attribute is bound directly to the auro-button element  -->
 <auro-popover>
   Top popover content!
   <auro-button slot="trigger">Popover Test</auro-button>
 </auro-popover>
-<!-- Using the placement=bottom attribute -->
-<auro-popover placement="bottom">
-  Popover content!
-  <auro-button secondary slot="trigger">Popover Test</auro-button>
-</auro-popover>
-```
-<!-- AURO-GENERATED-CONTENT:END -->
-</auro-accordion>
-
-## Recommended Use and Version Control
-
-There are two important parts of every Auro component. The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">class</a> and the custom element. The class is exported and then used as part of defining the Web Component. When importing this component as described in the <a href="#install">install</a> section, the class is imported and the `auro-popover` custom element is defined automatically.
-
-To protect from versioning conflicts with other instances of the component being loaded, it is recommended to use our `AuroPopover.register(name)` method and pass in a unique name.
-
-```js
-import { AuroPopover } from '@aurodesignsystem/auro-popover/class';
-
-AuroPopover.register('custom-popover');
-```
-
-This will create a new custom element that you can use in your HTML that will function identically to the `auro-popover` element.
-
- <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/custom.html) -->
-  <!-- The below content is automatically added from ../apiExamples/custom.html -->
-  <!-- The slot=trigger attribute is bound directly to the auro-button element  -->
-  <custom-popover>
-    Top popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </custom-popover>
-  <!-- Using the placement=bottom attribute -->
-  <custom-popover placement="bottom">
-    Popover content!
-    <auro-button secondary slot="trigger">Popover Test</auro-button>
-  </custom-popover>
-  <!-- AURO-GENERATED-CONTENT:END -->
-</div>
-<auro-accordion alignRight>
-  <span slot="trigger">See code</span>
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/custom.html) -->
-<!-- The below code snippet is automatically added from ../apiExamples/custom.html -->
-
-```html
-<!-- The slot=trigger attribute is bound directly to the auro-button element  -->
-<custom-popover>
-  Top popover content!
-  <auro-button slot="trigger">Popover Test</auro-button>
-</custom-popover>
-<!-- Using the placement=bottom attribute -->
-<custom-popover placement="bottom">
-  Popover content!
-  <auro-button secondary slot="trigger">Popover Test</auro-button>
-</custom-popover>
 ```
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
