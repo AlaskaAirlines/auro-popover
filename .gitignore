@@ -23,3 +23,5 @@ build/
 
 ## Karma code coverage reports
 coverage/
+
+custom-elements.json
