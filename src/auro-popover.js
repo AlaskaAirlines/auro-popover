@@ -33,7 +33,6 @@ export class AuroPopover extends LitElement {
   _initializeDefaults() {
     // this.placement = "top";
     this.isPopoverVisible = false;
-    this.id = `popover-${(Math.random() + 1).toString(36).substring(7)}`;
     this.runtimeUtils = new AuroLibraryRuntimeUtils();
   }
 
@@ -118,6 +117,15 @@ export class AuroPopover extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     document.removeEventListener("click", this.documentClickHandler);
+
+    // Clean up aria-description set on the trigger in firstUpdated.
+    // Prevents a stale description persisting if the trigger element is reused.
+    this.trigger?.removeAttribute('aria-description');
+
+    // Remove tabindex only if the component added it — don't remove what the author set.
+    if (this._addedTabIndex) {
+      this.trigger?.removeAttribute('tabindex');
+    }
   }
 
   firstUpdated() {
@@ -135,6 +143,51 @@ export class AuroPopover extends LitElement {
         .querySelector('slot[name="trigger"]')
         .assignedElements();
     }
+
+    // If the trigger is not keyboard accessible, make it focusable automatically.
+    // This covers native elements (e.g. <abbr>, <span>) and custom elements whose
+    // shadow DOM contains no focusable descendant (e.g. auro-icon).
+    //
+    // We skip elements that are already accessible via the tab order:
+    // - Natively focusable elements (tabIndex >= 0): <button>, <a href>, <input>, etc.
+    // - Custom elements whose shadow DOM contains a focusable descendant (e.g. auro-button
+    //   has an inner <button>) — adding tabindex to the host would create a double tab stop.
+    // - Elements where the author has explicitly set tabindex — their intent is respected.
+    const isNativelyFocusable = this.trigger.tabIndex >= 0;
+    const hasInternalFocus = this.trigger.shadowRoot
+      ? Boolean(this.trigger.shadowRoot.querySelector(
+          'button, a[href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+        ))
+      : false;
+
+    if (!isNativelyFocusable && !hasInternalFocus && !this.trigger.hasAttribute('tabindex')) {
+      this.trigger.setAttribute('tabindex', '0');
+      this._addedTabIndex = true;
+    }
+
+    // Announce popover content to screen readers via aria-description (ARIA 1.3).
+    //
+    // Why not aria-describedby?
+    // The trigger (e.g. auro-button) is in light DOM; the popover content lives
+    // inside auro-popover's shadow DOM. aria-describedby ID lookup is scoped to
+    // the same shadow root, so cross-shadow references silently fail.
+    //
+    // Why not aria-live?
+    // The popover is hidden with display:none, which removes it from the
+    // accessibility tree entirely — aria-live never fires. Persistent live regions
+    // in document.body hit VoiceOver's content deduplication: identical text
+    // announced to the same region is suppressed on repeat visits.
+    //
+    // aria-description embeds the string directly on the trigger element with no
+    // ID lookup. VoiceOver recomputes it fresh on every focus event, so content
+    // is announced consistently regardless of prior visits.
+    //
+    // NOTE: aria-description is defined in the ARIA 1.3 spec. It is well-supported
+    // in modern browsers and screen readers (Chrome 92+, Firefox 92+, Safari 15.4+)
+    // but may be unfamiliar — do not replace with aria-describedby.
+    const slot = this.shadowRoot.querySelector('slot:not([name])');
+    const text = slot.assignedNodes({ flatten: true }).map((n) => n.textContent).join('').trim();
+    this.trigger.setAttribute('aria-description', text);
 
     this.auroPopover = this.shadowRoot.querySelector("#popover");
     this.popper = new Popover(
@@ -204,7 +257,6 @@ export class AuroPopover extends LitElement {
     this.popper.hide();
     this.isPopoverVisible = false;
     this.removeAttribute("data-show");
-
     document
       .querySelector("body")
       .removeEventListener("mouseover", this.mouseoverHandler);
@@ -248,12 +300,12 @@ export class AuroPopover extends LitElement {
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="popover" class="popover util_insetLg body-default" aria-live="polite" part="popover">
+      <div id="popover" class="popover util_insetLg body-default" part="popover">
         <div id="arrow" class="arrow" data-popper-arrow></div>
-        <span role="tooltip" aria-labelledby="${this.id}"><slot></slot></span>
+        <span role="tooltip"><slot></slot></span>
       </div>
 
-      <span id="${this.id}">
+      <span>
         <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
       </span>
     `;
