@@ -113,6 +113,15 @@ describe("auro-popover — trigger resolution", () => {
 
     expect(el.trigger).to.eql(button);
   });
+
+  it("does not throw when no trigger is provided", async () => {
+    // Verifies the early-return guard in firstUpdated() — if neither the for
+    // attribute nor the trigger slot resolves an element, the component exits
+    // cleanly rather than throwing on trigger property access.
+    const el = await fixture(html`<auro-popover>tooltip text</auro-popover>`);
+
+    expect(el).to.exist;
+  });
 });
 
 // ---------------------------------------------------------------------------
@@ -130,6 +139,32 @@ describe("auro-popover — aria-description", () => {
     const trigger = el.querySelector("auro-button");
 
     expect(trigger.getAttribute("aria-description")).to.equal("tooltip text");
+  });
+
+  it("updates aria-description on trigger when slot content changes", async () => {
+    const container = await fixture(html`
+      <auro-popover>
+        initial tooltip text
+        <auro-button slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
+    const trigger = container.querySelector("auro-button");
+
+    expect(trigger.getAttribute("aria-description")).to.equal("initial tooltip text");
+
+    // Replace the slot content with a new text node
+    const newText = document.createTextNode("updated tooltip text");
+    container.insertBefore(newText, container.querySelector("auro-button"));
+    container.childNodes.forEach((n) => {
+      if (n.nodeType === Node.TEXT_NODE && n.textContent.includes("initial")) {
+        n.remove();
+      }
+    });
+
+    // Wait for slotchange to fire and aria-description to update
+    await elementUpdated(container);
+
+    expect(trigger.getAttribute("aria-description")).to.equal("updated tooltip text");
   });
 
   it("removes aria-description from trigger on disconnect", async () => {
@@ -481,7 +516,7 @@ describe("auro-popover — visibility via keyboard", () => {
     expectPopoverHidden(el);
     el.trigger.dispatchEvent(new Event("focus"));
     expectPopoverShown(el);
-    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "escape" }));
+    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     expectPopoverHidden(el);
     el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: " " }));
     expectPopoverShown(el);
@@ -489,7 +524,7 @@ describe("auro-popover — visibility via keyboard", () => {
     expectPopoverHidden(el);
     el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: " " }));
     expectPopoverShown(el);
-    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "tab" }));
+    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Tab" }));
     expectPopoverHidden(el);
   });
 
@@ -499,9 +534,9 @@ describe("auro-popover — visibility via keyboard", () => {
     expectPopoverHidden(el);
     el.trigger.dispatchEvent(new Event("focus"));
     expectPopoverShown(el);
-    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "enter" }));
+    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
     expectPopoverHidden(el);
-    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "enter" }));
+    el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
     expectPopoverShown(el);
   });
 });

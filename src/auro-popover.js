@@ -141,6 +141,12 @@ export class AuroPopover extends LitElement {
         .assignedElements();
     }
 
+    // Guard: if neither the for attribute nor the trigger slot resolved an element,
+    // there is nothing to attach to — exit cleanly rather than throwing on property access.
+    if (!this.trigger) {
+      return;
+    }
+
     // If the trigger is not keyboard accessible, make it focusable automatically.
     // This covers native elements (e.g. <abbr>, <span>) and custom elements whose
     // shadow DOM contains no focusable descendant (e.g. auro-icon).
@@ -150,6 +156,12 @@ export class AuroPopover extends LitElement {
     // - Custom elements whose shadow DOM contains a focusable descendant (e.g. auro-button
     //   has an inner <button>) — adding tabindex to the host would create a double tab stop.
     // - Elements where the author has explicitly set tabindex — their intent is respected.
+    //
+    // Known limitation: custom elements with a closed shadow root (mode: 'closed') cannot
+    // be inspected — shadowRoot returns null. If such an element has an internal focusable
+    // descendant and a host tabIndex of -1, tabindex="0" will be added, potentially
+    // creating a double tab stop. Elements using delegatesFocus avoid this because the
+    // browser reflects a non-negative tabIndex on the host.
     const isNativelyFocusable = this.trigger.tabIndex >= 0;
     const hasInternalFocus = this.trigger.shadowRoot
       ? Boolean(this.trigger.shadowRoot.querySelector(
@@ -183,8 +195,14 @@ export class AuroPopover extends LitElement {
     // in modern browsers and screen readers (Chrome 92+, Firefox 92+, Safari 15.4+)
     // but may be unfamiliar — do not replace with aria-describedby.
     const slot = this.shadowRoot.querySelector('slot:not([name])');
-    const text = slot.assignedNodes({ flatten: true }).map((n) => n.textContent).join('').trim();
-    this.trigger.setAttribute('aria-description', text);
+    const getSlotText = () => slot.assignedNodes({ flatten: true }).map((n) => n.textContent).join('').trim();
+
+    this.trigger.setAttribute('aria-description', getSlotText());
+
+    // Keep aria-description in sync if slot content changes after first render.
+    slot.addEventListener('slotchange', () => {
+      this.trigger?.setAttribute('aria-description', getSlotText());
+    });
 
     this.auroPopover = this.shadowRoot.querySelector("#popover");
     this.popper = new Popover(
