@@ -31,7 +31,6 @@ export class AuroPopover extends LitElement {
    * @returns {void}
    */
   _initializeDefaults() {
-    // this.placement = "top";
     this.isPopoverVisible = false;
     this.runtimeUtils = new AuroLibraryRuntimeUtils();
   }
@@ -110,13 +109,11 @@ export class AuroPopover extends LitElement {
     // adds toggle function to root element based on touch
     this.addEventListener("touchstart", function () {
       this.toggle();
-      this.setAttribute("isTouch", "true");
     });
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener("click", this.documentClickHandler);
 
     // Clean up aria-description set on the trigger in firstUpdated.
     // Prevents a stale description persisting if the trigger element is reused.

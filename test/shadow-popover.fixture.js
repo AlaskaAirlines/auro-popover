@@ -1,5 +1,5 @@
 import "../src/registered";
-import { html, LitElement } from "lit-element";
+import { html, LitElement } from "lit";
 
 class ShadowPopover extends LitElement {
   get popover() {
