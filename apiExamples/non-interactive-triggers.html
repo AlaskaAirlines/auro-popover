@@ -1,0 +1,16 @@
+<!-- auro-icon has no internal focusable element, so the component automatically
+     adds tabindex. aria-label is still required to provide an accessible name. -->
+<auro-popover>
+  This flight offers priority boarding.
+  <auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
+</auro-popover>
+
+<br><br>
+
+<!-- Native elements like <abbr> are automatically made keyboard accessible by the component -->
+<p>Congratulations, you just achieved
+  <auro-popover>
+    Most Valuable Passenger — Alaska Airlines' mid-tier elite status level.
+    <abbr slot="trigger" style="color: orangered">MVP</abbr>
+  </auro-popover> status!
+</p>
