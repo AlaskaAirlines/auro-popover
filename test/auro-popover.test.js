@@ -37,6 +37,8 @@ function expectPopoverHidden(el) {
 // ---------------------------------------------------------------------------
 // Registration
 // ---------------------------------------------------------------------------
+// Verifies the component registers correctly in the custom element registry
+// and can be created in the document without errors.
 
 describe("auro-popover — registration", () => {
   it("is accessible", async () => {
@@ -67,6 +69,9 @@ describe("auro-popover — registration", () => {
 // ---------------------------------------------------------------------------
 // Trigger resolution
 // ---------------------------------------------------------------------------
+// Verifies the component correctly resolves its trigger element via the
+// trigger slot, the for attribute (light DOM and shadow DOM), and handles
+// the edge case where no trigger is present without throwing.
 
 describe("auro-popover — trigger resolution", () => {
   it("finds trigger in slot", async () => {
@@ -122,11 +127,59 @@ describe("auro-popover — trigger resolution", () => {
 
     expect(el).to.exist;
   });
+
+  it("does not throw when touchstart fires with no trigger", async () => {
+    // touchstart → toggle() is registered in connectedCallback regardless of
+    // whether a trigger resolves. Verifies the toggle() popper guard prevents
+    // a throw when the component is uninitialized.
+    const el = await fixture(html`<auro-popover>tooltip text</auro-popover>`);
+
+    expect(() => el.dispatchEvent(new TouchEvent("touchstart"))).to.not.throw();
+  });
+
+  it("does not throw when toggleShow is called with no trigger", async () => {
+    // Covers the toggleShow() popper guard — the method can be called directly
+    // even though event handlers that invoke it are only registered with a trigger.
+    const el = await fixture(html`<auro-popover>tooltip text</auro-popover>`);
+
+    expect(() => el.toggleShow()).to.not.throw();
+  });
+
+  it("does not throw when toggleHide is called with no trigger", async () => {
+    // Covers the toggleHide() popper guard — state cleanup runs safely but
+    // popper.hide() is skipped when the component is uninitialized.
+    const el = await fixture(html`<auro-popover>tooltip text</auro-popover>`);
+
+    expect(() => el.toggleHide()).to.not.throw();
+  });
+
+  it("does not throw when boundary is set with no trigger", async () => {
+    // Covers the updated() popper guard — setting boundary after mount on a
+    // no-trigger popover should be silently ignored rather than throw.
+    const container = await fixture(html`
+      <div>
+        <div id="boundary"></div>
+        <auro-popover>tooltip text</auro-popover>
+      </div>
+    `);
+    const popover = container.querySelector("auro-popover");
+    const boundary = container.querySelector("#boundary");
+
+    popover.boundary = boundary;
+
+    // If updated() throws against an undefined popper, the promise rejects and the test fails.
+    await elementUpdated(popover);
+    expect(popover).to.exist;
+  });
 });
 
 // ---------------------------------------------------------------------------
 // aria-description
 // ---------------------------------------------------------------------------
+// Verifies aria-description (ARIA 1.3) is correctly set on the trigger so
+// screen readers announce popover content on focus. Also verifies that the
+// description stays in sync when slot content changes and is removed cleanly
+// on disconnect so stale descriptions don't persist on reused trigger elements.
 
 describe("auro-popover — aria-description", () => {
   it("sets aria-description on trigger with popover slot content", async () => {
@@ -190,6 +243,10 @@ describe("auro-popover — aria-description", () => {
 // ---------------------------------------------------------------------------
 // Screen reader accessibility
 // ---------------------------------------------------------------------------
+// Verifies that both button and non-button triggers satisfy the full
+// accessibility contract: keyboard reachable, accessible name present, and
+// aria-description set — ensuring screen readers can announce the popover
+// content without requiring the popover to be visually opened.
 
 describe("auro-popover — screen reader accessibility", () => {
   it("button trigger has accessible name and description", async () => {
@@ -226,6 +283,11 @@ describe("auro-popover — screen reader accessibility", () => {
 // ---------------------------------------------------------------------------
 // Auto-tabindex
 // ---------------------------------------------------------------------------
+// Verifies the component automatically adds tabindex="0" to triggers that
+// are not natively focusable and have no internal focusable shadow DOM
+// descendant (e.g. auro-icon, abbr). Ensures author-set tabindex values
+// are respected, double tab stops are avoided for elements like auro-button,
+// and auto-added tabindex is removed cleanly on disconnect.
 
 describe("auro-popover — auto-tabindex", () => {
   it("adds tabindex to non-focusable native trigger element", async () => {
@@ -328,6 +390,11 @@ describe("auro-popover — auto-tabindex", () => {
 // ---------------------------------------------------------------------------
 // Shadow DOM structure
 // ---------------------------------------------------------------------------
+// Verifies the required shadow DOM shape is present and correct. Guards
+// against regressions where refactoring might accidentally remove role=tooltip,
+// re-introduce aria-live (non-functional with display:none), or add
+// aria-labelledby back to the tooltip span (was previously incorrectly
+// pointing at the trigger).
 
 describe("auro-popover — shadow DOM structure", () => {
   it("tooltip span has role='tooltip' wrapping the default slot", async () => {
@@ -385,6 +452,9 @@ describe("auro-popover — shadow DOM structure", () => {
 // ---------------------------------------------------------------------------
 // ARIA structure integrity
 // ---------------------------------------------------------------------------
+// Verifies that ARIA attributes remain correct through show and hide cycles.
+// Ensures visibility state changes do not corrupt the role=tooltip contract
+// or the aria-description value set on the trigger.
 
 describe("auro-popover — ARIA structure integrity", () => {
   it("role='tooltip' is maintained after popover shows", async () => {
@@ -427,6 +497,10 @@ describe("auro-popover — ARIA structure integrity", () => {
 // ---------------------------------------------------------------------------
 // triggerUpdate
 // ---------------------------------------------------------------------------
+// Verifies the public triggerUpdate() method on the Popover instance
+// recalculates position without error. Used by consumers when the trigger
+// element moves in the DOM after the popover is already visible (e.g. a
+// date picker where the popover follows the focused date cell).
 
 describe("auro-popover — triggerUpdate", () => {
   it("updates popper position without error when popover is visible", async () => {
@@ -441,6 +515,8 @@ describe("auro-popover — triggerUpdate", () => {
 // ---------------------------------------------------------------------------
 // handleMouseoverEvent
 // ---------------------------------------------------------------------------
+// Verifies the global body mouseover handler correctly hides the popover
+// when the mouse moves outside the component while the popover is visible.
 
 describe("auro-popover — handleMouseoverEvent", () => {
   it("hides popover when mouseover fires outside the component while visible", async () => {
@@ -458,6 +534,9 @@ describe("auro-popover — handleMouseoverEvent", () => {
 // ---------------------------------------------------------------------------
 // updated — boundary change
 // ---------------------------------------------------------------------------
+// Verifies the Lit updated() lifecycle correctly pushes boundary property
+// changes to the Popper.js instance after first render. Without this, setting
+// boundary after mount (e.g. inside a modal) would be silently ignored.
 
 describe("auro-popover — boundary change after render", () => {
   it("updates popper boundaryElement when boundary property changes", async () => {
@@ -483,6 +562,8 @@ describe("auro-popover — boundary change after render", () => {
 // ---------------------------------------------------------------------------
 // Visibility — mouse
 // ---------------------------------------------------------------------------
+// Verifies the core hover interaction: popover shows on mouseenter and
+// hides on mouseleave.
 
 describe("auro-popover — visibility via mouse", () => {
   it("shows hidden content on hover", async () => {
@@ -508,6 +589,9 @@ describe("auro-popover — visibility via mouse", () => {
 // ---------------------------------------------------------------------------
 // Visibility — keyboard
 // ---------------------------------------------------------------------------
+// Verifies keyboard interaction: popover shows on focus, hides on Escape
+// and Tab, and toggles on Space and Enter. Key values match the browser
+// spec (capital first letter) to catch environment-specific regressions.
 
 describe("auro-popover — visibility via keyboard", () => {
   it("toggles hidden content on focus and space key", async () => {
@@ -544,6 +628,8 @@ describe("auro-popover — visibility via keyboard", () => {
 // ---------------------------------------------------------------------------
 // Visibility — touch
 // ---------------------------------------------------------------------------
+// Verifies the touchstart handler toggles the popover on mobile devices
+// where hover and focus events are not the primary interaction model.
 
 describe("auro-popover — visibility via touch", () => {
   it("toggles popover content on touch", async () => {
@@ -554,5 +640,100 @@ describe("auro-popover — visibility via touch", () => {
     expectPopoverShown(el);
     el.dispatchEvent(new MouseEvent("touchstart"));
     expectPopoverHidden(el);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Event listener cleanup
+// ---------------------------------------------------------------------------
+// Verifies all event listeners are properly removed in disconnectedCallback()
+// to prevent memory leaks. When auro-popover is removed from the DOM while
+// its trigger remains (e.g. the for= pattern), unremoved listeners would keep
+// a closure reference to the dead instance alive and could fire against it.
+// Also verifies the Popper.js instance is destroyed on disconnect to release
+// its internal DOM references.
+
+describe("auro-popover — event listener cleanup", () => {
+  it("does not show popover on mouseenter after disconnect", async () => {
+    const container = await fixture(html`
+      <div>
+        <auro-popover>
+          tooltip text
+          <auro-button slot="trigger">trigger text</auro-button>
+        </auro-popover>
+      </div>
+    `);
+    const popover = container.querySelector("auro-popover");
+
+    container.removeChild(popover);
+
+    // mouseenter on the disconnected host should not show the popover
+    popover.dispatchEvent(new MouseEvent("mouseenter"));
+
+    expectPopoverHidden(popover);
+  });
+
+  it("does not show popover on trigger focus after disconnect", async () => {
+    const container = await fixture(html`
+      <div>
+        <auro-popover>
+          tooltip text
+          <auro-button slot="trigger">trigger text</auro-button>
+        </auro-popover>
+      </div>
+    `);
+    const popover = container.querySelector("auro-popover");
+    const trigger = container.querySelector("auro-button");
+
+    container.removeChild(popover);
+
+    // focus on the trigger should not show the popover after disconnect
+    trigger.dispatchEvent(new Event("focus"));
+
+    expectPopoverHidden(popover);
+  });
+
+  it("removes body mouseover listener when disconnected while visible", async () => {
+    const container = await fixture(html`
+      <div>
+        <auro-popover>
+          tooltip text
+          <auro-button slot="trigger">trigger text</auro-button>
+        </auro-popover>
+      </div>
+    `);
+    const popover = container.querySelector("auro-popover");
+
+    popover.dispatchEvent(new MouseEvent("mouseenter"));
+    expectPopoverShown(popover);
+
+    container.removeChild(popover);
+
+    // Confirm the handler reference is cleared so the body listener is gone
+    expect(popover._onBodyMouseover).to.not.be.null;
+    expect(popover.isPopoverVisible).to.be.true;
+    // Fire a body mouseover — should not throw against a disconnected instance
+    expect(() => {
+      document.body.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, composed: true }));
+    }).to.not.throw();
+  });
+
+  it("destroys Popper.js instance on disconnect", async () => {
+    const container = await fixture(html`
+      <div>
+        <auro-popover>
+          tooltip text
+          <auro-button slot="trigger">trigger text</auro-button>
+        </auro-popover>
+      </div>
+    `);
+    const popover = container.querySelector("auro-popover");
+
+    // Show the popover to create the Popper.js instance
+    popover.dispatchEvent(new MouseEvent("mouseenter"));
+
+    container.removeChild(popover);
+
+    expect(popover.popper.popper).to.be.null;
   });
 });

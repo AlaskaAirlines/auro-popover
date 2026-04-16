@@ -23,6 +23,17 @@ export class AuroPopover extends LitElement {
     super();
 
     this.placement = "top";
+
+    // Stable event-listener references used across the component lifecycle.
+    this._onTouchStart = null;
+    this._onTriggerMouseEnter = null;
+    this._onTriggerMouseLeave = null;
+    this._onTriggerFocus = null;
+    this._onTriggerBlur = null;
+    this._onTriggerKeydown = null;
+    this._onHidePopover = null;
+    this._onBodyMouseover = null;
+    this._addedTabIndex = false;
   }
 
   /**
@@ -38,49 +49,49 @@ export class AuroPopover extends LitElement {
   // function to define props used within the scope of this component
   static get properties() {
     return {
-      /** 
+      /**
        * Adds additional top and bottom space around the appearance of the popover in relation to the trigger.
        */
-      addSpace: { 
-        type: Boolean, 
-        reflect: true 
+      addSpace: {
+        type: Boolean,
+        reflect: true
       },
 
-      /** 
+      /**
        * The element to use as the boundary for the popover. Can be a query selector or an HTML element.
        * @type {string | object}
        */
       boundary: { type: String },
 
-      /** 
+      /**
        * Disables the popover from showing on hover and focus.
        */
-      disabled: { 
+      disabled: {
         type: Boolean,
         reflect: true
       },
 
-      /** 
+      /**
        * Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead.
        */
-      for: { 
+      for: {
         type: String,
         reflect: true
       },
 
       /**
-       * Position for popover in relation to the element.
+       * Position for popover in relation to the element {'top' | 'bottom'}.
        * @type {'top' | 'bottom'}
        * @default 'top'
        */
       placement: { type: String},
 
-      /** 
+      /**
        * Removes top and bottom space around the appearance of the popover in relation to the trigger.
        */
-      removeSpace: { 
-        type: Boolean, 
-        reflect: true 
+      removeSpace: {
+        type: Boolean,
+        reflect: true
       },
     };
   }
@@ -107,25 +118,73 @@ export class AuroPopover extends LitElement {
     this._initializeDefaults();
 
     // adds toggle function to root element based on touch
-    this.addEventListener("touchstart", function () {
-      this.toggle();
-    });
+    if (!this._onTouchStart) {
+      this._onTouchStart = () => {
+        this.toggle();
+      };
+    }
+    this.addEventListener("touchstart", this._onTouchStart);
   }
 
   disconnectedCallback() {
+    // NOTE: Teardown is one-way. This component does not currently support
+    // reinitialization after being removed from the DOM.
+
     super.disconnectedCallback();
+    this.removeEventListener("touchstart", this._onTouchStart);
 
-    // Clean up aria-description set on the trigger in firstUpdated.
-    // Prevents a stale description persisting if the trigger element is reused.
-    this.trigger?.removeAttribute('aria-description');
+    if (this.trigger) {
+      // Remove listeners attached to the trigger element.
+      if (this._onTriggerMouseEnter) {
+        this._eventTarget.removeEventListener("mouseenter", this._onTriggerMouseEnter);
+      }
+      if (this._onTriggerMouseLeave) {
+        this._eventTarget.removeEventListener("mouseleave", this._onTriggerMouseLeave);
+      }
+      if (this._onTriggerFocus) {
+        this.trigger.removeEventListener("focus", this._onTriggerFocus);
+      }
+      if (this._onTriggerBlur) {
+        this.trigger.removeEventListener("blur", this._onTriggerBlur);
+      }
+      if (this._onTriggerKeydown) {
+        this.trigger.removeEventListener("keydown", this._onTriggerKeydown);
+      }
 
-    // Remove tabindex only if the component added it — don't remove what the author set.
-    if (this._addedTabIndex) {
-      this.trigger?.removeAttribute('tabindex');
+      // Clean up aria-description set on the trigger in firstUpdated.
+      // Prevents a stale description persisting if the trigger element is reused.
+      this.trigger.removeAttribute("aria-description");
+
+      // Remove tabindex only if the component added it — don't remove what the author set.
+      if (this._addedTabIndex) {
+        this.trigger.removeAttribute("tabindex");
+      }
+    }
+
+    if (this._onHidePopover) {
+      this.removeEventListener("hidePopover", this._onHidePopover);
+    }
+
+    // Remove the global mouseover handler if the popover was visible when disconnected.
+    if (this._onBodyMouseover) {
+      document.body.removeEventListener("mouseover", this._onBodyMouseover);
+    }
+
+    // Destroy the Popper.js instance to release its internal references.
+    if (this.popper?.popper && typeof this.popper.popper.destroy === "function") {
+      this.popper.popper.destroy();
+      this.popper.popper = null;
     }
   }
 
   firstUpdated() {
+    /**
+     * NOTE: This component is not currently designed for reinitialization.
+     * All setup in firstUpdated() is assumed to run once per instance lifecycle.
+     * If the element is removed and later reattached, event bindings,
+     * Popper setup, and accessibility wiring will NOT be restored automatically.
+     */
+
     // Add the tag name as an attribute if it is different than the component name
     this.runtimeUtils.handleComponentTagRename(this, "auro-popover");
 
@@ -194,14 +253,14 @@ export class AuroPopover extends LitElement {
     // NOTE: aria-description is defined in the ARIA 1.3 spec. It is well-supported
     // in modern browsers and screen readers (Chrome 92+, Firefox 92+, Safari 15.4+)
     // but may be unfamiliar — do not replace with aria-describedby.
-    const slot = this.shadowRoot.querySelector('slot:not([name])');
-    const getSlotText = () => slot.assignedNodes({ flatten: true }).map((n) => n.textContent).join('').trim();
+    const slot = this.shadowRoot.querySelector("slot:not([name])");
+    const getSlotText = () => slot.assignedNodes({ flatten: true }).map((n) => n.textContent).join("").trim();
 
-    this.trigger.setAttribute('aria-description', getSlotText());
+    this.trigger.setAttribute("aria-description", getSlotText());
 
     // Keep aria-description in sync if slot content changes after first render.
-    slot.addEventListener('slotchange', () => {
-      this.trigger?.setAttribute('aria-description', getSlotText());
+    slot.addEventListener("slotchange", () => {
+      this.trigger?.setAttribute("aria-description", getSlotText());
     });
 
     this.auroPopover = this.shadowRoot.querySelector("#popover");
@@ -212,13 +271,12 @@ export class AuroPopover extends LitElement {
       this.boundary,
     );
 
-    const handleShow = () => {
-      this.toggleShow();
-    };
-    const handleHide = () => {
-      this.toggleHide();
-    };
-    const handleKeyboardWhenFocusOnTrigger = (event) => {
+    this._onBodyMouseover = (evt) => this.handleMouseoverEvent(evt);
+    this._onTriggerMouseEnter = () => { this.toggleShow(); };
+    this._onTriggerMouseLeave = () => { this.toggleHide(); };
+    this._onTriggerFocus = () => { this.toggleShow(); };
+    this._onTriggerBlur = () => { this.toggleHide(); };
+    this._onTriggerKeydown = (event) => {
       const key = event.key.toLowerCase();
 
       if (this.isPopoverVisible) {
@@ -228,26 +286,31 @@ export class AuroPopover extends LitElement {
       }
 
       if (key === " " || key === "enter") {
+        event.preventDefault();
         this.toggle();
       }
     };
-    const element =
+    this._onHidePopover = () => { this.toggleHide(); };
+
+    // mouseenter/mouseleave attach to the host when the trigger is a direct
+    // child of auro-popover (slotted), otherwise they attach to the trigger itself.
+    this._eventTarget =
       this.trigger.parentElement.nodeName === "AURO-POPOVER"
         ? this
         : this.trigger;
 
-    element.addEventListener("mouseenter", handleShow);
-    element.addEventListener("mouseleave", handleHide);
+    this._eventTarget.addEventListener("mouseenter", this._onTriggerMouseEnter);
+    this._eventTarget.addEventListener("mouseleave", this._onTriggerMouseLeave);
 
     // if user tabs off of trigger, then hide the popover.
-    this.trigger.addEventListener("keydown", handleKeyboardWhenFocusOnTrigger);
+    this.trigger.addEventListener("keydown", this._onTriggerKeydown);
 
     // handle gain/loss of focus
-    this.trigger.addEventListener("focus", handleShow);
-    this.trigger.addEventListener("blur", handleHide);
+    this.trigger.addEventListener("focus", this._onTriggerFocus);
+    this.trigger.addEventListener("blur", this._onTriggerBlur);
 
     // e.g. for a closePopover button in the popover
-    this.addEventListener("hidePopover", handleHide);
+    this.addEventListener("hidePopover", this._onHidePopover);
   }
 
   /**
@@ -256,6 +319,9 @@ export class AuroPopover extends LitElement {
    * @returns {void} Fires an update lifecycle.
    */
   toggle() {
+    if (!this.popper) {
+      return;
+    }
     if (this.isPopoverVisible) {
       this.toggleHide();
     } else {
@@ -269,12 +335,13 @@ export class AuroPopover extends LitElement {
    * @returns {void} Fires an update lifecycle.
    */
   toggleHide() {
-    this.popper.hide();
     this.isPopoverVisible = false;
     this.removeAttribute("data-show");
-    document
-      .querySelector("body")
-      .removeEventListener("mouseover", this.mouseoverHandler);
+    document.body.removeEventListener("mouseover", this._onBodyMouseover);
+    if (!this.popper) {
+      return;
+    }
+    this.popper.hide();
   }
 
   /**
@@ -283,15 +350,14 @@ export class AuroPopover extends LitElement {
    * @returns {void} Fires an update lifecycle.
    */
   toggleShow() {
+    if (!this.popper) {
+      return;
+    }
     this.popper.show();
     this.isPopoverVisible = true;
     this.setAttribute("data-show", true);
 
-    this.mouseoverHandler = (evt) => this.handleMouseoverEvent(evt);
-
-    document
-      .querySelector("body")
-      .addEventListener("mouseover", this.mouseoverHandler);
+    document.body.addEventListener("mouseover", this._onBodyMouseover);
   }
 
   /**
@@ -307,7 +373,7 @@ export class AuroPopover extends LitElement {
   }
 
   updated(changedProperties) {
-    if (changedProperties.has("boundary")) {
+    if (changedProperties.has("boundary") && this.popper) {
       this.popper.boundaryElement = this.boundary;
     }
   }
