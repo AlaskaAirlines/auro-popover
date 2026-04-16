@@ -59,6 +59,8 @@ The `auro-popover` element attaches to another element and displays on hover.
 
 The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible — including custom elements like `auro-icon` that have no internal focusable element. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
 
+> **Accessibility note:** `auro-popover` manages `aria-description` on the trigger element as part of its accessibility contract — the popover content becomes the trigger's accessible description so screen readers can announce it on focus. Any existing `aria-description` on the trigger will be replaced when the component connects and removed when it disconnects.
+
 <div class="exampleWrapper">
   <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/non-interactive-triggers.html) -->
   <!-- The below content is automatically added from ./../apiExamples/non-interactive-triggers.html -->
