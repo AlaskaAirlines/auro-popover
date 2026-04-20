@@ -709,7 +709,8 @@ describe("auro-popover — event listener cleanup", () => {
 
     container.removeChild(popover);
 
-    // Confirm the handler reference is cleared so the body listener is gone
+    // Ensure disconnect state prevents body mouseover interactions
+    // and does not break when global events continue firing
     expect(popover._onBodyMouseover).to.not.be.null;
     expect(popover.isPopoverVisible).to.be.true;
     // Fire a body mouseover — should not throw against a disconnected instance
