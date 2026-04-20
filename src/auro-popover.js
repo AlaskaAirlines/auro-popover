@@ -374,7 +374,10 @@ export class AuroPopover extends LitElement {
 
   updated(changedProperties) {
     if (changedProperties.has("boundary") && this.popper) {
-      this.popper.boundaryElement = this.boundary;
+      // Use setBoundary() rather than assigning directly — it resolves selector
+      // strings to Elements. Assigning a raw string would break Popper's
+      // preventOverflow modifier, which expects an Element.
+      this.popper.boundaryElement = this.popper.setBoundary(this.boundary);
     }
   }
 
