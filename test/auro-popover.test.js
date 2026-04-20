@@ -557,6 +557,28 @@ describe("auro-popover — boundary change after render", () => {
 
     expect(popover.popper.boundaryElement).to.equal(newBoundary);
   });
+
+  it("resolves a selector string boundary to an Element", async () => {
+    // Verifies setBoundary() is used rather than direct assignment — a raw
+    // string assigned to boundaryElement would break Popper's preventOverflow
+    // modifier, which expects an Element.
+    const container = await fixture(html`
+      <div>
+        <div id="string-boundary"></div>
+        <auro-popover>
+          tooltip text
+          <button slot="trigger">trigger text</button>
+        </auro-popover>
+      </div>
+    `);
+    const popover = container.querySelector("auro-popover");
+    const expectedElement = container.querySelector("#string-boundary");
+
+    popover.boundary = "#string-boundary";
+    await elementUpdated(popover);
+
+    expect(popover.popper.boundaryElement).to.equal(expectedElement);
+  });
 });
 
 // ---------------------------------------------------------------------------
