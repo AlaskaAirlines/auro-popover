@@ -10,7 +10,7 @@ The `auro-popover` element attaches to another element and displays on hover.
 | boundary    | boundary    |           | string \| object |         | The element to use as the boundary for the popover. Can be a query selector or an HTML element.                                                                        |
 | disabled    | disabled    |           | boolean          |         | Disables the popover from showing on hover and focus.                                                                                                                  |
 | for         | for         |           | string           |         | Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead. |
-| placement   | placement   |           | string           | `top`   | Position for popover in relation to the element.                                                                                                                       |
+| placement   | placement   |           | string           | `top`   | Position for popover in relation to the element {'top' \| 'bottom'}.                                                                                                   |
 | removeSpace | removeSpace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                          |
 
 ### Methods
