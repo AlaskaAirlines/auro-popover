@@ -134,7 +134,7 @@ describe("auro-popover — trigger resolution", () => {
     // a throw when the component is uninitialized.
     const el = await fixture(html`<auro-popover>tooltip text</auro-popover>`);
 
-    expect(() => el.dispatchEvent(new TouchEvent("touchstart"))).to.not.throw();
+    expect(() => el.dispatchEvent(new Event("touchstart"))).to.not.throw();
   });
 
   it("does not throw when toggleShow is called with no trigger", async () => {
@@ -201,21 +201,29 @@ describe("auro-popover — aria-description", () => {
         <auro-button slot="trigger">trigger text</auro-button>
       </auro-popover>
     `);
+
     const trigger = container.querySelector("auro-button");
+    const slot = container.shadowRoot.querySelector("slot:not([name])");
 
     expect(trigger.getAttribute("aria-description")).to.equal("initial tooltip text");
+
+    // Set up a promise to wait for slotchange
+    const slotChange = new Promise((resolve) => {
+      slot.addEventListener("slotchange", resolve, { once: true });
+    });
 
     // Replace the slot content with a new text node
     const newText = document.createTextNode("updated tooltip text");
     container.insertBefore(newText, container.querySelector("auro-button"));
+
     container.childNodes.forEach((n) => {
       if (n.nodeType === Node.TEXT_NODE && n.textContent.includes("initial")) {
         n.remove();
       }
     });
 
-    // Wait for slotchange to fire and aria-description to update
-    await elementUpdated(container);
+    // Wait for the actual signal your component uses
+    await slotChange;
 
     expect(trigger.getAttribute("aria-description")).to.equal("updated tooltip text");
   });
@@ -658,9 +666,9 @@ describe("auro-popover — visibility via touch", () => {
     const el = await getFixture();
 
     expectPopoverHidden(el);
-    el.dispatchEvent(new MouseEvent("touchstart"));
+    el.dispatchEvent(new Event("touchstart"));
     expectPopoverShown(el);
-    el.dispatchEvent(new MouseEvent("touchstart"));
+    el.dispatchEvent(new Event("touchstart"));
     expectPopoverHidden(el);
   });
 });
