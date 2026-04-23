@@ -230,7 +230,7 @@ export class AuroPopover extends LitElement {
     const isNativelyFocusable = this.trigger.tabIndex >= 0;
     const hasInternalFocus = this.trigger.shadowRoot
       ? Boolean(this.trigger.shadowRoot.querySelector(
-          'button, a[href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])'
+          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
         ))
       : false;
 
