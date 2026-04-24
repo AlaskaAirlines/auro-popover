@@ -85,7 +85,7 @@ export class AuroPopover extends LitElement {
        * @type {'top' | 'bottom'}
        * @default 'top'
        */
-      placement: { type: String},
+      placement: { type: String },
 
       /**
        * Removes top and bottom space around the appearance of the popover in relation to the trigger.
