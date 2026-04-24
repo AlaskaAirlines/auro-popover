@@ -743,10 +743,15 @@ describe("auro-popover — event listener cleanup", () => {
     // and does not break when global events continue firing
     expect(popover._onBodyMouseover).to.not.be.null;
     expect(popover.isPopoverVisible).to.be.true;
+    const wasPopoverVisible = popover.isPopoverVisible;
+    const hadDataShow = popover.hasAttribute("data-show");
     // Fire a body mouseover — should not throw against a disconnected instance
     expect(() => {
       document.body.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, composed: true }));
     }).to.not.throw();
+
+    expect(popover.isPopoverVisible).to.equal(wasPopoverVisible);
+    expect(popover.hasAttribute("data-show")).to.equal(hadDataShow);
   });
 
   it("destroys Popper.js instance on disconnect", async () => {
