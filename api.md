@@ -13,7 +13,7 @@ The `auro-popover` element attaches to another element and displays on hover.
 | boundary    | boundary    |           | string \| object |         | The element to use as the boundary for the popover. Can be a query selector or an HTML element.                                                                        |
 | disabled    | disabled    |           | boolean          |         | Disables the popover from showing on hover and focus.                                                                                                                  |
 | for         | for         |           | string           |         | Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead. |
-| placement   | placement   |           | string           | `top`   | Position for popover in relation to the element.                                                                                                                       |
+| placement   | placement   |           | string           | `top`   | Position for popover in relation to the element {'top' \| 'bottom'}.                                                                                                   |
 | removeSpace | removeSpace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                          |
 
 ### Methods
@@ -51,6 +51,57 @@ The `auro-popover` element attaches to another element and displays on hover.
   Top popover content!
   <auro-button slot="trigger">Popover Test</auro-button>
 </auro-popover>
+```
+<!-- AURO-GENERATED-CONTENT:END -->
+</auro-accordion>
+
+## Apply popover to any type of content
+
+The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible — including custom elements like `auro-icon` that have no internal focusable element. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
+
+> **Accessibility note:** `auro-popover` manages `aria-description` on the trigger element as part of its accessibility contract — the popover content becomes the trigger's accessible description so screen readers can announce it on focus. Any existing `aria-description` on the trigger will be replaced when the component connects and removed when it disconnects.
+>
+> **Keyboard behavior:** Non-interactive triggers (e.g. `<abbr>`, `<auro-icon>`) are automatically made keyboard accessible with `tabindex="0"`. `Space` and `Enter` toggle the popover open and closed, ensuring keyboard-only users have parity with mouse/hover users. This is intentional — accessibility covers more than screen readers, and without activation semantics a keyboard-only user has no way to interact with a non-interactive trigger.
+
+<div class="exampleWrapper">
+  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/non-interactive-triggers.html) -->
+  <!-- The below content is automatically added from ./../apiExamples/non-interactive-triggers.html -->
+  <!-- auro-icon has no internal focusable element, so the component automatically
+       adds tabindex. aria-label is still required to provide an accessible name. -->
+  <auro-popover>
+    This flight offers priority boarding.
+    <auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
+  </auro-popover>
+  <br><br>
+  <!-- Native elements like <abbr> are automatically made keyboard accessible by the component -->
+  <p>Congratulations, you just achieved
+    <auro-popover>
+      Most Valuable Passenger — Alaska Airlines' mid-tier elite status level.
+      <abbr slot="trigger" style="color: orangered">MVP</abbr>
+    </auro-popover> status!
+  </p>
+  <!-- AURO-GENERATED-CONTENT:END -->
+</div>
+<auro-accordion alignRight>
+  <span slot="trigger">See code</span>
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../apiExamples/non-interactive-triggers.html) -->
+<!-- The below code snippet is automatically added from ./../apiExamples/non-interactive-triggers.html -->
+
+```html
+<!-- auro-icon has no internal focusable element, so the component automatically
+     adds tabindex. aria-label is still required to provide an accessible name. -->
+<auro-popover>
+  This flight offers priority boarding.
+  <auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
+</auro-popover>
+<br><br>
+<!-- Native elements like <abbr> are automatically made keyboard accessible by the component -->
+<p>Congratulations, you just achieved
+  <auro-popover>
+    Most Valuable Passenger — Alaska Airlines' mid-tier elite status level.
+    <abbr slot="trigger" style="color: orangered">MVP</abbr>
+  </auro-popover> status!
+</p>
 ```
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
