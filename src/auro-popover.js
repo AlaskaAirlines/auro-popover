@@ -116,6 +116,11 @@ export class AuroPopover extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
+    // Prevent screen readers from announcing the custom element host as "group".
+    if (!this.hasAttribute("role")) {
+      this.setAttribute("role", "none");
+    }
+
     this._initializeDefaults();
 
     // adds toggle function to root element based on touch
@@ -228,11 +233,20 @@ export class AuroPopover extends LitElement {
     // creating a double tab stop. Elements using delegatesFocus avoid this because the
     // browser reflects a non-negative tabIndex on the host.
     const isNativelyFocusable = this.trigger.tabIndex >= 0;
-    const hasInternalFocus = this.trigger.shadowRoot
-      ? Boolean(this.trigger.shadowRoot.querySelector(
-          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        ))
-      : false;
+    const focusableSelector =
+      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    // Check light DOM children for focusable elements.
+    let hasInternalFocus = Boolean(this.trigger.querySelector(focusableSelector));
+
+    // For custom elements, also check shadow DOM. If the shadow root is
+    // inaccessible (closed mode or element not yet upgraded), assume the
+    // custom element manages its own focus to avoid adding a conflicting
+    // tabindex that creates double tab stops.
+    if (!hasInternalFocus && this.trigger.localName.includes('-')) {
+      hasInternalFocus = !this.trigger.shadowRoot ||
+        Boolean(this.trigger.shadowRoot.querySelector(focusableSelector));
+    }
 
     if (!isNativelyFocusable && !hasInternalFocus && !this.trigger.hasAttribute("tabindex")) {
       this.trigger.setAttribute("tabindex", "0");
@@ -401,12 +415,12 @@ export class AuroPopover extends LitElement {
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="popover" class="popover util_insetLg body-default" part="popover">
+      <div id="popover" class="popover util_insetLg body-default" part="popover" aria-hidden="true">
         <div id="arrow" class="arrow" data-popper-arrow></div>
-        <span role="tooltip"><slot></slot></span>
+        <slot></slot>
       </div>
 
-      <span>
+      <span role="presentation">
         <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
       </span>
     `;

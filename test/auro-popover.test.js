@@ -358,6 +358,18 @@ describe("auro-popover — auto-tabindex", () => {
     expect(trigger.hasAttribute("tabindex")).to.be.false;
   });
 
+  it("does not add tabindex to element with focusable light DOM child", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <div slot="trigger"><a href="#">link trigger</a></div>
+      </auro-popover>
+    `);
+    const trigger = el.querySelector("div");
+
+    expect(trigger.hasAttribute("tabindex")).to.be.false;
+  });
+
   it("removes auto-added tabindex from trigger on disconnect", async () => {
     const container = await fixture(html`
       <div>
@@ -405,31 +417,79 @@ describe("auro-popover — auto-tabindex", () => {
 // pointing at the trigger).
 
 describe("auro-popover — shadow DOM structure", () => {
-  it("tooltip span has role='tooltip' wrapping the default slot", async () => {
+  it("popover content is delivered via slot inside the popover div", async () => {
     const el = await fixture(html`
       <auro-popover>
         tooltip text
         <button slot="trigger">trigger text</button>
       </auro-popover>
     `);
-    const tooltipSpan = el.shadowRoot.querySelector('span[role="tooltip"]');
+    const popoverDiv = el.shadowRoot.querySelector('#popover');
+    const slot = popoverDiv.querySelector('slot:not([name])');
 
-    expect(tooltipSpan, 'Expected a <span role="tooltip"> in shadow DOM').to.exist;
-    expect(tooltipSpan.querySelector('slot')).to.exist;
-  });
-
-  it("popover content is delivered via slot, not hardcoded in shadow DOM", async () => {
-    const el = await fixture(html`
-      <auro-popover>
-        tooltip text
-        <button slot="trigger">trigger text</button>
-      </auro-popover>
-    `);
-    const slot = el.shadowRoot.querySelector('span[role="tooltip"] slot');
+    expect(slot, 'Expected a default slot inside #popover').to.exist;
     const assignedText = slot.assignedNodes({ flatten: true }).map((n) => n.textContent).join('').trim();
-
     expect(assignedText).to.equal('tooltip text');
     expect(el.shadowRoot.innerHTML).to.not.include('tooltip text');
+  });
+
+  it("popover div has aria-hidden='true'", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <button slot="trigger">trigger text</button>
+      </auro-popover>
+    `);
+    const popoverDiv = el.shadowRoot.querySelector('#popover');
+
+    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
+  });
+
+  it("popover div stays aria-hidden after show and hide cycle", async () => {
+    const el = await getFixture();
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    expectPopoverShown(el);
+
+    el.dispatchEvent(new MouseEvent("mouseleave"));
+    expectPopoverHidden(el);
+
+    const popoverDiv = el.shadowRoot.querySelector('#popover');
+    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
+  });
+
+  it("trigger slot wrapper has role='presentation'", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <button slot="trigger">trigger text</button>
+      </auro-popover>
+    `);
+    const triggerWrapper = el.shadowRoot.querySelector('slot[name="trigger"]').parentElement;
+
+    expect(triggerWrapper.getAttribute('role')).to.equal('presentation');
+  });
+
+  it("host element has role='none'", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <button slot="trigger">trigger text</button>
+      </auro-popover>
+    `);
+
+    expect(el.getAttribute('role')).to.equal('none');
+  });
+
+  it("does not override author-set role on host", async () => {
+    const el = await fixture(html`
+      <auro-popover role="region">
+        tooltip text
+        <button slot="trigger">trigger text</button>
+      </auro-popover>
+    `);
+
+    expect(el.getAttribute('role')).to.equal('region');
   });
 
   it("shadow DOM does not contain an aria-live attribute", async () => {
@@ -443,18 +503,6 @@ describe("auro-popover — shadow DOM structure", () => {
 
     expect(liveRegion, 'aria-live must not exist in shadow DOM — it does not fire on display:none elements').to.not.exist;
   });
-
-  it("tooltip span does not have aria-labelledby", async () => {
-    const el = await fixture(html`
-      <auro-popover>
-        tooltip text
-        <button slot="trigger">trigger text</button>
-      </auro-popover>
-    `);
-    const tooltipSpan = el.shadowRoot.querySelector('span[role="tooltip"]');
-
-    expect(tooltipSpan.hasAttribute('aria-labelledby'), 'aria-labelledby must not be on the tooltip span — it incorrectly pointed back at the trigger').to.be.false;
-  });
 });
 
 // ---------------------------------------------------------------------------
@@ -465,27 +513,6 @@ describe("auro-popover — shadow DOM structure", () => {
 // or the aria-description value set on the trigger.
 
 describe("auro-popover — ARIA structure integrity", () => {
-  it("role='tooltip' is maintained after popover shows", async () => {
-    const el = await getFixture();
-
-    el.dispatchEvent(new MouseEvent("mouseenter"));
-
-    const tooltipSpan = el.shadowRoot.querySelector('span[role="tooltip"]');
-    expect(tooltipSpan).to.exist;
-    expect(tooltipSpan.getAttribute('role')).to.equal('tooltip');
-  });
-
-  it("role='tooltip' is maintained after popover hides", async () => {
-    const el = await getFixture();
-
-    el.dispatchEvent(new MouseEvent("mouseenter"));
-    el.dispatchEvent(new MouseEvent("mouseleave"));
-
-    const tooltipSpan = el.shadowRoot.querySelector('span[role="tooltip"]');
-    expect(tooltipSpan).to.exist;
-    expect(tooltipSpan.getAttribute('role')).to.equal('tooltip');
-  });
-
   it("aria-description on trigger is correct after a show and hide cycle", async () => {
     const el = await fixture(html`
       <auro-popover>
