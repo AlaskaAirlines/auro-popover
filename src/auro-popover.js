@@ -116,6 +116,11 @@ export class AuroPopover extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
+    // Prevent screen readers from announcing the custom element host as "group".
+    if (!this.hasAttribute("role")) {
+      this.setAttribute("role", "none");
+    }
+
     this._initializeDefaults();
 
     // adds toggle function to root element based on touch
@@ -143,10 +148,10 @@ export class AuroPopover extends LitElement {
         this._eventTarget.removeEventListener("mouseleave", this._onTriggerMouseLeave);
       }
       if (this._onTriggerFocus) {
-        this.trigger.removeEventListener("focus", this._onTriggerFocus);
+        this.trigger.removeEventListener("focusin", this._onTriggerFocus);
       }
       if (this._onTriggerBlur) {
-        this.trigger.removeEventListener("blur", this._onTriggerBlur);
+        this.trigger.removeEventListener("focusout", this._onTriggerBlur);
       }
       if (this._onTriggerKeydown) {
         this.trigger.removeEventListener("keydown", this._onTriggerKeydown);
@@ -157,7 +162,9 @@ export class AuroPopover extends LitElement {
       if (this._onSlotChange) {
         this.shadowRoot?.querySelector("slot:not([name])")?.removeEventListener("slotchange", this._onSlotChange);
       }
-      this.trigger.removeAttribute("aria-description");
+      for (const target of (this._ariaDescriptionTargets || [this.trigger])) {
+        target.removeAttribute("aria-description");
+      }
 
       // Remove tabindex only if the component added it and the current value
       // still matches the value managed by the component. This avoids removing
@@ -228,11 +235,36 @@ export class AuroPopover extends LitElement {
     // creating a double tab stop. Elements using delegatesFocus avoid this because the
     // browser reflects a non-negative tabIndex on the host.
     const isNativelyFocusable = this.trigger.tabIndex >= 0;
-    const hasInternalFocus = this.trigger.shadowRoot
-      ? Boolean(this.trigger.shadowRoot.querySelector(
-          'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        ))
-      : false;
+    const focusableSelector =
+      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex^="-"]), [contenteditable]:not([contenteditable="false"]), summary, iframe, audio[controls], video[controls]';
+
+    // Check light DOM children for focusable elements.
+    let hasInternalFocus = Boolean(this.trigger.querySelector(focusableSelector));
+
+    // Also check light DOM custom element descendants whose shadow DOM
+    // contains focusable content. querySelector cannot reach into shadow
+    // roots, so custom elements like auro-button inside a wrapper trigger
+    // would otherwise be missed (e.g. <div><auro-button></auro-button></div>).
+    if (!hasInternalFocus) {
+      const descendants = this.trigger.querySelectorAll('*');
+
+      for (const child of descendants) {
+        if (child.localName.includes('-') && (child.tabIndex >= 0 ||
+            (child.shadowRoot && child.shadowRoot.querySelector(focusableSelector)))) {
+          hasInternalFocus = true;
+          break;
+        }
+      }
+    }
+
+    // For custom elements used directly as the trigger (not wrapped),
+    // also check the trigger's own shadow DOM for focusable descendants.
+    // If the shadow root is inaccessible (closed mode or not yet upgraded),
+    // we cannot inspect it — the element will receive tabindex if it is not
+    // otherwise focusable. This is a known limitation documented above.
+    if (!hasInternalFocus && this.trigger.localName.includes('-') && this.trigger.shadowRoot) {
+      hasInternalFocus = Boolean(this.trigger.shadowRoot.querySelector(focusableSelector));
+    }
 
     if (!isNativelyFocusable && !hasInternalFocus && !this.trigger.hasAttribute("tabindex")) {
       this.trigger.setAttribute("tabindex", "0");
@@ -266,11 +298,60 @@ export class AuroPopover extends LitElement {
       .replace(/\s+/g, " ")
       .trim();
 
-    this.trigger.setAttribute("aria-description", getSlotText());
+    // Determine which elements should receive aria-description.
+    // When the trigger is a non-focusable wrapper around focusable content
+    // (e.g. <div><a href="#">link</a></div>), the description must go on
+    // every element that can actually receive focus so screen readers announce it.
+    this._ariaDescriptionTargets = [];
+
+    if (!isNativelyFocusable && hasInternalFocus) {
+      // Gather all focusable light DOM descendants.
+      const nativeMatches = [...this.trigger.querySelectorAll(focusableSelector)];
+
+      this._ariaDescriptionTargets.push(...nativeMatches);
+
+      // Check custom element descendants whose shadow DOM is focusable.
+      const allDescendants = this.trigger.querySelectorAll('*');
+
+      for (const child of allDescendants) {
+        if (!child.localName.includes('-')) continue;
+        // Skip if already matched by the native selector (e.g. has tabindex attribute).
+        if (nativeMatches.includes(child)) continue;
+
+        if (child.tabIndex >= 0) {
+          // Host is keyboard-reachable (delegatesFocus or explicit tabindex).
+          this._ariaDescriptionTargets.push(child);
+        } else if (child.shadowRoot) {
+          // Host is not keyboard-reachable; focus goes to internal elements.
+          // Set description directly on the shadow DOM focusable controls.
+          const shadowFocusable = child.shadowRoot.querySelectorAll(focusableSelector);
+
+          for (const el of shadowFocusable) {
+            this._ariaDescriptionTargets.push(el);
+          }
+        }
+      }
+
+      if (this._ariaDescriptionTargets.length === 0) {
+        this._ariaDescriptionTargets.push(this.trigger);
+      }
+    } else {
+      this._ariaDescriptionTargets.push(this.trigger);
+    }
+
+    const description = getSlotText();
+
+    for (const target of this._ariaDescriptionTargets) {
+      target.setAttribute("aria-description", description);
+    }
 
     // Keep aria-description in sync if slot content changes after first render.
     this._onSlotChange = () => {
-      this.trigger?.setAttribute("aria-description", getSlotText());
+      const text = getSlotText();
+
+      for (const target of this._ariaDescriptionTargets) {
+        target?.setAttribute("aria-description", text);
+      }
     };
     slot.addEventListener("slotchange", this._onSlotChange);
 
@@ -286,7 +367,13 @@ export class AuroPopover extends LitElement {
     this._onTriggerMouseEnter = () => { this.toggleShow(); };
     this._onTriggerMouseLeave = () => { this.toggleHide(); };
     this._onTriggerFocus = () => { this.toggleShow(); };
-    this._onTriggerBlur = () => { this.toggleHide(); };
+    this._onTriggerBlur = (event) => {
+      // Only hide if focus leaves the trigger entirely, not when moving
+      // between focusable children within the trigger.
+      if (!this.trigger.contains(event.relatedTarget)) {
+        this.toggleHide();
+      }
+    };
     this._onTriggerKeydown = (event) => {
       const key = event.key.toLowerCase();
 
@@ -320,9 +407,10 @@ export class AuroPopover extends LitElement {
     // if user tabs off of trigger, then hide the popover.
     this.trigger.addEventListener("keydown", this._onTriggerKeydown);
 
-    // handle gain/loss of focus
-    this.trigger.addEventListener("focus", this._onTriggerFocus);
-    this.trigger.addEventListener("blur", this._onTriggerBlur);
+    // handle gain/loss of focus — use focusin/focusout so events bubble
+    // from focusable descendants inside wrapper triggers (e.g. <div><a>).
+    this.trigger.addEventListener("focusin", this._onTriggerFocus);
+    this.trigger.addEventListener("focusout", this._onTriggerBlur);
 
     // e.g. for a closePopover button in the popover
     this.addEventListener("hidePopover", this._onHidePopover);
@@ -352,6 +440,9 @@ export class AuroPopover extends LitElement {
   toggleHide() {
     this.isPopoverVisible = false;
     this.removeAttribute("data-show");
+    if (this.auroPopover) {
+      this.auroPopover.setAttribute('aria-hidden', 'true');
+    }
     if (this._onBodyMouseover) {
       document.body.removeEventListener("mouseover", this._onBodyMouseover);
     }
@@ -367,12 +458,15 @@ export class AuroPopover extends LitElement {
    * @returns {void} Fires an update lifecycle.
    */
   toggleShow() {
-    if (!this.popper) {
+    if (!this.popper || this.disabled) {
       return;
     }
     this.popper.show();
     this.isPopoverVisible = true;
     this.setAttribute("data-show", "true");
+    if (this.auroPopover) {
+      this.auroPopover.setAttribute('aria-hidden', 'false');
+    }
 
     document.body.addEventListener("mouseover", this._onBodyMouseover);
   }
@@ -401,12 +495,12 @@ export class AuroPopover extends LitElement {
   // function that renders the HTML and CSS into  the scope of the component
   render() {
     return html`
-      <div id="popover" class="popover util_insetLg body-default" part="popover">
+      <div id="popover" class="popover util_insetLg body-default" part="popover" aria-hidden="true">
         <div id="arrow" class="arrow" data-popper-arrow></div>
-        <span role="tooltip"><slot></slot></span>
+        <slot></slot>
       </div>
 
-      <span>
+      <span role="presentation">
         <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
       </span>
     `;
