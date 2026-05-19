@@ -148,10 +148,10 @@ export class AuroPopover extends LitElement {
         this._eventTarget.removeEventListener("mouseleave", this._onTriggerMouseLeave);
       }
       if (this._onTriggerFocus) {
-        this.trigger.removeEventListener("focus", this._onTriggerFocus);
+        this.trigger.removeEventListener("focusin", this._onTriggerFocus);
       }
       if (this._onTriggerBlur) {
-        this.trigger.removeEventListener("blur", this._onTriggerBlur);
+        this.trigger.removeEventListener("focusout", this._onTriggerBlur);
       }
       if (this._onTriggerKeydown) {
         this.trigger.removeEventListener("keydown", this._onTriggerKeydown);
@@ -234,18 +234,17 @@ export class AuroPopover extends LitElement {
     // browser reflects a non-negative tabIndex on the host.
     const isNativelyFocusable = this.trigger.tabIndex >= 0;
     const focusableSelector =
-      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [contenteditable]:not([contenteditable="false"]), summary, iframe, audio[controls], video[controls]';
 
     // Check light DOM children for focusable elements.
     let hasInternalFocus = Boolean(this.trigger.querySelector(focusableSelector));
 
-    // For custom elements, also check shadow DOM. If the shadow root is
-    // inaccessible (closed mode or element not yet upgraded), assume the
-    // custom element manages its own focus to avoid adding a conflicting
-    // tabindex that creates double tab stops.
-    if (!hasInternalFocus && this.trigger.localName.includes('-')) {
-      hasInternalFocus = !this.trigger.shadowRoot ||
-        Boolean(this.trigger.shadowRoot.querySelector(focusableSelector));
+    // For custom elements, also check shadow DOM for focusable descendants.
+    // If the shadow root is inaccessible (closed mode or not yet upgraded),
+    // we cannot inspect it — the element will receive tabindex if it is not
+    // otherwise focusable. This is a known limitation documented above.
+    if (!hasInternalFocus && this.trigger.localName.includes('-') && this.trigger.shadowRoot) {
+      hasInternalFocus = Boolean(this.trigger.shadowRoot.querySelector(focusableSelector));
     }
 
     if (!isNativelyFocusable && !hasInternalFocus && !this.trigger.hasAttribute("tabindex")) {
@@ -300,7 +299,13 @@ export class AuroPopover extends LitElement {
     this._onTriggerMouseEnter = () => { this.toggleShow(); };
     this._onTriggerMouseLeave = () => { this.toggleHide(); };
     this._onTriggerFocus = () => { this.toggleShow(); };
-    this._onTriggerBlur = () => { this.toggleHide(); };
+    this._onTriggerBlur = (event) => {
+      // Only hide if focus leaves the trigger entirely, not when moving
+      // between focusable children within the trigger.
+      if (!this.trigger.contains(event.relatedTarget)) {
+        this.toggleHide();
+      }
+    };
     this._onTriggerKeydown = (event) => {
       const key = event.key.toLowerCase();
 
@@ -334,9 +339,10 @@ export class AuroPopover extends LitElement {
     // if user tabs off of trigger, then hide the popover.
     this.trigger.addEventListener("keydown", this._onTriggerKeydown);
 
-    // handle gain/loss of focus
-    this.trigger.addEventListener("focus", this._onTriggerFocus);
-    this.trigger.addEventListener("blur", this._onTriggerBlur);
+    // handle gain/loss of focus — use focusin/focusout so events bubble
+    // from focusable descendants inside wrapper triggers (e.g. <div><a>).
+    this.trigger.addEventListener("focusin", this._onTriggerFocus);
+    this.trigger.addEventListener("focusout", this._onTriggerBlur);
 
     // e.g. for a closePopover button in the popover
     this.addEventListener("hidePopover", this._onHidePopover);
@@ -366,6 +372,9 @@ export class AuroPopover extends LitElement {
   toggleHide() {
     this.isPopoverVisible = false;
     this.removeAttribute("data-show");
+    if (this.auroPopover) {
+      this.auroPopover.setAttribute('aria-hidden', 'true');
+    }
     if (this._onBodyMouseover) {
       document.body.removeEventListener("mouseover", this._onBodyMouseover);
     }
@@ -387,6 +396,9 @@ export class AuroPopover extends LitElement {
     this.popper.show();
     this.isPopoverVisible = true;
     this.setAttribute("data-show", "true");
+    if (this.auroPopover) {
+      this.auroPopover.setAttribute('aria-hidden', 'false');
+    }
 
     document.body.addEventListener("mouseover", this._onBodyMouseover);
   }

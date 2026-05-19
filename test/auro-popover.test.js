@@ -370,6 +370,20 @@ describe("auro-popover — auto-tabindex", () => {
     expect(trigger.hasAttribute("tabindex")).to.be.false;
   });
 
+  it("shows popover when focusable light DOM child receives focus", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <div slot="trigger"><a href="#">link trigger</a></div>
+      </auro-popover>
+    `);
+    const anchor = el.querySelector("a");
+
+    expectPopoverHidden(el);
+    anchor.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    expectPopoverShown(el);
+  });
+
   it("removes auto-added tabindex from trigger on disconnect", async () => {
     const container = await fixture(html`
       <div>
@@ -411,10 +425,9 @@ describe("auro-popover — auto-tabindex", () => {
 // Shadow DOM structure
 // ---------------------------------------------------------------------------
 // Verifies the required shadow DOM shape is present and correct. Guards
-// against regressions where refactoring might accidentally remove role=tooltip,
-// re-introduce aria-live (non-functional with display:none), or add
-// aria-labelledby back to the tooltip span (was previously incorrectly
-// pointing at the trigger).
+// against regressions where refactoring might accidentally remove the
+// aria-hidden attribute, re-introduce aria-live (non-functional with
+// display:none), or break the presentation role on the trigger wrapper.
 
 describe("auro-popover — shadow DOM structure", () => {
   it("popover content is delivered via slot inside the popover div", async () => {
@@ -445,16 +458,18 @@ describe("auro-popover — shadow DOM structure", () => {
     expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
   });
 
-  it("popover div stays aria-hidden after show and hide cycle", async () => {
+  it("popover div aria-hidden syncs with visibility", async () => {
     const el = await getFixture();
+
+    const popoverDiv = el.shadowRoot.querySelector('#popover');
+    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
 
     el.dispatchEvent(new MouseEvent("mouseenter"));
     expectPopoverShown(el);
+    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('false');
 
     el.dispatchEvent(new MouseEvent("mouseleave"));
     expectPopoverHidden(el);
-
-    const popoverDiv = el.shadowRoot.querySelector('#popover');
     expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
   });
 
@@ -509,7 +524,7 @@ describe("auro-popover — shadow DOM structure", () => {
 // ARIA structure integrity
 // ---------------------------------------------------------------------------
 // Verifies that ARIA attributes remain correct through show and hide cycles.
-// Ensures visibility state changes do not corrupt the role=tooltip contract
+// Ensures visibility state changes do not corrupt the aria-hidden contract
 // or the aria-description value set on the trigger.
 
 describe("auro-popover — ARIA structure integrity", () => {
@@ -655,7 +670,7 @@ describe("auro-popover — visibility via keyboard", () => {
     const el = await getFixture();
 
     expectPopoverHidden(el);
-    el.trigger.dispatchEvent(new Event("focus"));
+    el.trigger.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
     expectPopoverShown(el);
     el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     expectPopoverHidden(el);
@@ -673,7 +688,7 @@ describe("auro-popover — visibility via keyboard", () => {
     const el = await getFixture();
 
     expectPopoverHidden(el);
-    el.trigger.dispatchEvent(new Event("focus"));
+    el.trigger.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
     expectPopoverShown(el);
     el.trigger.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter" }));
     expectPopoverHidden(el);
@@ -745,7 +760,7 @@ describe("auro-popover — event listener cleanup", () => {
     container.removeChild(popover);
 
     // focus on the trigger should not show the popover after disconnect
-    trigger.dispatchEvent(new Event("focus"));
+    trigger.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
 
     expectPopoverHidden(popover);
   });

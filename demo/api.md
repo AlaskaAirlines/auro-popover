@@ -60,6 +60,8 @@ The `auro-popover` element attaches to another element and displays on hover.
 The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible — including custom elements like `auro-icon` that have no internal focusable element. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
 
 > **Accessibility note:** `auro-popover` manages `aria-description` on the trigger element as part of its accessibility contract — the popover content becomes the trigger's accessible description so screen readers can announce it on focus. Any existing `aria-description` on the trigger will be replaced when the component connects and removed when it disconnects.
+>
+> **Keyboard behavior:** Non-interactive triggers (e.g. `<abbr>`, `<auro-icon>`) are automatically made keyboard accessible with `tabindex="0"`. `Space` and `Enter` toggle the popover open and closed, ensuring keyboard-only users have parity with mouse/hover users. This is intentional — accessibility covers more than screen readers, and without activation semantics a keyboard-only user has no way to interact with a non-interactive trigger.
 
 <div class="exampleWrapper">
   <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/non-interactive-triggers.html) -->
