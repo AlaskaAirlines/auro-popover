@@ -418,9 +418,11 @@ describe("auro-popover — auto-tabindex", () => {
       </auro-popover>
     `);
     const customChild = el.querySelector("mock-focusable");
+    const shadowButton = customChild.shadowRoot.querySelector("button");
 
     expectPopoverHidden(el);
-    customChild.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    // Dispatch from the actual shadow DOM control to test real focus path.
+    shadowButton.dispatchEvent(new FocusEvent("focusin", { bubbles: true, composed: true }));
     expectPopoverShown(el);
   });
 
