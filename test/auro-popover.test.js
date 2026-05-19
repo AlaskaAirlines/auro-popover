@@ -384,6 +384,46 @@ describe("auro-popover — auto-tabindex", () => {
     expectPopoverShown(el);
   });
 
+  it("sets aria-description on focusable light DOM child, not wrapper", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <div slot="trigger"><a href="#">link trigger</a></div>
+      </auro-popover>
+    `);
+    const wrapper = el.querySelector("div");
+    const anchor = el.querySelector("a");
+
+    expect(wrapper.hasAttribute("aria-description")).to.be.false;
+    expect(anchor.getAttribute("aria-description")).to.equal("tooltip text");
+  });
+
+  it("does not add tabindex to wrapper around custom element with focusable shadow DOM", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <div slot="trigger"><mock-focusable></mock-focusable></div>
+      </auro-popover>
+    `);
+    const wrapper = el.querySelector("div");
+
+    expect(wrapper.hasAttribute("tabindex")).to.be.false;
+  });
+
+  it("shows popover when custom element child in wrapper receives focus", async () => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <div slot="trigger"><mock-focusable></mock-focusable></div>
+      </auro-popover>
+    `);
+    const customChild = el.querySelector("mock-focusable");
+
+    expectPopoverHidden(el);
+    customChild.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+    expectPopoverShown(el);
+  });
+
   it("removes auto-added tabindex from trigger on disconnect", async () => {
     const container = await fixture(html`
       <div>
