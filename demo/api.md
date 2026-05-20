@@ -7,14 +7,15 @@ The `auro-popover` element attaches to another element and displays on hover.
 
 ### Properties & Attributes
 
-| Properties  | Attributes  | Modifiers | Type             | Default | Description                                                                                                                                                            |
-| ----------- | ----------- | --------- | ---------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| addSpace    | addSpace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                  |
-| boundary    | boundary    |           | string \| object |         | The element to use as the boundary for the popover. Can be a query selector or an HTML element.                                                                        |
-| disabled    | disabled    |           | boolean          |         | Disables the popover from showing on hover and focus.                                                                                                                  |
-| for         | for         |           | string           |         | Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead. |
-| placement   | placement   |           | string           | `top`   | Position for popover in relation to the element {'top' \| 'bottom'}.                                                                                                   |
-| removeSpace | removeSpace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                          |
+| Properties  | Attributes  | Modifiers | Type             | Default | Description                                                                                                                                                                                                        |
+| ----------- | ----------- | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| addSpace    | addSpace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                              |
+| boundary    | boundary    |           | string \| object |         | The element to use as the boundary for the popover. Can be a query selector or an HTML element.                                                                                                                    |
+| disabled    | disabled    |           | boolean          |         | Disables the popover from showing on hover and focus.                                                                                                                                                              |
+| for         | for         |           | string           |         | Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead.                                             |
+| placement   | placement   |           | string           | `top`   | Position for popover in relation to the element {'top' \| 'bottom'}.                                                                                                                                               |
+| removeSpace | removeSpace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                                      |
+|             | data-show   |           | boolean          | `false` | Whether the popover is currently visible. Reflected as the `data-show`<br>attribute so host-level CSS selectors (e.g. `:host([data-show])`) work.<br>Also drives `aria-hidden` on the popover div in the template. |
 
 ### Methods
 
@@ -59,7 +60,9 @@ The `auro-popover` element attaches to another element and displays on hover.
 
 The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible — including custom elements like `auro-icon` that have no internal focusable element. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
 
-> **Accessibility note:** `auro-popover` manages `aria-description` on the trigger element as part of its accessibility contract — the popover content becomes the trigger's accessible description so screen readers can announce it on focus. Any existing `aria-description` on the trigger will be replaced when the component connects and removed when it disconnects.
+> **Accessibility note:** `auro-popover` manages `aria-description` on the focusable element(s) within the trigger slot as part of its accessibility contract — the popover content becomes the trigger's accessible description so screen readers can announce it on focus. When the trigger is a non-focusable wrapper around focusable content (e.g. `<div><a href="#">link</a></div>`), the description is applied to each focusable descendant rather than the wrapper itself. Any existing `aria-description` on affected elements will be replaced when the component connects and removed when it disconnects.
+>
+> **Keyboard behavior:** Non-interactive triggers (e.g. `<abbr>`, `<auro-icon>`) are automatically made keyboard accessible with `tabindex="0"`. `Space` and `Enter` toggle the popover open and closed, ensuring keyboard-only users have parity with mouse/hover users. This is intentional — accessibility covers more than screen readers, and without activation semantics a keyboard-only user has no way to interact with a non-interactive trigger.
 
 <div class="exampleWrapper">
   <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/non-interactive-triggers.html) -->
