@@ -294,8 +294,8 @@ Binding a `trigger` event to a hyperlink is **not** recommended. This is a poor 
 
 The use of a hyperlink for to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
 
-<auro-alert type="error" noIcon>
-  <div class="exampleWrapper">
+<div class="exampleWrapper">
+  <auro-alert type="error" noIcon>
     <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/not-recommended.html) -->
     <!-- The below content is automatically added from ../apiExamples/not-recommended.html -->
     <auro-popover>
@@ -303,8 +303,8 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
       <auro-hyperlink href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
     </auro-popover>
     <!-- AURO-GENERATED-CONTENT:END -->
-  </div>
-</auro-alert>
+  </auro-alert>
+</div>
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/not-recommended.html) -->
@@ -320,8 +320,8 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
 </auro-accordion>
 In the event that a hyperlink UI is desired, it is recommended to use the `role="button"` semantic reassignment to the hyperlink element.
 
-<auro-alert type="success" noIcon>
-  <div class="exampleWrapper">
+<div class="exampleWrapper">
+  <auro-alert type="success" noIcon>
     <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/recommended.html) -->
     <!-- The below content is automatically added from ../apiExamples/recommended.html -->
     <auro-popover>
@@ -329,8 +329,8 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
       <auro-hyperlink role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
     </auro-popover>
     <!-- AURO-GENERATED-CONTENT:END -->
-  </div>
-</auro-alert>
+  </auro-alert>
+</div>
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/recommended.html) -->
