@@ -109,6 +109,12 @@ $auro-inset-directions: '';
 
   max-width: calc(100% - var(--ds-size-400, vac.$ds-size-400));
 
+  // Neutralize the UA stylesheet for `[popover]`, which applies
+  // `border: solid` and `overflow: hidden`. The latter would clip the
+  // arrow (which protrudes 10px below the bubble).
+  border: 0;
+  overflow: visible;
+
   border-radius: var(--ds-border-radius, vac.$ds-border-radius);
 
   @include bp.auro_grid-breakpoint--sm {
