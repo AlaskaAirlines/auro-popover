@@ -292,7 +292,7 @@ The auro-popover element is meant to be used when the interaction and it's conte
 
 Binding a `trigger` event to a hyperlink is **not** recommended. This is a poor user experience for mobile devices, the event required to make the popover appear is a `tap`. The tap will also trigger the hyperlink to fire as well, thus negating the impact of the popover.
 
-The use of a hyperlink for to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
+The use of a hyperlink to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
 
 <div class="exampleWrapper">
   <auro-alert type="error" noIcon>
