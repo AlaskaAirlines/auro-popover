@@ -714,15 +714,9 @@ describe("auro-popover — triggerUpdate", () => {
 // ---------------------------------------------------------------------------
 // Top-layer promotion (native popover API)
 // ---------------------------------------------------------------------------
-// Verifies the bubble is promoted to the top layer when shown. Without this,
-// Popper v2's parentNode-based containing-block walk stops at the first
-// shadow boundary it cannot cross (popover bubble → auro-popover host →
-// light DOM → body), missing transformed ancestors that live in deeper
-// shadow trees (e.g. auro-drawer-content's `.wrapper`). The browser uses
-// the flat tree and anchors the bubble to that transformed ancestor — so
-// Popper's viewport-origin coordinates land in the wrong place. Promoting
-// to the top layer makes the browser's containing block the viewport too,
-// matching Popper's assumption. See issue #130.
+// Verifies the bubble is promoted to the top layer when shown, so its
+// containing block becomes the viewport and Popper's coordinates match
+// the browser's positioning even inside transformed ancestors.
 
 describe("auro-popover — top-layer promotion", () => {
   it("renders the bubble with popover=\"manual\"", async () => {
@@ -754,7 +748,7 @@ describe("auro-popover — top-layer promotion", () => {
     expect(bubble.matches(":popover-open")).to.equal(false);
   });
 
-  it("centers the bubble horizontally over the trigger inside a transformed ancestor (regression for issue #130)", async () => {
+  it("centers the bubble horizontally over the trigger inside a transformed ancestor", async () => {
     const container = await fixture(html`
       <div style="transform: translateZ(0); padding: 200px; width: 800px;">
         <auro-popover>

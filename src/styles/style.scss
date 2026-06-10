@@ -109,9 +109,7 @@ $auro-inset-directions: '';
 
   max-width: calc(100% - var(--ds-size-400, vac.$ds-size-400));
 
-  // Neutralize the UA stylesheet for `[popover]`, which applies
-  // `border: solid` and `overflow: hidden`. The latter would clip the
-  // arrow (which protrudes 10px below the bubble).
+  // Reset UA `[popover]` defaults — `overflow: hidden` would clip the arrow.
   border: 0;
   overflow: visible;
 
