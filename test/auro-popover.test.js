@@ -712,6 +712,76 @@ describe("auro-popover — triggerUpdate", () => {
 });
 
 // ---------------------------------------------------------------------------
+// Top-layer promotion (native popover API)
+// ---------------------------------------------------------------------------
+// Verifies the bubble is promoted to the top layer when shown. Without this,
+// Popper v2's parentNode-based containing-block walk stops at the first
+// shadow boundary it cannot cross (popover bubble → auro-popover host →
+// light DOM → body), missing transformed ancestors that live in deeper
+// shadow trees (e.g. auro-drawer-content's `.wrapper`). The browser uses
+// the flat tree and anchors the bubble to that transformed ancestor — so
+// Popper's viewport-origin coordinates land in the wrong place. Promoting
+// to the top layer makes the browser's containing block the viewport too,
+// matching Popper's assumption. See issue #130.
+
+describe("auro-popover — top-layer promotion", () => {
+  it("renders the bubble with popover=\"manual\"", async () => {
+    const el = await getFixture();
+    const bubble = el.shadowRoot.querySelector("#popover");
+
+    expect(bubble.getAttribute("popover")).to.equal("manual");
+  });
+
+  it("enters :popover-open when the trigger is hovered", async () => {
+    const el = await getFixture();
+    const bubble = el.shadowRoot.querySelector("#popover");
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    expect(bubble.matches(":popover-open")).to.equal(true);
+  });
+
+  it("leaves :popover-open when the trigger is unhovered", async () => {
+    const el = await getFixture();
+    const bubble = el.shadowRoot.querySelector("#popover");
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+    el.dispatchEvent(new MouseEvent("mouseleave"));
+    await el.updateComplete;
+
+    expect(bubble.matches(":popover-open")).to.equal(false);
+  });
+
+  it("centers the bubble horizontally over the trigger inside a transformed ancestor (regression for issue #130)", async () => {
+    const container = await fixture(html`
+      <div style="transform: translateZ(0); padding: 200px; width: 800px;">
+        <auro-popover>
+          tooltip text
+          <auro-button slot="trigger">trigger text</auro-button>
+        </auro-popover>
+      </div>
+    `);
+    const el = container.querySelector("auro-popover");
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+    await el.popper.popper.update();
+
+    const trigger = el.querySelector('[slot="trigger"]');
+    const bubble = el.shadowRoot.querySelector(".popover");
+
+    const triggerRect = trigger.getBoundingClientRect();
+    const bubbleRect = bubble.getBoundingClientRect();
+    const triggerCenter = triggerRect.left + triggerRect.width / 2;
+    const bubbleCenter = bubbleRect.left + bubbleRect.width / 2;
+
+    expect(Math.abs(bubbleCenter - triggerCenter)).to.be.lessThan(2);
+  });
+});
+
+// ---------------------------------------------------------------------------
 // handleMouseoverEvent
 // ---------------------------------------------------------------------------
 // Verifies the global body mouseover handler correctly hides the popover
