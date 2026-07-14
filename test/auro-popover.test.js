@@ -34,6 +34,16 @@ function expectPopoverHidden(el) {
   expect(el.isPopoverVisible).to.equal(false);
 }
 
+/**
+ * Whether the current environment supports the native Popover API. Tests that
+ * assert on the `:popover-open` pseudo-class must guard on this — `matches()`
+ * throws a SyntaxError against the unknown selector on non-supporting engines,
+ * which would crash the whole suite instead of skipping the assertion.
+ */
+const supportsPopoverAPI =
+  typeof HTMLElement !== "undefined" &&
+  typeof HTMLElement.prototype.showPopover === "function";
+
 // ---------------------------------------------------------------------------
 // Registration
 // ---------------------------------------------------------------------------
@@ -726,7 +736,10 @@ describe("auro-popover — top-layer promotion", () => {
     expect(bubble.getAttribute("popover")).to.equal("manual");
   });
 
-  it("enters :popover-open when the trigger is hovered", async () => {
+  it("enters :popover-open when the trigger is hovered", async function () {
+    if (!supportsPopoverAPI) {
+      this.skip();
+    }
     const el = await getFixture();
     const bubble = el.shadowRoot.querySelector("#popover");
 
@@ -736,7 +749,10 @@ describe("auro-popover — top-layer promotion", () => {
     expect(bubble.matches(":popover-open")).to.equal(true);
   });
 
-  it("leaves :popover-open when the trigger is unhovered", async () => {
+  it("leaves :popover-open when the trigger is unhovered", async function () {
+    if (!supportsPopoverAPI) {
+      this.skip();
+    }
     const el = await getFixture();
     const bubble = el.shadowRoot.querySelector("#popover");
 
@@ -778,7 +794,10 @@ describe("auro-popover — top-layer promotion", () => {
     expect(Math.abs(bubbleCenter - triggerCenter)).to.be.lessThan(2);
   });
 
-  it("keeps two manual popovers open simultaneously", async () => {
+  it("keeps two manual popovers open simultaneously", async function () {
+    if (!supportsPopoverAPI) {
+      this.skip();
+    }
     // popover="manual" is deliberate: unlike popover="auto", opening a second
     // bubble must not light-dismiss the first. This locks in the multi-instance
     // behavior that predates top-layer promotion (both could be visible at once).
