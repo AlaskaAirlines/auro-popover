@@ -62,8 +62,21 @@ export default class Popover {
       typeof this.popover.showPopover === "function" &&
       !isTopLayerOpen(this.popover)
     ) {
-      this.popover.showPopover();
+      try {
+        this.popover.showPopover();
+      } catch {
+        // InvalidStateError / NotAllowedError (e.g. detached between the
+        // guard and this call, or a nested-invoker constraint) — fall back
+        // to absolute positioning rather than breaking show() entirely.
+      }
     }
+
+    // Gate the positioning strategy on actual top-layer promotion, not just
+    // feature detection. If showPopover() silently failed or was blocked, the
+    // bubble stays in normal flow and the viewport-coordinate modifier never
+    // fires — pairing "fixed" with an offsetParent-derived reference rect
+    // would produce a mismatched coordinate system.
+    const isPromoted = isTopLayerOpen(this.popover);
 
     this.popper = createPopper(this.anchor, this.popover, {
       tooltip: this.anchor,
@@ -71,8 +84,7 @@ export default class Popover {
       // Match the top-layer viewport containing block when the bubble is
       // promoted; otherwise leave Popper on its default to preserve legacy
       // positioning on browsers without the popover API.
-      strategy:
-        typeof this.popover.showPopover === "function" ? "fixed" : "absolute",
+      strategy: isPromoted ? "fixed" : "absolute",
       modifiers: [
         {
           // Override Popper's offsetParent-relative reference rect with
@@ -127,7 +139,11 @@ export default class Popover {
       typeof this.popover.hidePopover === "function" &&
       isTopLayerOpen(this.popover)
     ) {
-      this.popover.hidePopover();
+      try {
+        this.popover.hidePopover();
+      } catch {
+        // Already hidden / disconnected — nothing to unwind.
+      }
     }
     this.popover.classList.remove(this.options.visibleClass);
   }
