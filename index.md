@@ -31,24 +31,22 @@ The default trigger for a popover is a `hover` event. Mobile devices do not supp
 ### Basic
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/basic.html) -->
-  <!-- The below content is automatically added from ./../apiExamples/basic.html -->
-  <auro-popover>
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/basic.html) -->
+<!-- The below content is automatically added from ./../apiExamples/basic.html -->
+<auro-popover>
     Top popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </auro-popover>
-  <!-- AURO-GENERATED-CONTENT:END -->
+<auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=./../apiExamples/basic.html) -->
 <!-- The below code snippet is automatically added from ./../apiExamples/basic.html -->
 
-```html
-<auro-popover>
+<pre class="language-html"><code class="language-html">&lt;auro-popover&gt;
   Top popover content!
-  <auro-button slot="trigger">Popover Test</auro-button>
-</auro-popover>
-```
+  &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>

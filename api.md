@@ -34,25 +34,23 @@ The `auro-popover` element attaches to another element and displays on hover.
 ## Basic
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/basic.html) -->
-  <!-- The below content is automatically added from ./../apiExamples/basic.html -->
-  <auro-popover>
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/basic.html) -->
+<!-- The below content is automatically added from ./../apiExamples/basic.html -->
+<auro-popover>
     Top popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </auro-popover>
-  <!-- AURO-GENERATED-CONTENT:END -->
+<auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=./../apiExamples/basic.html) -->
 <!-- The below code snippet is automatically added from ./../apiExamples/basic.html -->
 
-```html
-<auro-popover>
+<pre class="language-html"><code class="language-html">&lt;auro-popover&gt;
   Top popover content!
-  <auro-button slot="trigger">Popover Test</auro-button>
-</auro-popover>
-```
+  &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -65,45 +63,43 @@ The trigger can be any element, not just buttons or links. The component automat
 > **Keyboard behavior:** Non-interactive triggers (e.g. `<abbr>`, `<auro-icon>`) are automatically made keyboard accessible with `tabindex="0"`. `Space` and `Enter` toggle the popover open and closed, ensuring keyboard-only users have parity with mouse/hover users. This is intentional — accessibility covers more than screen readers, and without activation semantics a keyboard-only user has no way to interact with a non-interactive trigger.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/non-interactive-triggers.html) -->
-  <!-- The below content is automatically added from ./../apiExamples/non-interactive-triggers.html -->
-  <!-- auro-icon has no internal focusable element, so the component automatically
-       adds tabindex. aria-label is still required to provide an accessible name. -->
-  <auro-popover>
-    This flight offers priority boarding.
-    <auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
-  </auro-popover>
-  <br><br>
-  <!-- Native elements like <abbr> are automatically made keyboard accessible by the component -->
-  <p>Congratulations, you just achieved
-    <auro-popover>
-      Most Valuable Passenger — Alaska Airlines' mid-tier elite status level.
-      <abbr slot="trigger" style="color: orangered">MVP</abbr>
-    </auro-popover> status!
-  </p>
-  <!-- AURO-GENERATED-CONTENT:END -->
-</div>
-<auro-accordion alignRight>
-  <span slot="trigger">See code</span>
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../apiExamples/non-interactive-triggers.html) -->
-<!-- The below code snippet is automatically added from ./../apiExamples/non-interactive-triggers.html -->
-
-```html
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=./../apiExamples/non-interactive-triggers.html) -->
+<!-- The below content is automatically added from ./../apiExamples/non-interactive-triggers.html -->
 <!-- auro-icon has no internal focusable element, so the component automatically
-     adds tabindex. aria-label is still required to provide an accessible name. -->
+       adds tabindex. aria-label is still required to provide an accessible name. -->
 <auro-popover>
-  This flight offers priority boarding.
-  <auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
+    This flight offers priority boarding.
+<auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
 </auro-popover>
 <br><br>
 <!-- Native elements like <abbr> are automatically made keyboard accessible by the component -->
 <p>Congratulations, you just achieved
-  <auro-popover>
-    Most Valuable Passenger — Alaska Airlines' mid-tier elite status level.
-    <abbr slot="trigger" style="color: orangered">MVP</abbr>
-  </auro-popover> status!
+<auro-popover>
+      Most Valuable Passenger — Alaska Airlines' mid-tier elite status level.
+<abbr slot="trigger" style="color: orangered">MVP</abbr>
+</auro-popover> status!
 </p>
-```
+<!-- AURO-GENERATED-CONTENT:END -->
+</div>
+<auro-accordion alignRight>
+<span slot="trigger">See code</span>
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=./../apiExamples/non-interactive-triggers.html) -->
+<!-- The below code snippet is automatically added from ./../apiExamples/non-interactive-triggers.html -->
+
+<pre class="language-html"><code class="language-html">&lt;!-- auro-icon has no internal focusable element, so the component automatically
+     adds tabindex. aria-label is still required to provide an accessible name. --&gt;
+&lt;auro-popover&gt;
+  This flight offers priority boarding.
+  &lt;auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"&gt;&lt;/auro-icon&gt;
+&lt;/auro-popover&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;!-- Native elements like &lt;abbr&gt; are automatically made keyboard accessible by the component --&gt;
+&lt;p&gt;Congratulations, you just achieved
+  &lt;auro-popover&gt;
+    Most Valuable Passenger — Alaska Airlines' mid-tier elite status level.
+    &lt;abbr slot="trigger" style="color: orangered"&gt;MVP&lt;/abbr&gt;
+  &lt;/auro-popover&gt; status!
+&lt;/p&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -114,25 +110,23 @@ The trigger can be any element, not just buttons or links. The component automat
 Use the `addSpace` attribute to add more space between the popover and it's trigger.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/add-space.html) -->
-  <!-- The below content is automatically added from ../apiExamples/add-space.html -->
-  <auro-popover addSpace>
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/add-space.html) -->
+<!-- The below content is automatically added from ../apiExamples/add-space.html -->
+<auro-popover addSpace>
     Notice this popover is a little<br>further away from the trigger.
-    <auro-button slot="trigger">Popover w/additional space above</auro-button>
-  </auro-popover>
-  <!-- AURO-GENERATED-CONTENT:END -->
+<auro-button slot="trigger">Popover w/additional space above</auro-button>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/add-space.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/add-space.html -->
 
-```html
-<auro-popover addSpace>
-  Notice this popover is a little<br>further away from the trigger.
-  <auro-button slot="trigger">Popover w/additional space above</auro-button>
-</auro-popover>
-```
+<pre class="language-html"><code class="language-html">&lt;auro-popover addSpace&gt;
+  Notice this popover is a little&lt;br&gt;further away from the trigger.
+  &lt;auro-button slot="trigger"&gt;Popover w/additional space above&lt;/auro-button&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -141,57 +135,53 @@ Use the `addSpace` attribute to add more space between the popover and it's trig
 Use the `boundary` property to set the overflow boundary for the `auro-popover`, shifting the x-axis of the `auro-popover`. This example demonstrates an `auro-popover` in a container without a `boundary` set vs an `auro-popover` in a container with a `boundary` set. The value passed to the `boundary` attribute can be a valid selector string or HTML Element.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/boundary.html) -->
-  <!-- The below content is automatically added from ../apiExamples/boundary.html -->
-  <strong>Example with no boundary set</strong>
-  <div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-    <auro-popover placement="bottom">
-      Popover content!
-      <auro-button slot="trigger">Popover Test</auro-button>
-    </auro-popover>
-  </div>
-  <strong>Example with boundary set</strong>
-  <div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-    <auro-popover class="boundaryExample" placement="bottom">
-      Popover content!
-      <auro-button slot="trigger">Popover Test</auro-button>
-    </auro-popover>
-  </div>
-  <!-- AURO-GENERATED-CONTENT:END -->
-</div>
-<auro-accordion alignRight>
-  <span slot="trigger">See code</span>
-<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/boundary.html) -->
-<!-- The below code snippet is automatically added from ../apiExamples/boundary.html -->
-
-```html
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/boundary.html) -->
+<!-- The below content is automatically added from ../apiExamples/boundary.html -->
 <strong>Example with no boundary set</strong>
 <div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-  <auro-popover placement="bottom">
-    Popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </auro-popover>
+<auro-popover placement="bottom">
+      Popover content!
+<auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
 </div>
 <strong>Example with boundary set</strong>
 <div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
-  <auro-popover class="boundaryExample" placement="bottom">
-    Popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </auro-popover>
+<auro-popover class="boundaryExample" placement="bottom">
+      Popover content!
+<auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
 </div>
-```
+<!-- AURO-GENERATED-CONTENT:END -->
+</div>
+<auro-accordion alignRight>
+<span slot="trigger">See code</span>
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/boundary.html) -->
+<!-- The below code snippet is automatically added from ../apiExamples/boundary.html -->
+
+<pre class="language-html"><code class="language-html">&lt;strong&gt;Example with no boundary set&lt;/strong&gt;
+&lt;div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;"&gt;
+  &lt;auro-popover placement="bottom"&gt;
+    Popover content!
+    &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+  &lt;/auro-popover&gt;
+&lt;/div&gt;
+&lt;strong&gt;Example with boundary set&lt;/strong&gt;
+&lt;div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;"&gt;
+  &lt;auro-popover class="boundaryExample" placement="bottom"&gt;
+    Popover content!
+    &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+  &lt;/auro-popover&gt;
+&lt;/div&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/boundary.js) -->
 <!-- The below code snippet is automatically added from ../apiExamples/boundary.js -->
 
-```js
-export function boundaryExample() {
+<pre class="language-js"><code class="language-js">export function boundaryExample() {
   const boundaryExample = document.querySelector(".boundaryExample");
   const popoverBoundary = document.querySelector("#popoverBoundary");
-
+​
   boundaryExample.boundary = popoverBoundary;
-}
-```
+}</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -200,25 +190,23 @@ export function boundaryExample() {
 When the `disabled` attribute is present, the popover will not appear on hover or focus.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/disabled.html) -->
-  <!-- The below content is automatically added from ../apiExamples/disabled.html -->
-  <auro-popover disabled>
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/disabled.html) -->
+<!-- The below content is automatically added from ../apiExamples/disabled.html -->
+<auro-popover disabled>
     Top popover content!
-    <auro-button disabled slot="trigger">Popover Test</auro-button>
-  </auro-popover>
-  <!-- AURO-GENERATED-CONTENT:END -->
+<auro-button disabled slot="trigger">Popover Test</auro-button>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/disabled.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/disabled.html -->
 
-```html
-<auro-popover disabled>
+<pre class="language-html"><code class="language-html">&lt;auro-popover disabled&gt;
   Top popover content!
-  <auro-button disabled slot="trigger">Popover Test</auro-button>
-</auro-popover>
-```
+  &lt;auro-button disabled slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -227,25 +215,23 @@ When the `disabled` attribute is present, the popover will not appear on hover o
 Use the `placement` attribute to set the position of the popover in relation to the trigger element. Options are `top` and `bottom`.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/placement.html) -->
-  <!-- The below content is automatically added from ../apiExamples/placement.html -->
-  <auro-popover placement="bottom">
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/placement.html) -->
+<!-- The below content is automatically added from ../apiExamples/placement.html -->
+<auro-popover placement="bottom">
     Bottom popover content!
-    <auro-button slot="trigger">Popover Test</auro-button>
-  </auro-popover>
-  <!-- AURO-GENERATED-CONTENT:END -->
+<auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/placement.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/placement.html -->
 
-```html
-<auro-popover placement="bottom">
+<pre class="language-html"><code class="language-html">&lt;auro-popover placement="bottom"&gt;
   Bottom popover content!
-  <auro-button slot="trigger">Popover Test</auro-button>
-</auro-popover>
-```
+  &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -254,33 +240,31 @@ Use the `placement` attribute to set the position of the popover in relation to 
 Use the `removeSpace` attribute to lessen the space between the popover and it's trigger.
 
 <div class="exampleWrapper">
-  <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/remove-space.html) -->
-  <!-- The below content is automatically added from ../apiExamples/remove-space.html -->
-  <auro-popover removeSpace>
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/remove-space.html) -->
+<!-- The below content is automatically added from ../apiExamples/remove-space.html -->
+<auro-popover removeSpace>
     Notice this popover is a little<br>closer to the trigger.
-    <auro-button slot="trigger">Popover w/less space above</auro-button>
-  </auro-popover>
-  <auro-popover placement="bottom" removeSpace>
+<auro-button slot="trigger">Popover w/less space above</auro-button>
+</auro-popover>
+<auro-popover placement="bottom" removeSpace>
     Notice this popover is a little<br>closer to the trigger.
-    <auro-button slot="trigger">Popover w/less space below</auro-button>
-  </auro-popover>
-  <!-- AURO-GENERATED-CONTENT:END -->
+<auro-button slot="trigger">Popover w/less space below</auro-button>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/remove-space.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/remove-space.html -->
 
-```html
-<auro-popover removeSpace>
-  Notice this popover is a little<br>closer to the trigger.
-  <auro-button slot="trigger">Popover w/less space above</auro-button>
-</auro-popover>
-<auro-popover placement="bottom" removeSpace>
-  Notice this popover is a little<br>closer to the trigger.
-  <auro-button slot="trigger">Popover w/less space below</auro-button>
-</auro-popover>
-```
+<pre class="language-html"><code class="language-html">&lt;auro-popover removeSpace&gt;
+  Notice this popover is a little&lt;br&gt;closer to the trigger.
+  &lt;auro-button slot="trigger"&gt;Popover w/less space above&lt;/auro-button&gt;
+&lt;/auro-popover&gt;
+&lt;auro-popover placement="bottom" removeSpace&gt;
+  Notice this popover is a little&lt;br&gt;closer to the trigger.
+  &lt;auro-button slot="trigger"&gt;Popover w/less space below&lt;/auro-button&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -292,56 +276,52 @@ The auro-popover element is meant to be used when the interaction and it's conte
 
 Binding a `trigger` event to a hyperlink is **not** recommended. This is a poor user experience for mobile devices, the event required to make the popover appear is a `tap`. The tap will also trigger the hyperlink to fire as well, thus negating the impact of the popover.
 
-The use of a hyperlink for to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
+The use of a hyperlink to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
 
+<div class="exampleWrapper">
 <auro-alert type="error" noIcon>
-  <div class="exampleWrapper">
-    <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/not-recommended.html) -->
-    <!-- The below content is automatically added from ../apiExamples/not-recommended.html -->
-    <auro-popover>
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/not-recommended.html) -->
+<!-- The below content is automatically added from ../apiExamples/not-recommended.html -->
+<auro-popover>
       This works, but not recommended
-      <auro-hyperlink href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
-    </auro-popover>
-    <!-- AURO-GENERATED-CONTENT:END -->
-  </div>
+<auro-hyperlink href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </auro-alert>
+</div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/not-recommended.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/not-recommended.html -->
 
-```html
-<auro-popover>
+<pre class="language-html"><code class="language-html">&lt;auro-popover&gt;
   This works, but not recommended
-  <auro-hyperlink href="#" relative nav slot="trigger">hyperlink popover trigger</auro-hyperlink>
-</auro-popover>
-```
+  &lt;auro-hyperlink href="#" relative nav slot="trigger"&gt;hyperlink popover trigger&lt;/auro-hyperlink&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 In the event that a hyperlink UI is desired, it is recommended to use the `role="button"` semantic reassignment to the hyperlink element.
 
+<div class="exampleWrapper">
 <auro-alert type="success" noIcon>
-  <div class="exampleWrapper">
-    <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/recommended.html) -->
-    <!-- The below content is automatically added from ../apiExamples/recommended.html -->
-    <auro-popover>
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/recommended.html) -->
+<!-- The below content is automatically added from ../apiExamples/recommended.html -->
+<auro-popover>
       Role button is recommended
-      <auro-hyperlink role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
-    </auro-popover>
-    <!-- AURO-GENERATED-CONTENT:END -->
-  </div>
+<auro-hyperlink role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
+</auro-popover>
+<!-- AURO-GENERATED-CONTENT:END -->
 </auro-alert>
+</div>
 <auro-accordion alignRight>
-  <span slot="trigger">See code</span>
+<span slot="trigger">See code</span>
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/recommended.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/recommended.html -->
 
-```html
-<auro-popover>
+<pre class="language-html"><code class="language-html">&lt;auro-popover&gt;
   Role button is recommended
-  <auro-hyperlink role="button" slot="trigger">hyperlink, role button</auro-hyperlink>
-</auro-popover>
-```
+  &lt;auro-hyperlink role="button" slot="trigger"&gt;hyperlink, role button&lt;/auro-hyperlink&gt;
+&lt;/auro-popover&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 
@@ -352,14 +332,12 @@ The component may be restyled by changing the values of the following token(s).
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=./../src/styles/tokens.scss) -->
 <!-- The below code snippet is automatically added from ./../src/styles/tokens.scss -->
 
-```scss
-@use "@aurodesignsystem/design-tokens/dist/legacy/auro-classic/SCSSVariables" as vac;
+<pre class="language-scss"><code class="language-scss">@use "@aurodesignsystem/design-tokens/dist/legacy/auro-classic/SCSSVariables" as vac;
 @use "@aurodesignsystem/design-tokens/dist/themes/alaska/SCSSVariables--alaska" as v;
-
+​
 :host {
   --ds-auro-popover-boxshadow-color: var(--ds-elevation-200, #{vac.$ds-elevation-200});
   --ds-auro-popover-container-color: var(--ds-basic-color-surface-default, #{v.$ds-basic-color-surface-default});
   --ds-auro-popover-text-color: var(--ds-basic-color-texticon-default, #{v.$ds-basic-color-texticon-default});
-}
-```
+}</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
