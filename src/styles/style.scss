@@ -109,6 +109,10 @@ $auro-inset-directions: '';
 
   max-width: calc(100% - var(--ds-size-400, vac.$ds-size-400));
 
+  // Reset UA `[popover]` defaults — `overflow: hidden` would clip the arrow.
+  border: 0;
+  overflow: visible;
+
   border-radius: var(--ds-border-radius, vac.$ds-border-radius);
 
   @include bp.auro_grid-breakpoint--sm {

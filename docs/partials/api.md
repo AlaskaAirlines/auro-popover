@@ -133,14 +133,15 @@ The auro-popover element is meant to be used when the interaction and it's conte
 
 Binding a `trigger` event to a hyperlink is **not** recommended. This is a poor user experience for mobile devices, the event required to make the popover appear is a `tap`. The tap will also trigger the hyperlink to fire as well, thus negating the impact of the popover.
 
-The use of a hyperlink for to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
+The use of a hyperlink to trigger an event in the UI is semantically incorrect and this will present itself as a confusing scenario to assistive devices.
 
-<auro-alert type="error" noIcon>
-  <div class="exampleWrapper">
+<div class="exampleWrapper">
+  <auro-alert type="error" noIcon>
     <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/not-recommended.html) -->
     <!-- AURO-GENERATED-CONTENT:END -->
-  </div>
-</auro-alert>
+  </auro-alert>
+</div>
+
 
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>
@@ -152,12 +153,12 @@ The use of a hyperlink for to trigger an event in the UI is semantically incorre
 
 In the event that a hyperlink UI is desired, it is recommended to use the `role="button"` semantic reassignment to the hyperlink element.
 
-<auro-alert type="success" noIcon>
-  <div class="exampleWrapper">
+<div class="exampleWrapper">
+  <auro-alert type="success" noIcon>
     <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/recommended.html) -->
     <!-- AURO-GENERATED-CONTENT:END -->
-  </div>
-</auro-alert>
+  </auro-alert>
+</div>
 
 <auro-accordion alignRight>
   <span slot="trigger">See code</span>

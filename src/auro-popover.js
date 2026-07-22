@@ -609,6 +609,7 @@ export class AuroPopover extends LitElement {
       <div
       id="popover"
       class="popover util_insetLg body-default"
+      popover="manual"
       part="popover"
       role="tooltip"
       aria-hidden="${this.isPopoverVisible ? 'false' : 'true'}">

@@ -34,6 +34,16 @@ function expectPopoverHidden(el) {
   expect(el.isPopoverVisible).to.equal(false);
 }
 
+/**
+ * Whether the current environment supports the native Popover API. Tests that
+ * assert on the `:popover-open` pseudo-class must guard on this — `matches()`
+ * throws a SyntaxError against the unknown selector on non-supporting engines,
+ * which would crash the whole suite instead of skipping the assertion.
+ */
+const supportsPopoverAPI =
+  typeof HTMLElement !== "undefined" &&
+  typeof HTMLElement.prototype.showPopover === "function";
+
 // ---------------------------------------------------------------------------
 // Registration
 // ---------------------------------------------------------------------------
@@ -708,6 +718,112 @@ describe("auro-popover — triggerUpdate", () => {
     await el.updateComplete;
 
     expect(() => el.popper.triggerUpdate()).to.not.throw();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Top-layer promotion (native popover API)
+// ---------------------------------------------------------------------------
+// Verifies the bubble is promoted to the top layer when shown, so its
+// containing block becomes the viewport and Popper's coordinates match
+// the browser's positioning even inside transformed ancestors.
+
+describe("auro-popover — top-layer promotion", () => {
+  it("renders the bubble with popover=\"manual\"", async () => {
+    const el = await getFixture();
+    const bubble = el.shadowRoot.querySelector("#popover");
+
+    expect(bubble.getAttribute("popover")).to.equal("manual");
+  });
+
+  it("enters :popover-open when the trigger is hovered", async function () {
+    if (!supportsPopoverAPI) {
+      this.skip();
+    }
+    const el = await getFixture();
+    const bubble = el.shadowRoot.querySelector("#popover");
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    expect(bubble.matches(":popover-open")).to.equal(true);
+  });
+
+  it("leaves :popover-open when the trigger is unhovered", async function () {
+    if (!supportsPopoverAPI) {
+      this.skip();
+    }
+    const el = await getFixture();
+    const bubble = el.shadowRoot.querySelector("#popover");
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+    el.dispatchEvent(new MouseEvent("mouseleave"));
+    await el.updateComplete;
+
+    expect(bubble.matches(":popover-open")).to.equal(false);
+  });
+
+  it("centers the bubble horizontally over the trigger inside a transformed ancestor", async () => {
+    // Use a native button with an explicit width rather than <auro-button>:
+    // auro-button is not a dependency of this repo, so it never upgrades in
+    // the test environment and its bounding-rect would be an unstable inline
+    // box, making the centering math flaky.
+    const container = await fixture(html`
+      <div style="transform: translateZ(0); padding: 200px; width: 800px;">
+        <auro-popover>
+          tooltip text
+          <button slot="trigger" style="width: 120px;">trigger text</button>
+        </auro-popover>
+      </div>
+    `);
+    const el = container.querySelector("auro-popover");
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+    await el.popper.popper.update();
+
+    const trigger = el.querySelector('[slot="trigger"]');
+    const bubble = el.shadowRoot.querySelector(".popover");
+
+    const triggerRect = trigger.getBoundingClientRect();
+    const bubbleRect = bubble.getBoundingClientRect();
+    const triggerCenter = triggerRect.left + triggerRect.width / 2;
+    const bubbleCenter = bubbleRect.left + bubbleRect.width / 2;
+
+    expect(Math.abs(bubbleCenter - triggerCenter)).to.be.lessThan(2);
+  });
+
+  it("keeps two manual popovers open simultaneously", async function () {
+    if (!supportsPopoverAPI) {
+      this.skip();
+    }
+    // popover="manual" is deliberate: unlike popover="auto", opening a second
+    // bubble must not light-dismiss the first. This locks in the multi-instance
+    // behavior that predates top-layer promotion (both could be visible at once).
+    const container = await fixture(html`
+      <div>
+        <auro-popover>
+          first tooltip
+          <button slot="trigger">first</button>
+        </auro-popover>
+        <auro-popover>
+          second tooltip
+          <button slot="trigger">second</button>
+        </auro-popover>
+      </div>
+    `);
+    const [first, second] = container.querySelectorAll("auro-popover");
+
+    first.dispatchEvent(new MouseEvent("mouseenter"));
+    await first.updateComplete;
+    second.dispatchEvent(new MouseEvent("mouseenter"));
+    await second.updateComplete;
+
+    expectPopoverShown(first);
+    expectPopoverShown(second);
+    expect(first.shadowRoot.querySelector("#popover").matches(":popover-open")).to.equal(true);
+    expect(second.shadowRoot.querySelector("#popover").matches(":popover-open")).to.equal(true);
   });
 });
 
