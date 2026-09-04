@@ -20,7 +20,7 @@ import tokensCss from "./styles/tokens.scss";
  *
  * @csspart popover - Apply CSS to the popover bubble container.
  * @csspart arrow - Apply CSS to the arrow's positioning anchor. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to restyle color, shadow, or size. Arrow position is set by Popper as inline styles and cannot be overridden through this part.
- * @csspart trigger - Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover.
+ * @csspart trigger - Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover. Has no effect when the `for` attribute is used, as the trigger then lives outside the component and this wrapper is empty.
  */
 export class AuroPopover extends LitElement {
   constructor() {

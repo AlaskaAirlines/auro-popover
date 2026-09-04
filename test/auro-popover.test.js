@@ -854,6 +854,10 @@ describe("auro-popover — default appearance", () => {
       `);
       el.dispatchEvent(new MouseEvent("mouseenter"));
       await el.updateComplete;
+      // Popper's initial update is debounced through a microtask, so
+      // data-popper-placement may not be written yet when updateComplete
+      // resolves. Await the update explicitly before reading it.
+      await el.popper.popper.update();
 
       const resolved = el.shadowRoot
         .querySelector("#popover")
@@ -1396,5 +1400,73 @@ describe("auro-popover — event listener cleanup", () => {
     container.removeChild(popover);
 
     expect(popover.popper.popper).to.be.null;
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The addSpace/removeSpace properties reflect to all-lowercase attributes, and
+// style.scss selects on those lowercase names. Nothing else in the suite ties
+// the two together, so a typo on either side would break spacing silently.
+// These assert the round trip: set the property, get the margin.
+// ---------------------------------------------------------------------------
+
+describe("auro-popover — spacing attributes", () => {
+  const bubbleMargin = async (configure) => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <auro-button slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
+    if (configure) {
+      configure(el);
+    }
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    const bubble = el.shadowRoot.querySelector(".popover");
+    return {
+      el,
+      marginTop: getComputedStyle(bubble).marginTop,
+      marginBottom: getComputedStyle(bubble).marginBottom,
+    };
+  };
+
+  it("addSpace reflects to the lowercase addspace attribute", async () => {
+    const { el } = await bubbleMargin((popover) => {
+      popover.addSpace = true;
+    });
+
+    expect(el.hasAttribute("addspace")).to.be.true;
+  });
+
+  it("removeSpace reflects to the lowercase removespace attribute", async () => {
+    const { el } = await bubbleMargin((popover) => {
+      popover.removeSpace = true;
+    });
+
+    expect(el.hasAttribute("removespace")).to.be.true;
+  });
+
+  it("addSpace increases the bubble's vertical margin", async () => {
+    const base = await bubbleMargin();
+    const spaced = await bubbleMargin((popover) => {
+      popover.addSpace = true;
+    });
+
+    expect(spaced.marginTop).to.not.equal(base.marginTop);
+    expect(Number.parseFloat(spaced.marginTop)).to.be.greaterThan(
+      Number.parseFloat(base.marginTop),
+    );
+    expect(spaced.marginBottom).to.equal(spaced.marginTop);
+  });
+
+  it("removeSpace pulls the bubble in with a negative margin", async () => {
+    const { marginTop, marginBottom } = await bubbleMargin((popover) => {
+      popover.removeSpace = true;
+    });
+
+    expect(Number.parseFloat(marginTop)).to.be.lessThan(0);
+    expect(marginBottom).to.equal(marginTop);
   });
 });
