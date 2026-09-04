@@ -56,7 +56,7 @@ export class AuroPopover extends LitElement {
       addSpace: {
         type: Boolean,
         reflect: true,
-        attribute: 'addspace'
+        attribute: "addspace",
       },
 
       /**
@@ -70,7 +70,7 @@ export class AuroPopover extends LitElement {
        */
       disabled: {
         type: Boolean,
-        reflect: true
+        reflect: true,
       },
 
       /**
@@ -78,7 +78,7 @@ export class AuroPopover extends LitElement {
        */
       for: {
         type: String,
-        reflect: true
+        reflect: true,
       },
 
       /**
@@ -94,7 +94,7 @@ export class AuroPopover extends LitElement {
       removeSpace: {
         type: Boolean,
         reflect: true,
-        attribute: 'removespace'
+        attribute: "removespace",
       },
 
       /**
@@ -106,10 +106,10 @@ export class AuroPopover extends LitElement {
       isPopoverVisible: {
         type: Boolean,
         reflect: true,
-        attribute: 'data-show',
+        attribute: "data-show",
         converter: {
           fromAttribute: (value) => value !== null,
-          toAttribute: (value) => (value ? 'true' : null),
+          toAttribute: (value) => (value ? "true" : null),
         },
       },
     };
@@ -160,10 +160,16 @@ export class AuroPopover extends LitElement {
     if (this.trigger) {
       // Remove listeners attached to the trigger element.
       if (this._onTriggerMouseEnter) {
-        this._eventTarget.removeEventListener("mouseenter", this._onTriggerMouseEnter);
+        this._eventTarget.removeEventListener(
+          "mouseenter",
+          this._onTriggerMouseEnter,
+        );
       }
       if (this._onTriggerMouseLeave) {
-        this._eventTarget.removeEventListener("mouseleave", this._onTriggerMouseLeave);
+        this._eventTarget.removeEventListener(
+          "mouseleave",
+          this._onTriggerMouseLeave,
+        );
       }
       if (this._onTriggerFocus) {
         this.trigger.removeEventListener("focusin", this._onTriggerFocus);
@@ -178,18 +184,23 @@ export class AuroPopover extends LitElement {
       // Clean up aria-description and its sync listener set in firstUpdated.
       // Prevents stale descriptions if the trigger is reused after disconnect.
       if (this._onSlotChange) {
-        this.shadowRoot?.querySelector("slot:not([name])")?.removeEventListener("slotchange", this._onSlotChange);
+        this.shadowRoot
+          ?.querySelector("slot:not([name])")
+          ?.removeEventListener("slotchange", this._onSlotChange);
       }
       // Remove aria-description from every element that received it in
       // firstUpdated (focusable descendants or the trigger itself).
-      for (const target of (this._ariaDescriptionTargets || [this.trigger])) {
+      for (const target of this._ariaDescriptionTargets || [this.trigger]) {
         target.removeAttribute("aria-description");
       }
 
       // Remove tabindex only if the component added it and the current value
       // still matches the value managed by the component. This avoids removing
       // an author-updated tabindex that was set after connection.
-      if (this._addedTabIndex && this.trigger.getAttribute("tabindex") === "0") {
+      if (
+        this._addedTabIndex &&
+        this.trigger.getAttribute("tabindex") === "0"
+      ) {
         this.trigger.removeAttribute("tabindex");
       }
     }
@@ -204,7 +215,10 @@ export class AuroPopover extends LitElement {
     }
 
     // Destroy the Popper.js instance to release its internal references.
-    if (this.popper?.popper && typeof this.popper.popper.destroy === "function") {
+    if (
+      this.popper?.popper &&
+      typeof this.popper.popper.destroy === "function"
+    ) {
       this.popper.popper.destroy();
       this.popper.popper = null;
     }
@@ -275,9 +289,15 @@ export class AuroPopover extends LitElement {
     );
 
     this._onBodyMouseover = (evt) => this.handleMouseoverEvent(evt);
-    this._onTriggerMouseEnter = () => { this.toggleShow(); };
-    this._onTriggerMouseLeave = () => { this.toggleHide(); };
-    this._onTriggerFocus = () => { this.toggleShow(); };
+    this._onTriggerMouseEnter = () => {
+      this.toggleShow();
+    };
+    this._onTriggerMouseLeave = () => {
+      this.toggleHide();
+    };
+    this._onTriggerFocus = () => {
+      this.toggleShow();
+    };
     this._onTriggerBlur = (event) => {
       // Only hide if focus leaves the trigger and popover entirely, not
       // when moving between focusable children within the trigger or into
@@ -328,7 +348,9 @@ export class AuroPopover extends LitElement {
         this.toggle();
       }
     };
-    this._onHidePopover = () => { this.toggleHide(); };
+    this._onHidePopover = () => {
+      this.toggleHide();
+    };
 
     // mouseenter/mouseleave attach to the host when the trigger is a direct
     // child of auro-popover (slotted), otherwise they attach to the trigger itself.
@@ -393,7 +415,7 @@ export class AuroPopover extends LitElement {
       if (el.tabIndex < 0) return false;
       let node = el;
       while (node) {
-        if (node.closest('[hidden], [inert]')) return false;
+        if (node.closest("[hidden], [inert]")) return false;
         const root = node.getRootNode();
         node = root instanceof ShadowRoot ? root.host : null;
       }
@@ -401,18 +423,26 @@ export class AuroPopover extends LitElement {
     };
 
     // Check light DOM children for focusable elements.
-    let hasInternalFocus = [...this.trigger.querySelectorAll(focusableSelector)].some(isReachable);
+    let hasInternalFocus = [
+      ...this.trigger.querySelectorAll(focusableSelector),
+    ].some(isReachable);
 
     // Also check light DOM custom element descendants whose shadow DOM
     // contains focusable content. querySelector cannot reach into shadow
     // roots, so custom elements like auro-button inside a wrapper trigger
     // would otherwise be missed (e.g. <div><auro-button></auro-button></div>).
     if (!hasInternalFocus) {
-      const descendants = this.trigger.querySelectorAll('*');
+      const descendants = this.trigger.querySelectorAll("*");
 
       for (const child of descendants) {
-        if (child.localName.includes('-') && (child.tabIndex >= 0 ||
-            (child.shadowRoot && [...child.shadowRoot.querySelectorAll(focusableSelector)].some(isReachable)))) {
+        if (
+          child.localName.includes("-") &&
+          (child.tabIndex >= 0 ||
+            (child.shadowRoot &&
+              [...child.shadowRoot.querySelectorAll(focusableSelector)].some(
+                isReachable,
+              )))
+        ) {
           hasInternalFocus = true;
           break;
         }
@@ -424,11 +454,21 @@ export class AuroPopover extends LitElement {
     // If the shadow root is inaccessible (closed mode or not yet upgraded),
     // we cannot inspect it — the element will receive tabindex if it is not
     // otherwise focusable. This is a known limitation documented above.
-    if (!hasInternalFocus && this.trigger.localName.includes('-') && this.trigger.shadowRoot) {
-      hasInternalFocus = [...this.trigger.shadowRoot.querySelectorAll(focusableSelector)].some(isReachable);
+    if (
+      !hasInternalFocus &&
+      this.trigger.localName.includes("-") &&
+      this.trigger.shadowRoot
+    ) {
+      hasInternalFocus = [
+        ...this.trigger.shadowRoot.querySelectorAll(focusableSelector),
+      ].some(isReachable);
     }
 
-    if (!isNativelyFocusable && !hasInternalFocus && !this.trigger.hasAttribute("tabindex")) {
+    if (
+      !isNativelyFocusable &&
+      !hasInternalFocus &&
+      !this.trigger.hasAttribute("tabindex")
+    ) {
       this.trigger.setAttribute("tabindex", "0");
       this._addedTabIndex = true;
     }
@@ -438,11 +478,13 @@ export class AuroPopover extends LitElement {
     // in modern browsers and screen readers (Chrome 92+, Firefox 92+, Safari 15.4+)
     // but may be unfamiliar — do not replace with aria-describedby.
     const slot = this.shadowRoot.querySelector("slot:not([name])");
-    const getSlotText = () => slot.assignedNodes({ flatten: true })
-      .map((n) => n.textContent ?? "")
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim();
+    const getSlotText = () =>
+      slot
+        .assignedNodes({ flatten: true })
+        .map((n) => n.textContent ?? "")
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim();
 
     // Determine which elements should receive aria-description.
     // When the trigger is a non-focusable wrapper around focusable content
@@ -452,15 +494,17 @@ export class AuroPopover extends LitElement {
 
     if (!isNativelyFocusable && hasInternalFocus) {
       // Gather all keyboard-reachable light DOM descendants.
-      const nativeMatches = [...this.trigger.querySelectorAll(focusableSelector)].filter(isReachable);
+      const nativeMatches = [
+        ...this.trigger.querySelectorAll(focusableSelector),
+      ].filter(isReachable);
 
       this._ariaDescriptionTargets.push(...nativeMatches);
 
       // Check custom element descendants whose shadow DOM is focusable.
-      const allDescendants = this.trigger.querySelectorAll('*');
+      const allDescendants = this.trigger.querySelectorAll("*");
 
       for (const child of allDescendants) {
-        if (!child.localName.includes('-')) continue;
+        if (!child.localName.includes("-")) continue;
         // Skip if already matched by the native selector (e.g. has tabindex attribute).
         if (nativeMatches.includes(child)) continue;
 
@@ -470,7 +514,9 @@ export class AuroPopover extends LitElement {
         } else if (child.shadowRoot) {
           // Host is not keyboard-reachable; focus goes to internal elements.
           // Set description directly on the shadow DOM focusable controls.
-          const shadowFocusable = [...child.shadowRoot.querySelectorAll(focusableSelector)].filter(isReachable);
+          const shadowFocusable = [
+            ...child.shadowRoot.querySelectorAll(focusableSelector),
+          ].filter(isReachable);
 
           for (const el of shadowFocusable) {
             this._ariaDescriptionTargets.push(el);
@@ -483,8 +529,10 @@ export class AuroPopover extends LitElement {
         // (e.g. mock-focusable, auro-button used directly as trigger).
         // Light DOM searches found nothing; add the shadow focusable controls
         // so the description is announced when focus lands inside the shadow root.
-        if (this.trigger.localName.includes('-') && this.trigger.shadowRoot) {
-          const shadowFocusable = [...this.trigger.shadowRoot.querySelectorAll(focusableSelector)].filter(isReachable);
+        if (this.trigger.localName.includes("-") && this.trigger.shadowRoot) {
+          const shadowFocusable = [
+            ...this.trigger.shadowRoot.querySelectorAll(focusableSelector),
+          ].filter(isReachable);
 
           this._ariaDescriptionTargets.push(...shadowFocusable);
         }
@@ -600,7 +648,11 @@ export class AuroPopover extends LitElement {
     // If disabled becomes true while the popover is visible, force-hide so
     // aria-hidden, the body mouseover listener, and Popper stay in sync with
     // the CSS that hides the popover via :host([disabled]).
-    if (changedProperties.has("disabled") && this.disabled && this.isPopoverVisible) {
+    if (
+      changedProperties.has("disabled") &&
+      this.disabled &&
+      this.isPopoverVisible
+    ) {
       this.isPopoverVisible = false;
     }
   }
@@ -614,7 +666,7 @@ export class AuroPopover extends LitElement {
       popover="manual"
       part="popover"
       role="tooltip"
-      aria-hidden="${this.isPopoverVisible ? 'false' : 'true'}">
+      aria-hidden="${this.isPopoverVisible ? "false" : "true"}">
         <div id="arrow" class="arrow" data-popper-arrow></div>
         <slot></slot>
       </div>
