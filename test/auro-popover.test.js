@@ -700,6 +700,175 @@ describe("auro-popover — shadow DOM structure", () => {
 });
 
 // ---------------------------------------------------------------------------
+// CSS shadow parts
+// ---------------------------------------------------------------------------
+// The popover, arrow, and trigger wrapper are a documented styling contract
+// (see @csspart tags on the class). Consumers style them from outside the
+// shadow DOM, so silently renaming or dropping a part is a breaking change.
+// These tests pin the part names and verify they survive a show/hide cycle,
+// during which Popper destroys and re-creates its instance and rewrites the
+// arrow's inline styles.
+
+describe("auro-popover — CSS shadow parts", () => {
+  it("popover div exposes part='popover'", async () => {
+    const el = await getFixture();
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
+
+    expect(popoverDiv.getAttribute("part")).to.equal("popover");
+  });
+
+  it("arrow div exists and exposes part='arrow'", async () => {
+    const el = await getFixture();
+    const arrow = el.shadowRoot.querySelector("#arrow");
+
+    expect(arrow, "Expected an #arrow element inside the shadow root").to.exist;
+    expect(arrow.getAttribute("part")).to.equal("arrow");
+  });
+
+  it("arrow remains the Popper arrow reference", async () => {
+    const el = await getFixture();
+    const arrow = el.shadowRoot.querySelector("#arrow");
+
+    // Popper's default arrow modifier resolves '[data-popper-arrow]'. If this
+    // hook is lost the arrow stops being positioned entirely.
+    expect(arrow.hasAttribute("data-popper-arrow")).to.be.true;
+  });
+
+  it("trigger slot wrapper exposes part='trigger'", async () => {
+    const el = await getFixture();
+    const triggerWrapper = el.shadowRoot.querySelector(
+      'slot[name="trigger"]',
+    ).parentElement;
+
+    expect(triggerWrapper.getAttribute("part")).to.equal("trigger");
+  });
+
+  it("outer CSS restyles the visible arrow through ::part(arrow)::before", async () => {
+    // The documented contract: because no arrow rule uses !important, a
+    // normal declaration in the outer page wins over the shadow tree's.
+    const style = document.createElement("style");
+    style.textContent = `
+      auro-popover::part(arrow)::before {
+        background-color: rgb(1, 66, 106);
+      }
+    `;
+    document.head.appendChild(style);
+
+    try {
+      const el = await getFixture();
+      const arrow = el.shadowRoot.querySelector("#arrow");
+
+      el.dispatchEvent(new MouseEvent("mouseenter"));
+      await el.updateComplete;
+
+      expect(getComputedStyle(arrow, "::before").backgroundColor).to.equal(
+        "rgb(1, 66, 106)",
+      );
+    } finally {
+      style.remove();
+    }
+  });
+
+  it("parts are preserved through a show and hide cycle", async () => {
+    const el = await getFixture();
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+    el.dispatchEvent(new MouseEvent("mouseleave"));
+    await el.updateComplete;
+
+    expect(
+      el.shadowRoot.querySelector("#popover").getAttribute("part"),
+    ).to.equal("popover");
+    expect(el.shadowRoot.querySelector("#arrow").getAttribute("part")).to.equal(
+      "arrow",
+    );
+    expect(
+      el.shadowRoot
+        .querySelector('slot[name="trigger"]')
+        .parentElement.getAttribute("part"),
+    ).to.equal("trigger");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Default appearance
+// ---------------------------------------------------------------------------
+// Exposing shadow parts must not change how the popover looks by default —
+// the parts are opt-in styling hooks, not a restyle. These assertions stand
+// in for screenshot-based visual regression coverage, which this repo has no
+// harness for. They pin the arrow's default paint properties and its
+// per-placement rotation, so a change to the arrow's default rendering fails
+// here rather than shipping silently.
+
+describe("auro-popover — default appearance", () => {
+  const arrowBefore = (el) =>
+    getComputedStyle(el.shadowRoot.querySelector("#arrow"), "::before");
+
+  it("arrow default background matches the bubble, so no seam shows", async () => {
+    const el = await getFixture();
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    const bubbleBg = getComputedStyle(
+      el.shadowRoot.querySelector("#popover"),
+    ).backgroundColor;
+
+    // Asserted as an invariant rather than a literal color: the arrow and the
+    // bubble are painted separately, so any drift between them shows as a seam.
+    expect(arrowBefore(el).backgroundColor).to.equal(bubbleBg);
+  });
+
+  it("arrow default size is unchanged", async () => {
+    const el = await getFixture();
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    const before = arrowBefore(el);
+    expect(before.width).to.equal("12px");
+    expect(before.height).to.equal("12px");
+  });
+
+  // Rotation follows the placement Popper actually resolved, not the one that
+  // was requested — Popper's flip modifier may move the bubble to the opposite
+  // side when there is no room. Deriving the expectation from
+  // data-popper-placement keeps this independent of the fixture's position in
+  // the viewport.
+  const rotationOf = (el) => {
+    const m = arrowBefore(el).transform.match(/matrix\(([^)]+)\)/);
+    expect(m, `expected a rotation matrix, got ${arrowBefore(el).transform}`).to
+      .exist;
+    const [a, b] = m[1].split(",").map((n) => Number.parseFloat(n));
+    return Math.round(Math.atan2(b, a) * (180 / Math.PI));
+  };
+
+  const EXPECTED_ROTATION = { top: 45, bottom: -135 };
+
+  for (const requested of ["top", "bottom"]) {
+    it(`arrow rotation matches the resolved placement (requested ${requested})`, async () => {
+      const el = await fixture(html`
+        <auro-popover placement="${requested}">
+          tooltip text
+          <auro-button slot="trigger">trigger text</auro-button>
+        </auro-popover>
+      `);
+      el.dispatchEvent(new MouseEvent("mouseenter"));
+      await el.updateComplete;
+
+      const resolved = el.shadowRoot
+        .querySelector("#popover")
+        .getAttribute("data-popper-placement");
+
+      expect(
+        Object.keys(EXPECTED_ROTATION),
+        `unexpected resolved placement "${resolved}"`,
+      ).to.include(resolved);
+      expect(rotationOf(el)).to.equal(EXPECTED_ROTATION[resolved]);
+    });
+  }
+});
+
+// ---------------------------------------------------------------------------
 // ARIA structure integrity
 // ---------------------------------------------------------------------------
 // Verifies that ARIA attributes remain correct through show and hide cycles.

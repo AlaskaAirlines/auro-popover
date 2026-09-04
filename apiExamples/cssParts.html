@@ -1,0 +1,41 @@
+<!-- Selectors are scoped to .cssPartsExample so this demo does not restyle
+other popovers on the page. Keep every line in this <style> block at column
+zero with no blank lines: the docs generator indents injected examples, and
+markdown turns 4-space-indented lines into a code block, which silently
+breaks the stylesheet. -->
+<style>
+/* The bubble container. */
+.cssPartsExample auro-popover::part(popover) {
+color: #fff;
+border-radius: 0;
+background-color: #01426a;
+}
+/* The visible arrow is the ::before pseudo-element of the arrow part, so
+recolor that rather than ::part(arrow) itself. Keep it matched to the
+bubble's background or the seam between them will show. */
+.cssPartsExample auro-popover::part(arrow)::before {
+box-shadow: none;
+background-color: #01426a;
+}
+/* The trigger wrapper. Use it to line an icon trigger up with adjacent text
+instead of resorting to layout workarounds. */
+.cssPartsExample .iconTrigger auro-popover::part(trigger) {
+display: inline-flex;
+align-items: center;
+}
+</style>
+
+<div class="cssPartsExample">
+  <auro-popover>
+    This bubble and its arrow are restyled from outside the shadow DOM.
+    <auro-button slot="trigger">Popover Test</auro-button>
+  </auro-popover>
+
+  <p class="iconTrigger">
+    Checked baggage fees apply
+    <auro-popover placement="bottom">
+      Fees vary by route and fare class.
+      <auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
+    </auro-popover>
+  </p>
+</div>

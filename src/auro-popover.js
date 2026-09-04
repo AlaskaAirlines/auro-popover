@@ -17,6 +17,10 @@ import tokensCss from "./styles/tokens.scss";
  *
  * @slot - Default unnamed slot for the use of popover content
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
+ *
+ * @csspart popover - Apply CSS to the popover bubble container.
+ * @csspart arrow - Apply CSS to the arrow's positioning anchor. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to restyle color, shadow, or size. Arrow position is set by Popper as inline styles and cannot be overridden through this part.
+ * @csspart trigger - Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover.
  */
 export class AuroPopover extends LitElement {
   constructor() {
@@ -667,11 +671,11 @@ export class AuroPopover extends LitElement {
       part="popover"
       role="tooltip"
       aria-hidden="${this.isPopoverVisible ? "false" : "true"}">
-        <div id="arrow" class="arrow" data-popper-arrow></div>
+        <div id="arrow" class="arrow" data-popper-arrow part="arrow"></div>
         <slot></slot>
       </div>
 
-      <span role="presentation">
+      <span role="presentation" part="trigger">
         <slot name="trigger" data-trigger-placement="${this.placement}"></slot>
       </span>
     `;
