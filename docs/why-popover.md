@@ -49,7 +49,7 @@ Native tooltips use browser-default styling that cannot be changed. `auro-popove
 | `--ds-auro-popover-text-color` | Text color |
 | `--ds-auro-popover-boxshadow-color` | Box shadow |
 
-The `::part(popover)` CSS part is also exported for direct style customization. Spacing between the popover and its trigger can be adjusted with the `addSpace` and `removeSpace` attributes.
+The `::part(popover)` CSS part is also exported for direct style customization. Spacing between the popover and its trigger can be adjusted with the `addspace` and `removespace` attributes.
 
 ## Disabled state
 

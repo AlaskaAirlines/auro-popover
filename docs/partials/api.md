@@ -41,7 +41,7 @@ The trigger can be any element, not just buttons or links. The component automat
 
 ### Add Space Around Popover
 
-Use the `addSpace` attribute to add more space between the popover and it's trigger.
+Use the `addspace` attribute to add more space between the popover and it's trigger.
 
 <div class="exampleWrapper">
   <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/add-space.html) -->
@@ -111,7 +111,7 @@ Use the `placement` attribute to set the position of the popover in relation to 
 
 ### Remove Space Around Popover
 
-Use the `removeSpace` attribute to lessen the space between the popover and it's trigger.
+Use the `removespace` attribute to lessen the space between the popover and it's trigger.
 
 <div class="exampleWrapper">
   <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/remove-space.html) -->
