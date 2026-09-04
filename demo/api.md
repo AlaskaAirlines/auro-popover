@@ -9,12 +9,12 @@ The `auro-popover` element attaches to another element and displays on hover.
 
 | Properties  | Attributes  | Modifiers | Type             | Default | Description                                                                                                                                                                                                        |
 | ----------- | ----------- | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| addSpace    | addSpace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                              |
+| addSpace    | addspace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                              |
 | boundary    | boundary    |           | string \| object |         | The element to use as the boundary for the popover. Can be a query selector or an HTML element.                                                                                                                    |
 | disabled    | disabled    |           | boolean          |         | Disables the popover from showing on hover and focus.                                                                                                                                                              |
 | for         | for         |           | string           |         | Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead.                                             |
 | placement   | placement   |           | string           | `top`   | Position for popover in relation to the element {'top' \| 'bottom'}.                                                                                                                                               |
-| removeSpace | removeSpace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                                      |
+| removeSpace | removespace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                                      |
 |             | data-show   |           | boolean          | `false` | Whether the popover is currently visible. Reflected as the `data-show`<br>attribute so host-level CSS selectors (e.g. `:host([data-show])`) work.<br>Also drives `aria-hidden` on the popover div in the template. |
 
 ### Methods
@@ -107,12 +107,12 @@ The trigger can be any element, not just buttons or links. The component automat
 
 ### Add Space Around Popover
 
-Use the `addSpace` attribute to add more space between the popover and it's trigger.
+Use the `addspace` attribute to add more space between the popover and it's trigger.
 
 <div class="exampleWrapper">
 <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/add-space.html) -->
 <!-- The below content is automatically added from ../apiExamples/add-space.html -->
-<auro-popover addSpace>
+<auro-popover addspace>
     Notice this popover is a little<br>further away from the trigger.
 <auro-button slot="trigger">Popover w/additional space above</auro-button>
 </auro-popover>
@@ -123,7 +123,7 @@ Use the `addSpace` attribute to add more space between the popover and it's trig
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/add-space.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/add-space.html -->
 
-<pre class="language-html"><code class="language-html">&lt;auro-popover addSpace&gt;
+<pre class="language-html"><code class="language-html">&lt;auro-popover addspace&gt;
   Notice this popover is a little&lt;br&gt;further away from the trigger.
   &lt;auro-button slot="trigger"&gt;Popover w/additional space above&lt;/auro-button&gt;
 &lt;/auro-popover&gt;</code></pre>
@@ -237,16 +237,16 @@ Use the `placement` attribute to set the position of the popover in relation to 
 
 ### Remove Space Around Popover
 
-Use the `removeSpace` attribute to lessen the space between the popover and it's trigger.
+Use the `removespace` attribute to lessen the space between the popover and it's trigger.
 
 <div class="exampleWrapper">
 <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/remove-space.html) -->
 <!-- The below content is automatically added from ../apiExamples/remove-space.html -->
-<auro-popover removeSpace>
+<auro-popover removespace>
     Notice this popover is a little<br>closer to the trigger.
 <auro-button slot="trigger">Popover w/less space above</auro-button>
 </auro-popover>
-<auro-popover placement="bottom" removeSpace>
+<auro-popover placement="bottom" removespace>
     Notice this popover is a little<br>closer to the trigger.
 <auro-button slot="trigger">Popover w/less space below</auro-button>
 </auro-popover>
@@ -257,11 +257,11 @@ Use the `removeSpace` attribute to lessen the space between the popover and it's
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/remove-space.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/remove-space.html -->
 
-<pre class="language-html"><code class="language-html">&lt;auro-popover removeSpace&gt;
+<pre class="language-html"><code class="language-html">&lt;auro-popover removespace&gt;
   Notice this popover is a little&lt;br&gt;closer to the trigger.
   &lt;auro-button slot="trigger"&gt;Popover w/less space above&lt;/auro-button&gt;
 &lt;/auro-popover&gt;
-&lt;auro-popover placement="bottom" removeSpace&gt;
+&lt;auro-popover placement="bottom" removespace&gt;
   Notice this popover is a little&lt;br&gt;closer to the trigger.
   &lt;auro-button slot="trigger"&gt;Popover w/less space below&lt;/auro-button&gt;
 &lt;/auro-popover&gt;</code></pre>

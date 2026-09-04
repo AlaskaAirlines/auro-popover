@@ -55,7 +55,8 @@ export class AuroPopover extends LitElement {
        */
       addSpace: {
         type: Boolean,
-        reflect: true
+        reflect: true,
+        attribute: 'addspace'
       },
 
       /**
@@ -92,7 +93,8 @@ export class AuroPopover extends LitElement {
        */
       removeSpace: {
         type: Boolean,
-        reflect: true
+        reflect: true,
+        attribute: 'removespace'
       },
 
       /**
