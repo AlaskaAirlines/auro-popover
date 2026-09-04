@@ -29,6 +29,14 @@ The `auro-popover` element attaches to another element and displays on hover.
 | --------- | ----------------------------------------------------------------- |
 | (default) | Default unnamed slot for the use of popover content               |
 | trigger   | The element in this slot triggers hiding and showing the popover. |
+
+### CSS Shadow Parts
+
+| Name    | Description                                                                                                                                                                                                                                                              |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| arrow   | Apply CSS to the arrow's positioning anchor. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to restyle color, shadow, or size. Arrow position is set by Popper as inline styles and cannot be overridden through this part. |
+| popover | Apply CSS to the popover bubble container.                                                                                                                                                                                                                               |
+| trigger | Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover.                                                                                                                                                          |
 <!-- AURO-GENERATED-CONTENT:END -->
 
 ## Basic
@@ -322,6 +330,109 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
   Role button is recommended
   &lt;auro-hyperlink role="button" slot="trigger"&gt;hyperlink, role button&lt;/auro-hyperlink&gt;
 &lt;/auro-popover&gt;</code></pre>
+<!-- AURO-GENERATED-CONTENT:END -->
+</auro-accordion>
+
+## Style Component with CSS Shadow Parts
+
+The component exposes the `popover` bubble, the `arrow`, and the `trigger` wrapper as CSS shadow parts, so they can be styled from outside the shadow DOM.
+
+Two things to know before reaching for these:
+
+**The arrow's visible shape is a pseudo-element.** `::part(arrow)` selects an invisible positioning anchor; the diamond you see is its `::before`. Target `::part(arrow)::before` to change color, shadow, or size. Because the arrow and the bubble are painted separately, recolor both together or the seam between them will show.
+
+**The arrow's position belongs to the component.** Placement is set by Popper as inline styles that are recalculated every time the popover opens, so `transform`, `top`, `left`, and `position` cannot be overridden through `::part(arrow)`. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so verify both `placement="top"` and `placement="bottom"` if you change its dimensions.
+
+To adjust spacing between the popover and its trigger, prefer the `addspace` and `removespace` attributes over part overrides.
+
+<div class="exampleWrapper">
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/cssParts.html) -->
+<!-- The below content is automatically added from ../apiExamples/cssParts.html -->
+<!-- Selectors are scoped to .cssPartsExample so this demo does not restyle
+  other popovers on the page. Keep every line in this <style> block at column
+  zero with no blank lines: the docs generator indents injected examples, and
+  markdown turns 4-space-indented lines into a code block, which silently
+  breaks the stylesheet. -->
+<style>
+  /* The bubble container. */
+  .cssPartsExample auro-popover::part(popover) {
+  color: #fff;
+  border-radius: 0;
+  background-color: #01426a;
+  }
+  /* The visible arrow is the ::before pseudo-element of the arrow part, so
+  recolor that rather than ::part(arrow) itself. Keep it matched to the
+  bubble's background or the seam between them will show. */
+  .cssPartsExample auro-popover::part(arrow)::before {
+  box-shadow: none;
+  background-color: #01426a;
+  }
+  /* The trigger wrapper. Use it to line an icon trigger up with adjacent text
+  instead of resorting to layout workarounds. */
+  .cssPartsExample .iconTrigger auro-popover::part(trigger) {
+  display: inline-flex;
+  align-items: center;
+  }
+</style>
+<div class="cssPartsExample">
+<auro-popover>
+      This bubble and its arrow are restyled from outside the shadow DOM.
+<auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
+<p class="iconTrigger">
+      Checked baggage fees apply
+<auro-popover placement="bottom">
+        Fees vary by route and fare class.
+<auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
+</auro-popover>
+</p>
+</div>
+<!-- AURO-GENERATED-CONTENT:END -->
+</div>
+<auro-accordion alignRight>
+<span slot="trigger">See code</span>
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/cssParts.html) -->
+<!-- The below code snippet is automatically added from ../apiExamples/cssParts.html -->
+
+<pre class="language-html"><code class="language-html">&lt;!-- Selectors are scoped to .cssPartsExample so this demo does not restyle
+other popovers on the page. Keep every line in this &lt;style&gt; block at column
+zero with no blank lines: the docs generator indents injected examples, and
+markdown turns 4-space-indented lines into a code block, which silently
+breaks the stylesheet. --&gt;
+&lt;style&gt;
+/* The bubble container. */
+.cssPartsExample auro-popover::part(popover) {
+color: #fff;
+border-radius: 0;
+background-color: #01426a;
+}
+/* The visible arrow is the ::before pseudo-element of the arrow part, so
+recolor that rather than ::part(arrow) itself. Keep it matched to the
+bubble's background or the seam between them will show. */
+.cssPartsExample auro-popover::part(arrow)::before {
+box-shadow: none;
+background-color: #01426a;
+}
+/* The trigger wrapper. Use it to line an icon trigger up with adjacent text
+instead of resorting to layout workarounds. */
+.cssPartsExample .iconTrigger auro-popover::part(trigger) {
+display: inline-flex;
+align-items: center;
+}
+&lt;/style&gt;
+&lt;div class="cssPartsExample"&gt;
+  &lt;auro-popover&gt;
+    This bubble and its arrow are restyled from outside the shadow DOM.
+    &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+  &lt;/auro-popover&gt;
+  &lt;p class="iconTrigger"&gt;
+    Checked baggage fees apply
+    &lt;auro-popover placement="bottom"&gt;
+      Fees vary by route and fare class.
+      &lt;auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"&gt;&lt;/auro-icon&gt;
+    &lt;/auro-popover&gt;
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 

@@ -26,3 +26,11 @@ The `auro-popover` element attaches to another element and displays on hover.
 | --------- | ----------------------------------------------------------------- |
 | (default) | Default unnamed slot for the use of popover content               |
 | trigger   | The element in this slot triggers hiding and showing the popover. |
+
+### CSS Shadow Parts
+
+| Name    | Description                                                                                                                                                                                                                                                              |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| arrow   | Apply CSS to the arrow's positioning anchor. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to restyle color, shadow, or size. Arrow position is set by Popper as inline styles and cannot be overridden through this part. |
+| popover | Apply CSS to the popover bubble container.                                                                                                                                                                                                                               |
+| trigger | Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover.                                                                                                                                                          |
