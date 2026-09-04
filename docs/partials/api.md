@@ -172,11 +172,13 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
 
 The component exposes the `popover` bubble, the `arrow`, and the `trigger` wrapper as CSS shadow parts, so they can be styled from outside the shadow DOM.
 
-Two things to know before reaching for these:
+Three things to know before reaching for these:
 
 **The arrow's visible shape is a pseudo-element.** `::part(arrow)` selects an invisible positioning anchor; the diamond you see is its `::before`. Target `::part(arrow)::before` to change color, shadow, or size. Because the arrow and the bubble are painted separately, recolor both together or the seam between them will show.
 
 **The arrow's position belongs to the component.** Placement is set by Popper as inline styles that are recalculated every time the popover opens, so `transform`, `top`, `left`, and `position` cannot be overridden through `::part(arrow)`. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so verify both `placement="top"` and `placement="bottom"` if you change its dimensions.
+
+**The `trigger` part is empty when you use `for`.** It wraps the trigger slot, so it only has something to style when the trigger is slotted into the component. If you point at an external element with `for`, that element is not inside the wrapper and `::part(trigger)` will silently do nothing — style the external trigger directly instead.
 
 To adjust spacing between the popover and its trigger, prefer the `addspace` and `removespace` attributes over part overrides.
 
