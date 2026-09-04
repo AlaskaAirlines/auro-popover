@@ -4,13 +4,13 @@
 class MockFocusable extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.innerHTML = '<button>inner button</button>';
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.innerHTML = "<button>inner button</button>";
   }
 }
 
-if (!customElements.get('mock-focusable')) {
-  customElements.define('mock-focusable', MockFocusable);
+if (!customElements.get("mock-focusable")) {
+  customElements.define("mock-focusable", MockFocusable);
 }
 
 // MockNonFocusable: a custom element whose shadow DOM contains no focusable element.
@@ -19,11 +19,11 @@ if (!customElements.get('mock-focusable')) {
 class MockNonFocusable extends HTMLElement {
   constructor() {
     super();
-    const shadow = this.attachShadow({ mode: 'open' });
-    shadow.innerHTML = '<span>icon</span>';
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.innerHTML = "<span>icon</span>";
   }
 }
 
-if (!customElements.get('mock-non-focusable')) {
-  customElements.define('mock-non-focusable', MockNonFocusable);
+if (!customElements.get("mock-non-focusable")) {
+  customElements.define("mock-non-focusable", MockNonFocusable);
 }

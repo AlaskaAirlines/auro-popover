@@ -98,7 +98,10 @@ export default class Popover {
               return;
             }
             const reference = state.elements.reference;
-            if (!reference || typeof reference.getBoundingClientRect !== "function") {
+            if (
+              !reference ||
+              typeof reference.getBoundingClientRect !== "function"
+            ) {
               return;
             }
             const r = reference.getBoundingClientRect();
