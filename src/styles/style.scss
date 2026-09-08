@@ -156,6 +156,8 @@ $auro-inset-directions: '';
 .arrow {
   position: relative;
 
+  margin-top: -var(--ds-size-100, vac.$ds-size-100);
+
   &:before {
     position: absolute;
 
