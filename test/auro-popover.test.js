@@ -215,7 +215,9 @@ describe("auro-popover — aria-description", () => {
     const trigger = container.querySelector("auro-button");
     const slot = container.shadowRoot.querySelector("slot:not([name])");
 
-    expect(trigger.getAttribute("aria-description")).to.equal("initial tooltip text");
+    expect(trigger.getAttribute("aria-description")).to.equal(
+      "initial tooltip text",
+    );
 
     // Set up a promise to wait for slotchange
     const slotChange = new Promise((resolve) => {
@@ -235,7 +237,9 @@ describe("auro-popover — aria-description", () => {
     // Wait for the actual signal your component uses
     await slotChange;
 
-    expect(trigger.getAttribute("aria-description")).to.equal("updated tooltip text");
+    expect(trigger.getAttribute("aria-description")).to.equal(
+      "updated tooltip text",
+    );
   });
 
   it("removes aria-description from trigger on disconnect", async () => {
@@ -279,7 +283,9 @@ describe("auro-popover — screen reader accessibility", () => {
     await expect(el).to.be.accessible();
     expect(trigger.tabIndex).to.be.gte(0);
     expect(trigger.textContent.trim()).to.equal("Flight details");
-    expect(trigger.getAttribute("aria-description")).to.equal("Additional flight information.");
+    expect(trigger.getAttribute("aria-description")).to.equal(
+      "Additional flight information.",
+    );
   });
 
   it("non-button native trigger is fully accessible after component connects", async () => {
@@ -294,7 +300,9 @@ describe("auro-popover — screen reader accessibility", () => {
     await expect(el).to.be.accessible();
     expect(trigger.getAttribute("tabindex")).to.equal("0");
     expect(trigger.textContent.trim()).to.equal("MVP");
-    expect(trigger.getAttribute("aria-description")).to.equal("Most Valuable Passenger — mid-tier elite status.");
+    expect(trigger.getAttribute("aria-description")).to.equal(
+      "Most Valuable Passenger — mid-tier elite status.",
+    );
   });
 });
 
@@ -419,7 +427,9 @@ describe("auro-popover — auto-tabindex", () => {
     const innerButton = trigger.shadowRoot.querySelector("button");
 
     expect(trigger.hasAttribute("aria-description")).to.be.false;
-    expect(innerButton.getAttribute("aria-description")).to.equal("tooltip text");
+    expect(innerButton.getAttribute("aria-description")).to.equal(
+      "tooltip text",
+    );
   });
 
   it("does not add tabindex to wrapper around custom element with focusable shadow DOM", async () => {
@@ -446,7 +456,9 @@ describe("auro-popover — auto-tabindex", () => {
 
     expectPopoverHidden(el);
     // Dispatch from the actual shadow DOM control to test real focus path.
-    shadowButton.dispatchEvent(new FocusEvent("focusin", { bubbles: true, composed: true }));
+    shadowButton.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
     expectPopoverShown(el);
   });
 
@@ -539,13 +551,17 @@ describe("auro-popover — shadow DOM structure", () => {
         <button slot="trigger">trigger text</button>
       </auro-popover>
     `);
-    const popoverDiv = el.shadowRoot.querySelector('#popover');
-    const slot = popoverDiv.querySelector('slot:not([name])');
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
+    const slot = popoverDiv.querySelector("slot:not([name])");
 
-    expect(slot, 'Expected a default slot inside #popover').to.exist;
-    const assignedText = slot.assignedNodes({ flatten: true }).map((n) => n.textContent).join('').trim();
-    expect(assignedText).to.equal('tooltip text');
-    expect(el.shadowRoot.innerHTML).to.not.include('tooltip text');
+    expect(slot, "Expected a default slot inside #popover").to.exist;
+    const assignedText = slot
+      .assignedNodes({ flatten: true })
+      .map((n) => n.textContent)
+      .join("")
+      .trim();
+    expect(assignedText).to.equal("tooltip text");
+    expect(el.shadowRoot.innerHTML).to.not.include("tooltip text");
   });
 
   it("popover div has aria-hidden='true'", async () => {
@@ -555,26 +571,26 @@ describe("auro-popover — shadow DOM structure", () => {
         <button slot="trigger">trigger text</button>
       </auro-popover>
     `);
-    const popoverDiv = el.shadowRoot.querySelector('#popover');
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
 
-    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
+    expect(popoverDiv.getAttribute("aria-hidden")).to.equal("true");
   });
 
   it("popover div aria-hidden syncs with visibility", async () => {
     const el = await getFixture();
 
-    const popoverDiv = el.shadowRoot.querySelector('#popover');
-    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
+    expect(popoverDiv.getAttribute("aria-hidden")).to.equal("true");
 
     el.dispatchEvent(new MouseEvent("mouseenter"));
     expectPopoverShown(el);
     await el.updateComplete;
-    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('false');
+    expect(popoverDiv.getAttribute("aria-hidden")).to.equal("false");
 
     el.dispatchEvent(new MouseEvent("mouseleave"));
     expectPopoverHidden(el);
     await el.updateComplete;
-    expect(popoverDiv.getAttribute('aria-hidden')).to.equal('true');
+    expect(popoverDiv.getAttribute("aria-hidden")).to.equal("true");
   });
 
   it("trigger slot wrapper has role='presentation'", async () => {
@@ -584,9 +600,11 @@ describe("auro-popover — shadow DOM structure", () => {
         <button slot="trigger">trigger text</button>
       </auro-popover>
     `);
-    const triggerWrapper = el.shadowRoot.querySelector('slot[name="trigger"]').parentElement;
+    const triggerWrapper = el.shadowRoot.querySelector(
+      'slot[name="trigger"]',
+    ).parentElement;
 
-    expect(triggerWrapper.getAttribute('role')).to.equal('presentation');
+    expect(triggerWrapper.getAttribute("role")).to.equal("presentation");
   });
 
   it("host element has role='none'", async () => {
@@ -597,7 +615,7 @@ describe("auro-popover — shadow DOM structure", () => {
       </auro-popover>
     `);
 
-    expect(el.getAttribute('role')).to.equal('none');
+    expect(el.getAttribute("role")).to.equal("none");
   });
 
   it("does not override author-set role on host", async () => {
@@ -608,7 +626,7 @@ describe("auro-popover — shadow DOM structure", () => {
       </auro-popover>
     `);
 
-    expect(el.getAttribute('role')).to.equal('region');
+    expect(el.getAttribute("role")).to.equal("region");
   });
 
   it("shadow DOM does not contain an aria-live attribute", async () => {
@@ -618,9 +636,12 @@ describe("auro-popover — shadow DOM structure", () => {
         <button slot="trigger">trigger text</button>
       </auro-popover>
     `);
-    const liveRegion = el.shadowRoot.querySelector('[aria-live]');
+    const liveRegion = el.shadowRoot.querySelector("[aria-live]");
 
-    expect(liveRegion, 'aria-live must not exist in shadow DOM — it does not fire on display:none elements').to.not.exist;
+    expect(
+      liveRegion,
+      "aria-live must not exist in shadow DOM — it does not fire on display:none elements",
+    ).to.not.exist;
   });
 
   it("popover div has role='tooltip'", async () => {
@@ -630,31 +651,31 @@ describe("auro-popover — shadow DOM structure", () => {
         <button slot="trigger">trigger text</button>
       </auro-popover>
     `);
-    const popoverDiv = el.shadowRoot.querySelector('#popover');
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
 
-    expect(popoverDiv.getAttribute('role')).to.equal('tooltip');
+    expect(popoverDiv.getAttribute("role")).to.equal("tooltip");
   });
 
   it("role='tooltip' is maintained after popover shows", async () => {
     const el = await getFixture();
-    const popoverDiv = el.shadowRoot.querySelector('#popover');
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
 
     el.dispatchEvent(new MouseEvent("mouseenter"));
     await el.updateComplete;
 
-    expect(popoverDiv.getAttribute('role')).to.equal('tooltip');
+    expect(popoverDiv.getAttribute("role")).to.equal("tooltip");
   });
 
   it("role='tooltip' is maintained after popover hides", async () => {
     const el = await getFixture();
-    const popoverDiv = el.shadowRoot.querySelector('#popover');
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
 
     el.dispatchEvent(new MouseEvent("mouseenter"));
     await el.updateComplete;
     el.dispatchEvent(new MouseEvent("mouseleave"));
     await el.updateComplete;
 
-    expect(popoverDiv.getAttribute('role')).to.equal('tooltip');
+    expect(popoverDiv.getAttribute("role")).to.equal("tooltip");
   });
 
   it("data-show attribute value is 'true' when popover is visible", async () => {
@@ -663,7 +684,7 @@ describe("auro-popover — shadow DOM structure", () => {
     el.dispatchEvent(new MouseEvent("mouseenter"));
     await el.updateComplete;
 
-    expect(el.getAttribute('data-show')).to.equal('true');
+    expect(el.getAttribute("data-show")).to.equal("true");
   });
 
   it("data-show attribute is removed when popover is hidden", async () => {
@@ -674,8 +695,181 @@ describe("auro-popover — shadow DOM structure", () => {
     el.dispatchEvent(new MouseEvent("mouseleave"));
     await el.updateComplete;
 
-    expect(el.hasAttribute('data-show')).to.be.false;
+    expect(el.hasAttribute("data-show")).to.be.false;
   });
+});
+
+// ---------------------------------------------------------------------------
+// CSS shadow parts
+// ---------------------------------------------------------------------------
+// The popover, arrow, and trigger wrapper are a documented styling contract
+// (see @csspart tags on the class). Consumers style them from outside the
+// shadow DOM, so silently renaming or dropping a part is a breaking change.
+// These tests pin the part names and verify they survive a show/hide cycle,
+// during which Popper destroys and re-creates its instance and rewrites the
+// arrow's inline styles.
+
+describe("auro-popover — CSS shadow parts", () => {
+  it("popover div exposes part='popover'", async () => {
+    const el = await getFixture();
+    const popoverDiv = el.shadowRoot.querySelector("#popover");
+
+    expect(popoverDiv.getAttribute("part")).to.equal("popover");
+  });
+
+  it("arrow div exists and exposes part='arrow'", async () => {
+    const el = await getFixture();
+    const arrow = el.shadowRoot.querySelector("#arrow");
+
+    expect(arrow, "Expected an #arrow element inside the shadow root").to.exist;
+    expect(arrow.getAttribute("part")).to.equal("arrow");
+  });
+
+  it("arrow remains the Popper arrow reference", async () => {
+    const el = await getFixture();
+    const arrow = el.shadowRoot.querySelector("#arrow");
+
+    // Popper's default arrow modifier resolves '[data-popper-arrow]'. If this
+    // hook is lost the arrow stops being positioned entirely.
+    expect(arrow.hasAttribute("data-popper-arrow")).to.be.true;
+  });
+
+  it("trigger slot wrapper exposes part='trigger'", async () => {
+    const el = await getFixture();
+    const triggerWrapper = el.shadowRoot.querySelector(
+      'slot[name="trigger"]',
+    ).parentElement;
+
+    expect(triggerWrapper.getAttribute("part")).to.equal("trigger");
+  });
+
+  it("outer CSS restyles the visible arrow through ::part(arrow)::before", async () => {
+    // The documented contract: because no arrow rule uses !important, a
+    // normal declaration in the outer page wins over the shadow tree's.
+    const style = document.createElement("style");
+    style.textContent = `
+      auro-popover::part(arrow)::before {
+        background-color: rgb(1, 66, 106);
+      }
+    `;
+    document.head.appendChild(style);
+
+    try {
+      const el = await getFixture();
+      const arrow = el.shadowRoot.querySelector("#arrow");
+
+      el.dispatchEvent(new MouseEvent("mouseenter"));
+      await el.updateComplete;
+
+      expect(getComputedStyle(arrow, "::before").backgroundColor).to.equal(
+        "rgb(1, 66, 106)",
+      );
+    } finally {
+      style.remove();
+    }
+  });
+
+  it("parts are preserved through a show and hide cycle", async () => {
+    const el = await getFixture();
+
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+    el.dispatchEvent(new MouseEvent("mouseleave"));
+    await el.updateComplete;
+
+    expect(
+      el.shadowRoot.querySelector("#popover").getAttribute("part"),
+    ).to.equal("popover");
+    expect(el.shadowRoot.querySelector("#arrow").getAttribute("part")).to.equal(
+      "arrow",
+    );
+    expect(
+      el.shadowRoot
+        .querySelector('slot[name="trigger"]')
+        .parentElement.getAttribute("part"),
+    ).to.equal("trigger");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Default appearance
+// ---------------------------------------------------------------------------
+// Exposing shadow parts must not change how the popover looks by default —
+// the parts are opt-in styling hooks, not a restyle. These assertions stand
+// in for screenshot-based visual regression coverage, which this repo has no
+// harness for. They pin the arrow's default paint properties and its
+// per-placement rotation, so a change to the arrow's default rendering fails
+// here rather than shipping silently.
+
+describe("auro-popover — default appearance", () => {
+  const arrowBefore = (el) =>
+    getComputedStyle(el.shadowRoot.querySelector("#arrow"), "::before");
+
+  it("arrow default background matches the bubble, so no seam shows", async () => {
+    const el = await getFixture();
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    const bubbleBg = getComputedStyle(
+      el.shadowRoot.querySelector("#popover"),
+    ).backgroundColor;
+
+    // Asserted as an invariant rather than a literal color: the arrow and the
+    // bubble are painted separately, so any drift between them shows as a seam.
+    expect(arrowBefore(el).backgroundColor).to.equal(bubbleBg);
+  });
+
+  it("arrow default size is unchanged", async () => {
+    const el = await getFixture();
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    const before = arrowBefore(el);
+    expect(before.width).to.equal("12px");
+    expect(before.height).to.equal("12px");
+  });
+
+  // Rotation follows the placement Popper actually resolved, not the one that
+  // was requested — Popper's flip modifier may move the bubble to the opposite
+  // side when there is no room. Deriving the expectation from
+  // data-popper-placement keeps this independent of the fixture's position in
+  // the viewport.
+  const rotationOf = (el) => {
+    const m = arrowBefore(el).transform.match(/matrix\(([^)]+)\)/);
+    expect(m, `expected a rotation matrix, got ${arrowBefore(el).transform}`).to
+      .exist;
+    const [a, b] = m[1].split(",").map((n) => Number.parseFloat(n));
+    return Math.round(Math.atan2(b, a) * (180 / Math.PI));
+  };
+
+  const EXPECTED_ROTATION = { top: 45, bottom: -135 };
+
+  for (const requested of ["top", "bottom"]) {
+    it(`arrow rotation matches the resolved placement (requested ${requested})`, async () => {
+      const el = await fixture(html`
+        <auro-popover placement="${requested}">
+          tooltip text
+          <auro-button slot="trigger">trigger text</auro-button>
+        </auro-popover>
+      `);
+      el.dispatchEvent(new MouseEvent("mouseenter"));
+      await el.updateComplete;
+      // Popper's initial update is debounced through a microtask, so
+      // data-popper-placement may not be written yet when updateComplete
+      // resolves. Await the update explicitly before reading it.
+      await el.popper.popper.update();
+
+      const resolved = el.shadowRoot
+        .querySelector("#popover")
+        .getAttribute("data-popper-placement");
+
+      expect(
+        Object.keys(EXPECTED_ROTATION),
+        `unexpected resolved placement "${resolved}"`,
+      ).to.include(resolved);
+      expect(rotationOf(el)).to.equal(EXPECTED_ROTATION[resolved]);
+    });
+  }
 });
 
 // ---------------------------------------------------------------------------
@@ -693,12 +887,12 @@ describe("auro-popover — ARIA structure integrity", () => {
         <button slot="trigger">trigger text</button>
       </auro-popover>
     `);
-    const trigger = el.querySelector('button');
+    const trigger = el.querySelector("button");
 
     el.dispatchEvent(new MouseEvent("mouseenter"));
     el.dispatchEvent(new MouseEvent("mouseleave"));
 
-    expect(trigger.getAttribute('aria-description')).to.equal('tooltip text');
+    expect(trigger.getAttribute("aria-description")).to.equal("tooltip text");
   });
 });
 
@@ -729,7 +923,7 @@ describe("auro-popover — triggerUpdate", () => {
 // the browser's positioning even inside transformed ancestors.
 
 describe("auro-popover — top-layer promotion", () => {
-  it("renders the bubble with popover=\"manual\"", async () => {
+  it('renders the bubble with popover="manual"', async () => {
     const el = await getFixture();
     const bubble = el.shadowRoot.querySelector("#popover");
 
@@ -822,8 +1016,12 @@ describe("auro-popover — top-layer promotion", () => {
 
     expectPopoverShown(first);
     expectPopoverShown(second);
-    expect(first.shadowRoot.querySelector("#popover").matches(":popover-open")).to.equal(true);
-    expect(second.shadowRoot.querySelector("#popover").matches(":popover-open")).to.equal(true);
+    expect(
+      first.shadowRoot.querySelector("#popover").matches(":popover-open"),
+    ).to.equal(true);
+    expect(
+      second.shadowRoot.querySelector("#popover").matches(":popover-open"),
+    ).to.equal(true);
   });
 });
 
@@ -841,7 +1039,9 @@ describe("auro-popover — handleMouseoverEvent", () => {
     await el.updateComplete;
     expectPopoverShown(el);
 
-    document.body.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, composed: true }));
+    document.body.dispatchEvent(
+      new MouseEvent("mouseover", { bubbles: true, composed: true }),
+    );
 
     expectPopoverHidden(el);
   });
@@ -1049,16 +1249,20 @@ describe("auro-popover — focus within shadow DOM trigger", () => {
     const shadowButton = customChild.shadowRoot.querySelector("button");
 
     // Show via focusin from shadow DOM button.
-    shadowButton.dispatchEvent(new FocusEvent("focusin", { bubbles: true, composed: true }));
+    shadowButton.dispatchEvent(
+      new FocusEvent("focusin", { bubbles: true, composed: true }),
+    );
     expectPopoverShown(el);
 
     // Simulate focus moving from one shadow element to another within the trigger.
     // relatedTarget is the shadow button — still inside the trigger's subtree.
-    el.trigger.dispatchEvent(new FocusEvent("focusout", {
-      bubbles: true,
-      composed: true,
-      relatedTarget: shadowButton,
-    }));
+    el.trigger.dispatchEvent(
+      new FocusEvent("focusout", {
+        bubbles: true,
+        composed: true,
+        relatedTarget: shadowButton,
+      }),
+    );
     expectPopoverShown(el);
   });
 });
@@ -1085,10 +1289,12 @@ describe("auro-popover — focus into popover content", () => {
     expectPopoverShown(el);
 
     // Simulate focus leaving the trigger and landing on the popover link.
-    trigger.dispatchEvent(new FocusEvent("focusout", {
-      bubbles: true,
-      relatedTarget: link,
-    }));
+    trigger.dispatchEvent(
+      new FocusEvent("focusout", {
+        bubbles: true,
+        relatedTarget: link,
+      }),
+    );
     expectPopoverShown(el);
   });
 });
@@ -1167,7 +1373,9 @@ describe("auro-popover — event listener cleanup", () => {
     const hadDataShow = popover.hasAttribute("data-show");
     // Fire a body mouseover — should not throw against a disconnected instance
     expect(() => {
-      document.body.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, composed: true }));
+      document.body.dispatchEvent(
+        new MouseEvent("mouseover", { bubbles: true, composed: true }),
+      );
     }).to.not.throw();
 
     expect(popover.isPopoverVisible).to.equal(wasPopoverVisible);
@@ -1192,5 +1400,73 @@ describe("auro-popover — event listener cleanup", () => {
     container.removeChild(popover);
 
     expect(popover.popper.popper).to.be.null;
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The addSpace/removeSpace properties reflect to all-lowercase attributes, and
+// style.scss selects on those lowercase names. Nothing else in the suite ties
+// the two together, so a typo on either side would break spacing silently.
+// These assert the round trip: set the property, get the margin.
+// ---------------------------------------------------------------------------
+
+describe("auro-popover — spacing attributes", () => {
+  const bubbleMargin = async (configure) => {
+    const el = await fixture(html`
+      <auro-popover>
+        tooltip text
+        <auro-button slot="trigger">trigger text</auro-button>
+      </auro-popover>
+    `);
+    if (configure) {
+      configure(el);
+    }
+    el.dispatchEvent(new MouseEvent("mouseenter"));
+    await el.updateComplete;
+
+    const bubble = el.shadowRoot.querySelector(".popover");
+    return {
+      el,
+      marginTop: getComputedStyle(bubble).marginTop,
+      marginBottom: getComputedStyle(bubble).marginBottom,
+    };
+  };
+
+  it("addSpace reflects to the lowercase addspace attribute", async () => {
+    const { el } = await bubbleMargin((popover) => {
+      popover.addSpace = true;
+    });
+
+    expect(el.hasAttribute("addspace")).to.be.true;
+  });
+
+  it("removeSpace reflects to the lowercase removespace attribute", async () => {
+    const { el } = await bubbleMargin((popover) => {
+      popover.removeSpace = true;
+    });
+
+    expect(el.hasAttribute("removespace")).to.be.true;
+  });
+
+  it("addSpace increases the bubble's vertical margin", async () => {
+    const base = await bubbleMargin();
+    const spaced = await bubbleMargin((popover) => {
+      popover.addSpace = true;
+    });
+
+    expect(spaced.marginTop).to.not.equal(base.marginTop);
+    expect(Number.parseFloat(spaced.marginTop)).to.be.greaterThan(
+      Number.parseFloat(base.marginTop),
+    );
+    expect(spaced.marginBottom).to.equal(spaced.marginTop);
+  });
+
+  it("removeSpace pulls the bubble in with a negative margin", async () => {
+    const { marginTop, marginBottom } = await bubbleMargin((popover) => {
+      popover.removeSpace = true;
+    });
+
+    expect(Number.parseFloat(marginTop)).to.be.lessThan(0);
+    expect(marginBottom).to.equal(marginTop);
   });
 });

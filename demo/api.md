@@ -9,12 +9,12 @@ The `auro-popover` element attaches to another element and displays on hover.
 
 | Properties  | Attributes  | Modifiers | Type             | Default | Description                                                                                                                                                                                                        |
 | ----------- | ----------- | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| addSpace    | addSpace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                              |
+| addSpace    | addspace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                              |
 | boundary    | boundary    |           | string \| object |         | The element to use as the boundary for the popover. Can be a query selector or an HTML element.                                                                                                                    |
 | disabled    | disabled    |           | boolean          |         | Disables the popover from showing on hover and focus.                                                                                                                                                              |
 | for         | for         |           | string           |         | Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead.                                             |
 | placement   | placement   |           | string           | `top`   | Position for popover in relation to the element {'top' \| 'bottom'}.                                                                                                                                               |
-| removeSpace | removeSpace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                                      |
+| removeSpace | removespace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                                      |
 |             | data-show   |           | boolean          | `false` | Whether the popover is currently visible. Reflected as the `data-show`<br>attribute so host-level CSS selectors (e.g. `:host([data-show])`) work.<br>Also drives `aria-hidden` on the popover div in the template. |
 
 ### Methods
@@ -29,6 +29,14 @@ The `auro-popover` element attaches to another element and displays on hover.
 | --------- | ----------------------------------------------------------------- |
 | (default) | Default unnamed slot for the use of popover content               |
 | trigger   | The element in this slot triggers hiding and showing the popover. |
+
+### CSS Shadow Parts
+
+| Name    | Description                                                                                                                                                                                                                                                              |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| arrow   | Apply CSS to the arrow's positioning anchor. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to restyle color, shadow, or size. Arrow position is set by Popper as inline styles and cannot be overridden through this part. |
+| popover | Apply CSS to the popover bubble container.                                                                                                                                                                                                                               |
+| trigger | Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover. Has no effect when the `for` attribute is used, as the trigger then lives outside the component and this wrapper is empty.                               |
 <!-- AURO-GENERATED-CONTENT:END -->
 
 ## Basic
@@ -107,12 +115,12 @@ The trigger can be any element, not just buttons or links. The component automat
 
 ### Add Space Around Popover
 
-Use the `addSpace` attribute to add more space between the popover and it's trigger.
+Use the `addspace` attribute to add more space between the popover and it's trigger.
 
 <div class="exampleWrapper">
 <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/add-space.html) -->
 <!-- The below content is automatically added from ../apiExamples/add-space.html -->
-<auro-popover addSpace>
+<auro-popover addspace>
     Notice this popover is a little<br>further away from the trigger.
 <auro-button slot="trigger">Popover w/additional space above</auro-button>
 </auro-popover>
@@ -123,7 +131,7 @@ Use the `addSpace` attribute to add more space between the popover and it's trig
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/add-space.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/add-space.html -->
 
-<pre class="language-html"><code class="language-html">&lt;auro-popover addSpace&gt;
+<pre class="language-html"><code class="language-html">&lt;auro-popover addspace&gt;
   Notice this popover is a little&lt;br&gt;further away from the trigger.
   &lt;auro-button slot="trigger"&gt;Popover w/additional space above&lt;/auro-button&gt;
 &lt;/auro-popover&gt;</code></pre>
@@ -237,16 +245,16 @@ Use the `placement` attribute to set the position of the popover in relation to 
 
 ### Remove Space Around Popover
 
-Use the `removeSpace` attribute to lessen the space between the popover and it's trigger.
+Use the `removespace` attribute to lessen the space between the popover and it's trigger.
 
 <div class="exampleWrapper">
 <!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/remove-space.html) -->
 <!-- The below content is automatically added from ../apiExamples/remove-space.html -->
-<auro-popover removeSpace>
+<auro-popover removespace>
     Notice this popover is a little<br>closer to the trigger.
 <auro-button slot="trigger">Popover w/less space above</auro-button>
 </auro-popover>
-<auro-popover placement="bottom" removeSpace>
+<auro-popover placement="bottom" removespace>
     Notice this popover is a little<br>closer to the trigger.
 <auro-button slot="trigger">Popover w/less space below</auro-button>
 </auro-popover>
@@ -257,11 +265,11 @@ Use the `removeSpace` attribute to lessen the space between the popover and it's
 <!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/remove-space.html) -->
 <!-- The below code snippet is automatically added from ../apiExamples/remove-space.html -->
 
-<pre class="language-html"><code class="language-html">&lt;auro-popover removeSpace&gt;
+<pre class="language-html"><code class="language-html">&lt;auro-popover removespace&gt;
   Notice this popover is a little&lt;br&gt;closer to the trigger.
   &lt;auro-button slot="trigger"&gt;Popover w/less space above&lt;/auro-button&gt;
 &lt;/auro-popover&gt;
-&lt;auro-popover placement="bottom" removeSpace&gt;
+&lt;auro-popover placement="bottom" removespace&gt;
   Notice this popover is a little&lt;br&gt;closer to the trigger.
   &lt;auro-button slot="trigger"&gt;Popover w/less space below&lt;/auro-button&gt;
 &lt;/auro-popover&gt;</code></pre>
@@ -322,6 +330,111 @@ In the event that a hyperlink UI is desired, it is recommended to use the `role=
   Role button is recommended
   &lt;auro-hyperlink role="button" slot="trigger"&gt;hyperlink, role button&lt;/auro-hyperlink&gt;
 &lt;/auro-popover&gt;</code></pre>
+<!-- AURO-GENERATED-CONTENT:END -->
+</auro-accordion>
+
+## Style Component with CSS Shadow Parts
+
+The component exposes the `popover` bubble, the `arrow`, and the `trigger` wrapper as CSS shadow parts, so they can be styled from outside the shadow DOM.
+
+Three things to know before reaching for these:
+
+**The arrow's visible shape is a pseudo-element.** `::part(arrow)` selects an invisible positioning anchor; the diamond you see is its `::before`. Target `::part(arrow)::before` to change color, shadow, or size. Because the arrow and the bubble are painted separately, recolor both together or the seam between them will show.
+
+**The arrow's position belongs to the component.** Placement is set by Popper as inline styles that are recalculated every time the popover opens, so `transform`, `top`, `left`, and `position` cannot be overridden through `::part(arrow)`. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so verify both `placement="top"` and `placement="bottom"` if you change its dimensions.
+
+**The `trigger` part is empty when you use `for`.** It wraps the trigger slot, so it only has something to style when the trigger is slotted into the component. If you point at an external element with `for`, that element is not inside the wrapper and `::part(trigger)` will silently do nothing — style the external trigger directly instead.
+
+To adjust spacing between the popover and its trigger, prefer the `addspace` and `removespace` attributes over part overrides.
+
+<div class="exampleWrapper">
+<!-- AURO-GENERATED-CONTENT:START (FILE:src=../apiExamples/cssParts.html) -->
+<!-- The below content is automatically added from ../apiExamples/cssParts.html -->
+<!-- Scoped to .cssPartsExample. Keep every line in this <style> block at
+  column zero with no blank lines — the docs generator indents it, and a
+  4-space indent turns it into a code block. -->
+<style>
+  /* Bubble container. */
+  .cssPartsExample auro-popover::part(popover) {
+  color: #fff;
+  border-radius: 0;
+  background-color: #01426a;
+  }
+  /* `color` above only reaches bare text; element content is matched by
+  ::slotted(*), which beats inheritance. Set the token or markup loses contrast. */
+  .cssPartsExample auro-popover {
+  --ds-auro-popover-text-color: #fff;
+  }
+  /* The visible arrow is the part's ::before, not ::part(arrow) itself.
+  Match the bubble background or a seam shows. */
+  .cssPartsExample auro-popover::part(arrow)::before {
+  background-color: #01426a;
+  }
+  /* Trigger wrapper — aligns an icon trigger with adjacent text. */
+  .cssPartsExample .iconTrigger auro-popover::part(trigger) {
+  display: inline-flex;
+  align-items: center;
+  }
+</style>
+<div class="cssPartsExample">
+<auro-popover>
+      This bubble and its arrow are restyled from outside the shadow DOM.
+<auro-button slot="trigger">Popover Test</auro-button>
+</auro-popover>
+<p class="iconTrigger">
+      Checked baggage fees apply
+<auro-popover placement="bottom">
+        Fees vary by route and fare class.
+<auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"></auro-icon>
+</auro-popover>
+</p>
+</div>
+<!-- AURO-GENERATED-CONTENT:END -->
+</div>
+<auro-accordion alignRight>
+<span slot="trigger">See code</span>
+<!-- AURO-GENERATED-CONTENT:START (CODE:src=../apiExamples/cssParts.html) -->
+<!-- The below code snippet is automatically added from ../apiExamples/cssParts.html -->
+
+<pre class="language-html"><code class="language-html">&lt;!-- Scoped to .cssPartsExample. Keep every line in this &lt;style&gt; block at
+column zero with no blank lines — the docs generator indents it, and a
+4-space indent turns it into a code block. --&gt;
+&lt;style&gt;
+/* Bubble container. */
+.cssPartsExample auro-popover::part(popover) {
+color: #fff;
+border-radius: 0;
+background-color: #01426a;
+}
+/* `color` above only reaches bare text; element content is matched by
+::slotted(*), which beats inheritance. Set the token or markup loses contrast. */
+.cssPartsExample auro-popover {
+--ds-auro-popover-text-color: #fff;
+}
+/* The visible arrow is the part's ::before, not ::part(arrow) itself.
+Match the bubble background or a seam shows. */
+.cssPartsExample auro-popover::part(arrow)::before {
+background-color: #01426a;
+}
+/* Trigger wrapper — aligns an icon trigger with adjacent text. */
+.cssPartsExample .iconTrigger auro-popover::part(trigger) {
+display: inline-flex;
+align-items: center;
+}
+&lt;/style&gt;
+&lt;div class="cssPartsExample"&gt;
+  &lt;auro-popover&gt;
+    This bubble and its arrow are restyled from outside the shadow DOM.
+    &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+  &lt;/auro-popover&gt;
+  &lt;p class="iconTrigger"&gt;
+    Checked baggage fees apply
+    &lt;auro-popover placement="bottom"&gt;
+      Fees vary by route and fare class.
+      &lt;auro-icon slot="trigger" category="interface" name="info-stroke" aria-label="More information"&gt;&lt;/auro-icon&gt;
+    &lt;/auro-popover&gt;
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
 </auro-accordion>
 

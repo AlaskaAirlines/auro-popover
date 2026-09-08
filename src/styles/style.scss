@@ -67,14 +67,14 @@ $auro-inset-directions: '';
   }
 }
 
-:host([removeSpace]) {
+:host([removespace]) {
   .popover {
     // calc = -5px
     margin: calc(-1 * calc(var(--ds-size-50, vac.$ds-size-50) + 1px)) 0 !important;
   }
 }
 
-:host([addSpace]) {
+:host([addspace]) {
   .popover {
     margin: var(--ds-size-200, vac.$ds-size-200) 0 !important;
   }
