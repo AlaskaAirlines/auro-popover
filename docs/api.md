@@ -6,12 +6,12 @@ The `auro-popover` element attaches to another element and displays on hover.
 
 | Properties  | Attributes  | Modifiers | Type             | Default | Description                                                                                                                                                                                                        |
 | ----------- | ----------- | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| addSpace    | addSpace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                              |
+| addSpace    | addspace    |           | boolean          |         | Adds additional top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                              |
 | boundary    | boundary    |           | string \| object |         | The element to use as the boundary for the popover. Can be a query selector or an HTML element.                                                                                                                    |
 | disabled    | disabled    |           | boolean          |         | Disables the popover from showing on hover and focus.                                                                                                                                                              |
 | for         | for         |           | string           |         | Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead.                                             |
 | placement   | placement   |           | string           | `top`   | Position for popover in relation to the element {'top' \| 'bottom'}.                                                                                                                                               |
-| removeSpace | removeSpace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                                      |
+| removeSpace | removespace |           | boolean          |         | Removes top and bottom space around the appearance of the popover in relation to the trigger.                                                                                                                      |
 |             | data-show   |           | boolean          | `false` | Whether the popover is currently visible. Reflected as the `data-show`<br>attribute so host-level CSS selectors (e.g. `:host([data-show])`) work.<br>Also drives `aria-hidden` on the popover div in the template. |
 
 ### Methods
@@ -26,3 +26,11 @@ The `auro-popover` element attaches to another element and displays on hover.
 | --------- | ----------------------------------------------------------------- |
 | (default) | Default unnamed slot for the use of popover content               |
 | trigger   | The element in this slot triggers hiding and showing the popover. |
+
+### CSS Shadow Parts
+
+| Name    | Description                                                                                                                                                                                                                                                              |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| arrow   | Apply CSS to the arrow's positioning anchor. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to restyle color, shadow, or size. Arrow position is set by Popper as inline styles and cannot be overridden through this part. |
+| popover | Apply CSS to the popover bubble container.                                                                                                                                                                                                                               |
+| trigger | Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover. Has no effect when the `for` attribute is used, as the trigger then lives outside the component and this wrapper is empty.                               |
