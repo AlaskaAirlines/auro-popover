@@ -163,14 +163,14 @@ Use the `boundary` property to keep the popover inside a container, shifting it 
 <div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
 <auro-popover placement="bottom">
       Popover content!
-<auro-button slot="trigger">Popover Test</auro-button>
+<auro-button slot="trigger">Popover test</auro-button>
 </auro-popover>
 </div>
 <strong>Example with boundary set</strong>
 <div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;">
 <auro-popover class="boundaryExample" placement="bottom">
       Popover content!
-<auro-button slot="trigger">Popover Test</auro-button>
+<auro-button slot="trigger">Popover test</auro-button>
 </auro-popover>
 </div>
 <!-- AURO-GENERATED-CONTENT:END -->
@@ -184,14 +184,14 @@ Use the `boundary` property to keep the popover inside a container, shifting it 
 &lt;div style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;"&gt;
   &lt;auro-popover placement="bottom"&gt;
     Popover content!
-    &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+    &lt;auro-button slot="trigger"&gt;Popover test&lt;/auro-button&gt;
   &lt;/auro-popover&gt;
 &lt;/div&gt;
 &#10;&lt;strong&gt;Example with boundary set&lt;/strong&gt;
 &lt;div id="popoverBoundary" style="height: 150px; width: 200px; background-color: #fcfcfc; border: 1px solid darkgray;"&gt;
   &lt;auro-popover class="boundaryExample" placement="bottom"&gt;
     Popover content!
-    &lt;auro-button slot="trigger"&gt;Popover Test&lt;/auro-button&gt;
+    &lt;auro-button slot="trigger"&gt;Popover test&lt;/auro-button&gt;
   &lt;/auro-popover&gt;
 &lt;/div&gt;</code></pre>
 <!-- AURO-GENERATED-CONTENT:END -->
@@ -297,7 +297,7 @@ Three things to know before reaching for these:
 
 **The arrow's visible shape is a pseudo-element.** `::part(arrow)` selects an invisible positioning anchor; the diamond you see is its `::before`. Target `::part(arrow)::before` to change color, shadow, or size. Because the arrow and the bubble are painted separately, recolor both together or the seam between them shows.
 
-**The arrow's position belongs to the component.** Placement is set by Popper as inline styles that are recalculated every time the popover opens, so `transform`, `top`, `left`, and `position` cannot be overridden through `::part(arrow)`. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so verify both `placement="top"` and `placement="bottom"` if you change its dimensions.
+**The arrow's position is set by the component.** Popper sets the arrow's placement as inline styles that are recalculated every time the popover opens. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so check both `placement="top"` and `placement="bottom"` if you change its dimensions.
 
 **The `trigger` part is empty when you use `for`.** It wraps the trigger slot, so it only has something to style when the trigger is slotted into the component. If you point at an external element with `for`, that element is not inside the wrapper and `::part(trigger)` silently does nothing. Style the external trigger directly instead.
 
@@ -326,7 +326,7 @@ To adjust spacing between the popover and its trigger, prefer the `addspace` and
   .cssPartsExample auro-popover::part(arrow)::before {
   background-color: #01426a;
   }
-  /* Trigger wrapper — aligns an icon trigger with adjacent text. */
+  /* Trigger wrapper: aligns an icon trigger with adjacent text. */
   .cssPartsExample .iconTrigger auro-popover::part(trigger) {
   display: inline-flex;
   align-items: center;
@@ -372,7 +372,7 @@ Match the bubble background or a seam shows. */
 .cssPartsExample auro-popover::part(arrow)::before {
 background-color: #01426a;
 }
-/* Trigger wrapper — aligns an icon trigger with adjacent text. */
+/* Trigger wrapper: aligns an icon trigger with adjacent text. */
 .cssPartsExample .iconTrigger auro-popover::part(trigger) {
 display: inline-flex;
 align-items: center;

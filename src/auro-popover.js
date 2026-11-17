@@ -407,11 +407,11 @@ export class AuroPopover extends LitElement {
    * - Natively focusable elements (tabIndex >= 0): `<button>`, `<a href>`, `<input>`, and so on.
    * - Custom elements whose shadow DOM contains a focusable descendant (for example, `auro-button`
    *   has an inner `<button>`): adding tabindex to the host would create a double tab stop.
-   * - Elements where the author has explicitly set tabindex — their intent is respected.
+   * - Elements where the author has explicitly set tabindex: their intent is respected.
    *
    * Known limitation: custom elements with a closed shadow root (mode: 'closed') cannot
-   * be inspected — shadowRoot returns null. If such an element has an internal focusable
-   * descendant and a host tabIndex of -1, tabindex="0" will be added, potentially
+   * be inspected, because shadowRoot returns null. If such an element has an internal focusable
+   * descendant and a host tabIndex of -1, the component adds tabindex="0", potentially
    * creating a double tab stop. Elements using delegatesFocus avoid this because the
    * browser reflects a non-negative tabIndex on the host.
    *

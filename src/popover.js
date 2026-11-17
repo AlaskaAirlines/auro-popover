@@ -12,11 +12,11 @@ const popoverOffsetDistance = 18;
 const popoverOffsetSkidding = 0;
 
 /**
- * Whether `el` is currently in the top layer via the native popover API.
+ * Checks whether an element is currently in the top layer through the native popover API.
  * Gated on `showPopover` (spec-paired with `:popover-open`) plus try/catch
  * for older selector parsers that reject the unknown pseudo-class.
- * @param {Element | null | undefined} el
- * @returns {boolean}
+ * @param {Element | null | undefined} el - The element to check.
+ * @returns {boolean} True if the element is open in the top layer; false otherwise.
  */
 function isTopLayerOpen(el) {
   if (!el || typeof el.showPopover !== "function") {
