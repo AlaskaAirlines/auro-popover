@@ -1,1 +1,1 @@
-The `<auro-popover>` element attaches to another element and displays on hover. It uses the [Popper.js](https://popper.js.org/) library to position itself relative to the trigger element and supports placement options such as `top` and `bottom`.
+Shows short supporting content next to a trigger when someone hovers over, focuses, or taps it. It uses the [Popper.js](https://popper.js.org/) library to position itself relative to the trigger and supports placements such as `top` and `bottom`.

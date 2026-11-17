@@ -12,15 +12,34 @@ import styleCss from "./styles/style.scss";
 import tokensCss from "./styles/tokens.scss";
 
 /**
- * The `auro-popover` element attaches to another element and displays on hover.
+ * Shows short supporting content next to a trigger when someone hovers over, focuses, or taps it.
+ *
+ * **Key capabilities**
+ *
+ * - **Keyboard and screen reader support**: A trigger that can't take focus is made reachable with the keyboard, and screen readers announce the popover text as the trigger's description.
+ * - **Placement**: The popover appears above the trigger by default, or below it with `placement="bottom"`.
+ * - **Turn off**: The `disabled` attribute stops the popover from showing.
+ * - **Restyling**: The `popover`, `arrow`, and `trigger` CSS parts let you restyle the bubble, its arrow, and the trigger wrapper.
+ *
+ * @example
+ * <auro-popover>
+ *   Top popover content!
+ *   <auro-button slot="trigger">Popover test</auro-button>
+ * </auro-popover>
+ *
+ * @summary A hover and focus popover that attaches to any trigger, with keyboard and screen reader support.
  * @customElement auro-popover
  *
- * @slot - Default unnamed slot for the use of popover content
+ * @slot - The content shown in the popover. Screen readers announce its text as the trigger's description, so use plain text.
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
  *
- * @csspart popover - Apply CSS to the popover bubble container.
- * @csspart arrow - Apply CSS to the arrow's positioning anchor. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to restyle color, shadow, or size. Arrow position is set by Popper as inline styles and cannot be overridden through this part.
- * @csspart trigger - Apply CSS to the wrapper around the trigger slot. Use to correct alignment between the trigger and the popover. Has no effect when the `for` attribute is used, as the trigger then lives outside the component and this wrapper is empty.
+ * @csspart popover - The popover bubble that holds the content.
+ * @csspart arrow - The positioning anchor for the popover's arrow. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to change color, shadow, or size. Popper sets the arrow's position, so don't override it through this part.
+ * @csspart trigger - The wrapper around the `trigger` slot, useful for correcting alignment between the trigger and the popover. Empty when the `for` attribute is used, because the trigger then lives outside the component.
+ *
+ * @cssprop --ds-auro-popover-boxshadow-color - Color of the shadow around the popover.
+ * @cssprop --ds-auro-popover-container-color - Background color of the popover.
+ * @cssprop --ds-auro-popover-text-color - Color of the popover text.
  */
 export class AuroPopover extends LitElement {
   constructor() {
@@ -55,7 +74,7 @@ export class AuroPopover extends LitElement {
   static get properties() {
     return {
       /**
-       * Adds additional top and bottom space around the appearance of the popover in relation to the trigger.
+       * Adds more space between the popover and its trigger. When `removeSpace` is also set, `addSpace` takes effect.
        */
       addSpace: {
         type: Boolean,
@@ -64,13 +83,13 @@ export class AuroPopover extends LitElement {
       },
 
       /**
-       * The element to use as the boundary for the popover. Can be a query selector or an HTML element.
+       * Sets the element that keeps the popover from overflowing, such as a selector string or an HTML element.
        * @type {string | object}
        */
       boundary: { type: String },
 
       /**
-       * Disables the popover from showing on hover and focus.
+       * Turns the popover off. A disabled popover doesn't show on hover, focus, touch, or keyboard activation.
        */
       disabled: {
         type: Boolean,
@@ -78,7 +97,7 @@ export class AuroPopover extends LitElement {
       },
 
       /**
-       * Directly associates the popover with a trigger element with the given ID. In most cases, this should not be necessary and set `slot="trigger"` on the element instead.
+       * Sets the ID of the trigger element, for when the trigger can't use the `trigger` slot. In most cases, set `slot="trigger"` on the element instead.
        */
       for: {
         type: String,
@@ -86,14 +105,14 @@ export class AuroPopover extends LitElement {
       },
 
       /**
-       * Position for popover in relation to the element {'top' | 'bottom'}.
+       * Sets where the popover appears in relation to its trigger. Use `top` (the default) or `bottom`. The popover flips to the opposite side when there isn't room. Changing this after the first render does not currently move the popover.
        * @type {'top' | 'bottom'}
        * @default 'top'
        */
       placement: { type: String },
 
       /**
-       * Removes top and bottom space around the appearance of the popover in relation to the trigger.
+       * Reduces the space between the popover and its trigger, so the popover sits closer to it. Has no effect when `addSpace` is also set.
        */
       removeSpace: {
         type: Boolean,
@@ -103,7 +122,7 @@ export class AuroPopover extends LitElement {
 
       /**
        * Whether the popover is currently visible. Reflected as the `data-show`
-       * attribute so host-level CSS selectors (e.g. `:host([data-show])`) work.
+       * attribute so host-level CSS selectors, such as `:host([data-show])`, work.
        * Also drives `aria-hidden` on the popover div in the template.
        * @private
        */
@@ -124,12 +143,11 @@ export class AuroPopover extends LitElement {
   }
 
   /**
-   * This will register this element with the browser.
-   * @param {string} [name="auro-popover"] - The name of the element that you want to register.
+   * Registers the element with the browser under a tag name.
+   * @param {string} [name="auro-popover"] - The tag name to register the element under.
    *
    * @example
-   * AuroPopover.register("custom-popover") // this will register this element to <custom-popover/>
-   *
+   * AuroPopover.register("custom-popover"); // Registers the element as `<custom-popover>`.
    */
   static register(name = "auro-popover") {
     AuroLibraryRuntimeUtils.prototype.registerComponent(name, AuroPopover);
@@ -382,13 +400,13 @@ export class AuroPopover extends LitElement {
    * Sets up auto-tabindex and aria-description on the trigger element.
    *
    * Auto-tabindex: ensures non-focusable triggers are keyboard accessible.
-   * Covers native elements (e.g. <abbr>, <span>) and custom elements whose
-   * shadow DOM contains no focusable descendant (e.g. auro-icon).
+   * Covers native elements, such as `<abbr>` and `<span>`, and custom elements whose
+   * shadow DOM contains no focusable descendant, such as `auro-icon`.
    *
    * We skip elements that are already accessible via the tab order:
-   * - Natively focusable elements (tabIndex >= 0): <button>, <a href>, <input>, etc.
-   * - Custom elements whose shadow DOM contains a focusable descendant (e.g. auro-button
-   *   has an inner <button>) — adding tabindex to the host would create a double tab stop.
+   * - Natively focusable elements (tabIndex >= 0): `<button>`, `<a href>`, `<input>`, and so on.
+   * - Custom elements whose shadow DOM contains a focusable descendant (for example, `auro-button`
+   *   has an inner `<button>`): adding tabindex to the host would create a double tab stop.
    * - Elements where the author has explicitly set tabindex — their intent is respected.
    *
    * Known limitation: custom elements with a closed shadow root (mode: 'closed') cannot
@@ -397,9 +415,9 @@ export class AuroPopover extends LitElement {
    * creating a double tab stop. Elements using delegatesFocus avoid this because the
    * browser reflects a non-negative tabIndex on the host.
    *
-   * aria-description (ARIA 1.3): embeds the popover content string directly on
+   * `aria-description` (ARIA 1.3): embeds the popover content string directly on
    * the trigger so screen readers announce it on focus. Preferred over
-   * aria-describedby (cross-shadow ID lookup fails) and aria-live (display:none
+   * `aria-describedby` (cross-shadow ID lookup fails) and `aria-live` (`display:none`
    * removes the region from the accessibility tree).
    *
    * @private
@@ -606,7 +624,7 @@ export class AuroPopover extends LitElement {
   }
 
   /**
-   * Hides the popover when hovering outside of the popover or it's trigger.
+   * Hides the popover when hovering outside of the popover or its trigger.
    * @private
    * @param {Event} evt - The event object.
    * @returns {void}
