@@ -22,7 +22,7 @@ Use `auro-popover` to give people more detail without leaving the page, such as:
 * Helper text for a control.
 <!-- AURO-GENERATED-CONTENT:END -->
 
-## Developer Notes
+## Developer notes
 
 The popover shows when someone hovers over or focuses the trigger. Hover isn't reliable on touch devices, so a tap, detected with `touchstart`, also toggles the popover.
 
