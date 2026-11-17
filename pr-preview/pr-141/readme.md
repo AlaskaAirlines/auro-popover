@@ -32,11 +32,11 @@ Shows short supporting content next to a trigger when someone hovers over, focus
 
 <!-- AURO-GENERATED-CONTENT:START (FILE:src=./docs/partials/useCases.md) -->
 <!-- The below content is automatically added from ./docs/partials/useCases.md -->
-The `auro-popover` element should be used in situations where users may:
+Use `auro-popover` to give people more detail without leaving the page, such as:
 
-* interact with an element to get clarification on content offering
-* provide definition to iconic imagery
-* when helper text is required
+* A short clarification of content they're reading.
+* A definition for an icon.
+* Helper text for a control.
 <!-- AURO-GENERATED-CONTENT:END -->
 
 ## Install
