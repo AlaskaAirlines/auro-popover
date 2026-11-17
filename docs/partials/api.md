@@ -18,7 +18,7 @@
 
 ## Apply popover to any type of content
 
-The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible, including custom elements like `auro-icon` that have no internal focusable element. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
+The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible, including custom elements that have no internal focusable element, such as `auro-icon`. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
 
 > **Accessibility note:** `auro-popover` manages `aria-description` on the focusable elements within the trigger slot as part of its accessibility contract. The popover content becomes the trigger's accessible description, so screen readers announce it on focus. When the trigger is a non-focusable wrapper around focusable content, such as `<div><a href="#">link</a></div>`, the description is applied to each focusable descendant rather than the wrapper itself. The component replaces any existing `aria-description` on affected elements when it first renders and removes it when it disconnects.
 >
@@ -133,9 +133,9 @@ Three things to know before reaching for these:
 
 **The arrow's visible shape is a pseudo-element.** `::part(arrow)` selects an invisible positioning anchor; the diamond you see is its `::before`. Target `::part(arrow)::before` to change color, shadow, or size. Because the arrow and the bubble are painted separately, recolor both together or the seam between them shows.
 
-**The arrow's position is set by the component.** Popper sets the arrow's placement as inline styles that are recalculated every time the popover opens. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so check both `placement="top"` and `placement="bottom"` if you change its dimensions.
+**The arrow's position is set by the component.** It's recalculated every time the popover opens. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so check both `placement="top"` and `placement="bottom"` if you change its dimensions.
 
-**The `trigger` part is empty when you use `for`.** It wraps the trigger slot, so it only has something to style when the trigger is slotted into the component. If you point at an external element with `for`, that element is not inside the wrapper and `::part(trigger)` silently does nothing. Style the external trigger directly instead.
+**The `trigger` part is empty when you use `for`.** It wraps the trigger slot, so it only has something to style when the trigger is slotted into the component. If you point at an external element with `for`, that element isn't inside the wrapper and `::part(trigger)` silently does nothing. Style the external trigger directly instead.
 
 To adjust spacing between the popover and its trigger, prefer the `addspace` and `removespace` attributes over part overrides.
 
