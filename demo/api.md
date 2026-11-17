@@ -14,14 +14,14 @@ Shows short supporting content next to a trigger when someone hovers over, focus
 
 ### Properties and attributes
 
-| Properties  | Attributes  | Modifiers | Type             | Default | Description                                                                                                                                                                                                                             |
-| ----------- | ----------- | --------- | ---------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| addSpace    | addspace    |           | boolean          |         | Adds more space between the popover and its trigger. When `removeSpace` is also set, `addSpace` takes effect.                                                                                                                           |
-| boundary    | boundary    |           | string \| object |         | Sets the element that keeps the popover from overflowing, such as a selector string or an HTML element.                                                                                                                                 |
-| disabled    | disabled    |           | boolean          |         | Turns the popover off. A disabled popover doesn't show on hover, focus, touch, or keyboard activation.                                                                                                                                  |
-| for         | for         |           | string           |         | Sets the ID of the trigger element, for when the trigger can't use the `trigger` slot. In most cases, set `slot="trigger"` on the element instead.                                                                                      |
-| placement   | placement   |           | string           | `top`   | Sets where the popover appears in relation to its trigger. Use `top` (the default) or `bottom`. The popover flips to the opposite side when there isn't room. Changing this after the first render does not currently move the popover. |
-| removeSpace | removespace |           | boolean          |         | Reduces the space between the popover and its trigger, so the popover sits closer to it. Has no effect when `addSpace` is also set.                                                                                                     |
+| Properties  | Attributes  | Modifiers | Type             | Default | Description                                                                                                                                                                                                                                 |
+| ----------- | ----------- | --------- | ---------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| addSpace    | addspace    |           | boolean          |         | Adds more space between the popover and its trigger. When `removeSpace` is also set, `addSpace` takes effect.                                                                                                                               |
+| boundary    | boundary    |           | string \| object |         | Sets the element that keeps the popover from overflowing, such as a selector string or an HTML element.                                                                                                                                     |
+| disabled    | disabled    |           | boolean          |         | Turns the popover off. A disabled popover doesn't show on hover, focus, touch, or keyboard activation.                                                                                                                                      |
+| for         | for         |           | string           |         | Sets the ID of the trigger element, for when the trigger can't use the `trigger` slot. In most cases, set `slot="trigger"` on the element instead.                                                                                          |
+| placement   | placement   |           | string           | `top`   | Sets the popover's position: above the trigger with `top` (the default), or below it with `bottom`. The popover flips to the opposite side when there isn't room. Changing this after the first render does not currently move the popover. |
+| removeSpace | removespace |           | boolean          |         | Reduces the space between the popover and its trigger, so the popover sits closer to it. Has no effect when `addSpace` is also set.                                                                                                         |
 
 ### Methods
 
@@ -38,19 +38,19 @@ Shows short supporting content next to a trigger when someone hovers over, focus
 
 ### CSS shadow parts
 
-| Name    | Description                                                                                                                                                                                                                                             |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| arrow   | The positioning anchor for the popover's arrow. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to change color, shadow, or size. Popper sets the arrow's position, so don't override it through this part. |
-| popover | The popover bubble that holds the content.                                                                                                                                                                                                              |
-| trigger | The wrapper around the `trigger` slot, useful for correcting alignment between the trigger and the popover. Empty when the `for` attribute is used, because the trigger then lives outside the component.                                               |
+| Name    | Description                                                                                                                                                                                               |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| arrow   | The arrow that points from the popover to its trigger. Its visible shape is the `::before` pseudo-element, where color, shadow, and size are set. The component sets the arrow's position.                |
+| popover | The popover bubble that holds the content.                                                                                                                                                                |
+| trigger | The wrapper around the `trigger` slot, useful for correcting alignment between the trigger and the popover. Empty when the `for` attribute is used, because the trigger then lives outside the component. |
 
 ### CSS custom properties
 
-| Name                              | Description                             |
-| --------------------------------- | --------------------------------------- |
-| --ds-auro-popover-boxshadow-color | Color of the shadow around the popover. |
-| --ds-auro-popover-container-color | Background color of the popover.        |
-| --ds-auro-popover-text-color      | Color of the popover text.              |
+| Name                              | Description                                                                                                                                                                                     |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --ds-auro-popover-boxshadow-color | Shadow around the popover bubble. The default is a full `box-shadow` value (offsets, blur, and color), not a color alone.                                                                       |
+| --ds-auro-popover-container-color | Background color of the popover.                                                                                                                                                                |
+| --ds-auro-popover-text-color      | Text color of elements placed in the popover, such as a `<p>` or `<span>`. Plain text that isn't wrapped in an element doesn't currently use it, and elements in the `trigger` slot use it too. |
 <!-- AURO-GENERATED-CONTENT:END -->
 
 ## Basic
@@ -78,7 +78,7 @@ Shows short supporting content next to a trigger when someone hovers over, focus
 
 ## Apply popover to any type of content
 
-The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible, including custom elements like `auro-icon` that have no internal focusable element. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
+The trigger can be any element, not just buttons or links. The component automatically makes any non-focusable trigger keyboard accessible, including custom elements that have no internal focusable element, such as `auro-icon`. For icon-based triggers without visible text, `aria-label` is still required to provide an accessible name.
 
 > **Accessibility note:** `auro-popover` manages `aria-description` on the focusable elements within the trigger slot as part of its accessibility contract. The popover content becomes the trigger's accessible description, so screen readers announce it on focus. When the trigger is a non-focusable wrapper around focusable content, such as `<div><a href="#">link</a></div>`, the description is applied to each focusable descendant rather than the wrapper itself. The component replaces any existing `aria-description` on affected elements when it first renders and removes it when it disconnects.
 >
@@ -94,7 +94,7 @@ The trigger can be any element, not just buttons or links. The component automat
 <auro-icon slot="trigger" category="interface" name="information-stroke" aria-label="More information"></auro-icon>
 </auro-popover>
 <br><br>
-<!-- Native elements like <abbr> are automatically made keyboard accessible by the component -->
+<!-- The component automatically makes native elements, such as <abbr>, keyboard accessible. -->
 <p>Congratulations, you just achieved
 <auro-popover>
       Most Valuable Passenger: Alaska Airlines' mid-tier elite status level.
@@ -115,7 +115,7 @@ The trigger can be any element, not just buttons or links. The component automat
   &lt;auro-icon slot="trigger" category="interface" name="information-stroke" aria-label="More information"&gt;&lt;/auro-icon&gt;
 &lt;/auro-popover&gt;
 &#10;&lt;br&gt;&lt;br&gt;
-&#10;&lt;!-- Native elements like &lt;abbr&gt; are automatically made keyboard accessible by the component --&gt;
+&#10;&lt;!-- The component automatically makes native elements, such as &lt;abbr&gt;, keyboard accessible. --&gt;
 &lt;p&gt;Congratulations, you just achieved
   &lt;auro-popover&gt;
     Most Valuable Passenger: Alaska Airlines' mid-tier elite status level.
@@ -297,9 +297,9 @@ Three things to know before reaching for these:
 
 **The arrow's visible shape is a pseudo-element.** `::part(arrow)` selects an invisible positioning anchor; the diamond you see is its `::before`. Target `::part(arrow)::before` to change color, shadow, or size. Because the arrow and the bubble are painted separately, recolor both together or the seam between them shows.
 
-**The arrow's position is set by the component.** Popper sets the arrow's placement as inline styles that are recalculated every time the popover opens. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so check both `placement="top"` and `placement="bottom"` if you change its dimensions.
+**The arrow's position is set by the component.** It's recalculated every time the popover opens. Use the `placement` attribute to choose which side the popover appears on. Resizing the arrow via `::part(arrow)::before` also shifts where it meets the bubble, so check both `placement="top"` and `placement="bottom"` if you change its dimensions.
 
-**The `trigger` part is empty when you use `for`.** It wraps the trigger slot, so it only has something to style when the trigger is slotted into the component. If you point at an external element with `for`, that element is not inside the wrapper and `::part(trigger)` silently does nothing. Style the external trigger directly instead.
+**The `trigger` part is empty when you use `for`.** It wraps the trigger slot, so it only has something to style when the trigger is slotted into the component. If you point at an external element with `for`, that element isn't inside the wrapper and `::part(trigger)` silently does nothing. Style the external trigger directly instead.
 
 To adjust spacing between the popover and its trigger, prefer the `addspace` and `removespace` attributes over part overrides.
 

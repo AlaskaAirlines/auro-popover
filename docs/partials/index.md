@@ -14,7 +14,7 @@
 <!-- AURO-GENERATED-CONTENT:START (FILE:src=./../docs/partials/useCases.md) -->
 <!-- AURO-GENERATED-CONTENT:END -->
 
-## Developer Notes
+## Developer notes
 
 The popover shows when someone hovers over or focuses the trigger. Hover isn't reliable on touch devices, so a tap, detected with `touchstart`, also toggles the popover.
  

@@ -34,12 +34,12 @@ import tokensCss from "./styles/tokens.scss";
  * @slot trigger - The element in this slot triggers hiding and showing the popover.
  *
  * @csspart popover - The popover bubble that holds the content.
- * @csspart arrow - The positioning anchor for the popover's arrow. The visible arrow shape is its `::before` pseudo-element, so target `::part(arrow)::before` to change color, shadow, or size. Popper sets the arrow's position, so don't override it through this part.
+ * @csspart arrow - The arrow that points from the popover to its trigger. Its visible shape is the `::before` pseudo-element, where color, shadow, and size are set. The component sets the arrow's position.
  * @csspart trigger - The wrapper around the `trigger` slot, useful for correcting alignment between the trigger and the popover. Empty when the `for` attribute is used, because the trigger then lives outside the component.
  *
- * @cssprop --ds-auro-popover-boxshadow-color - Color of the shadow around the popover.
+ * @cssprop --ds-auro-popover-boxshadow-color - Shadow around the popover bubble. The default is a full `box-shadow` value (offsets, blur, and color), not a color alone.
  * @cssprop --ds-auro-popover-container-color - Background color of the popover.
- * @cssprop --ds-auro-popover-text-color - Color of the popover text.
+ * @cssprop --ds-auro-popover-text-color - Text color of elements placed in the popover, such as a `<p>` or `<span>`. Plain text that isn't wrapped in an element doesn't currently use it, and elements in the `trigger` slot use it too.
  */
 export class AuroPopover extends LitElement {
   constructor() {
@@ -62,7 +62,7 @@ export class AuroPopover extends LitElement {
   }
 
   /**
-   * Internal Defaults.
+   * Creates the runtime utilities instance used by the component.
    * @private
    * @returns {void}
    */
@@ -105,7 +105,7 @@ export class AuroPopover extends LitElement {
       },
 
       /**
-       * Sets where the popover appears in relation to its trigger. Use `top` (the default) or `bottom`. The popover flips to the opposite side when there isn't room. Changing this after the first render does not currently move the popover.
+       * Sets the popover's position: above the trigger with `top` (the default), or below it with `bottom`. The popover flips to the opposite side when there isn't room. Changing this after the first render does not currently move the popover.
        * @type {'top' | 'bottom'}
        * @default 'top'
        */
@@ -251,7 +251,7 @@ export class AuroPopover extends LitElement {
      * NOTE: This component is not currently designed for reinitialization.
      * All setup in firstUpdated() is assumed to run once per instance lifecycle.
      * If the element is removed and later reattached, event bindings,
-     * Popper setup, and accessibility wiring will NOT be restored automatically.
+     * Popper setup, and accessibility wiring are NOT restored automatically.
      */
 
     // Add the tag name as an attribute if it is different than the component name
@@ -589,7 +589,7 @@ export class AuroPopover extends LitElement {
   /**
    * Toggles the display of the popover content.
    * @private
-   * @returns {void} Fires an update lifecycle.
+   * @returns {void}
    */
   toggle() {
     if (!this.popper) {
@@ -605,7 +605,7 @@ export class AuroPopover extends LitElement {
   /**
    * Hides the popover.
    * @private
-   * @returns {void} Fires an update lifecycle.
+   * @returns {void}
    */
   toggleHide() {
     this.isPopoverVisible = false;
@@ -614,7 +614,7 @@ export class AuroPopover extends LitElement {
   /**
    * Shows the popover.
    * @private
-   * @returns {void} Fires an update lifecycle.
+   * @returns {void}
    */
   toggleShow() {
     if (!this.popper || this.disabled) {
