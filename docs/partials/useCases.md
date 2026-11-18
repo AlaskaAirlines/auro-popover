@@ -1,5 +1,5 @@
-The `auro-popover` element should be used in situations where users may:
+Use `auro-popover` to give people more detail without leaving the page, such as:
 
-* interact with an element to get clarification on content offering
-* provide definition to iconic imagery
-* when helper text is required
+* A short clarification of content they're reading.
+* A definition for an icon.
+* Helper text for a control.
